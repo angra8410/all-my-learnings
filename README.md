@@ -1,6 +1,3 @@
-# all-my-learnings
-this repo helps me focus on different things to be learned
-
 # All My Learnings
 
 Este repositorio está organizado por carpetas, cada una dedicada a una herramienta, tecnología o tema que quiero aprender.  
