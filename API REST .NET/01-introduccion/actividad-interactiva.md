@@ -6,7 +6,7 @@
 **¿Qué es una API?**
 
 A) Un lenguaje de programación  
-B) Un intermediario que permite la comunicación entre aplicaciones  
+B) Un intermediario que permite la comunicación entre aplicaciones  X
 C) Una base de datos  
 D) Un navegador web  
 
@@ -17,7 +17,7 @@ D) Un navegador web
 
 A) El cliente que hace el pedido  
 B) La cocina que prepara la comida  
-C) El mesero que toma el pedido y trae la comida  
+C) El mesero que toma el pedido y trae la comida  X
 D) La carta del menú  
 
 ---
@@ -27,7 +27,7 @@ D) La carta del menú
 
 A) GET  
 B) POST  
-C) FETCH  
+C) FETCH  X
 D) DELETE  
 
 ---
@@ -36,7 +36,7 @@ D) DELETE
 **¿Qué significa que REST sea "sin estado" (stateless)?**
 
 A) Que la API no funciona  
-B) Que cada petición es independiente y no depende de peticiones anteriores  
+B) Que cada petición es independiente y no depende de peticiones anteriores  X
 C) Que no se pueden guardar datos  
 D) Que el servidor no tiene base de datos  
 
@@ -47,7 +47,7 @@ D) Que el servidor no tiene base de datos
 
 A) POST  
 B) DELETE  
-C) GET  
+C) GET  X
 D) PUT  
 
 ---
@@ -56,7 +56,7 @@ D) PUT
 **¿Qué método HTTP usarías para crear un nuevo producto en una tienda online?**
 
 A) GET  
-B) POST  
+B) POST  X
 C) DELETE  
 D) READ  
 
@@ -67,7 +67,7 @@ D) READ
 
 A) XML  
 B) CSV  
-C) JSON  
+C) JSON  X
 D) PDF  
 
 ---
@@ -76,7 +76,7 @@ D) PDF
 **¿Qué representa un "recurso" en una API REST?**
 
 A) El servidor donde corre la API  
-B) Cualquier información que puede ser nombrada (usuarios, productos, etc.)  
+B) Cualquier información que puede ser nombrada (usuarios, productos, etc.)  X
 C) La memoria RAM del servidor  
 D) El código fuente de la aplicación  
 
@@ -89,7 +89,7 @@ Completa las siguientes analogías basándote en lo que aprendiste:
 ### Analogía 1
 **API es a Aplicaciones como __________ es a Personas**
 
-A) Teléfono  
+A) Teléfono  X
 B) Computadora  
 C) Internet  
 D) Teclado  
@@ -100,7 +100,7 @@ D) Teclado
 **Cliente es a Petición como Servidor es a __________**
 
 A) Pregunta  
-B) Respuesta  
+B) Respuesta  X
 C) Error  
 D) Código  
 
@@ -111,7 +111,7 @@ D) Código
 
 A) Borrar  
 B) Actualizar  
-C) Crear  
+C) Crear  X
 D) Modificar  
 
 ---
@@ -120,7 +120,7 @@ D) Modificar
 **Cajero Automático es a Banco como API es a __________**
 
 A) Cliente  
-B) Servidor/Base de Datos  
+B) Servidor/Base de Datos  X
 C) Internet  
 D) Computadora  
 
@@ -130,7 +130,7 @@ D) Computadora
 **Menú de Restaurante es a Platillos como API es a __________**
 
 A) Servidores  
-B) Recursos/Endpoints  
+B) Recursos/Endpoints  X
 C) Clientes  
 D) Bases de datos  
 
@@ -161,14 +161,14 @@ G. URL específica que representa un recurso
 H. Quien responde a las peticiones  
 
 **Tu respuesta:**
-- 1 → ___
-- 2 → ___
-- 3 → ___
-- 4 → ___
-- 5 → ___
-- 6 → ___
-- 7 → ___
-- 8 → ___
+- 1 → C__
+- 2 → E___
+- 3 → G___
+- 4 → A___
+- 5 → F___
+- 6 → B___
+- 7 → D__
+- 8 → H___
 
 ---
 
@@ -176,21 +176,21 @@ H. Quien responde a las peticiones
 
 Indica si las siguientes afirmaciones son **Verdaderas (V)** o **Falsas (F)**:
 
-1. ___ Una API solo puede usarse en sitios web.
+1. F___ Una API solo puede usarse en sitios web.
 
-2. ___ REST requiere que cada petición contenga toda la información necesaria para ser procesada.
+2. V___ REST requiere que cada petición contenga toda la información necesaria para ser procesada.
 
-3. ___ El método DELETE se usa para actualizar información.
+3. F___ El método DELETE se usa para actualizar información.
 
-4. ___ JSON es el único formato que pueden usar las APIs REST.
+4. F___ JSON es el único formato que pueden usar las APIs REST.
 
-5. ___ Una API puede servir tanto a una aplicación web como a una aplicación móvil.
+5. V___ Una API puede servir tanto a una aplicación web como a una aplicación móvil.
 
-6. ___ En REST, `/usuarios/123` representa el recurso del usuario con ID 123.
+6. V___ En REST, `/usuarios/123` representa el recurso del usuario con ID 123.
 
-7. ___ El cliente necesita conocer cómo funciona internamente el servidor para usar una API.
+7. F___ El cliente necesita conocer cómo funciona internamente el servidor para usar una API.
 
-8. ___ PUT se usa para actualizar información existente.
+8. V___ PUT se usa para actualizar información existente.
 
 ---
 
@@ -247,39 +247,39 @@ Indica si las siguientes afirmaciones son **Verdaderas (V)** o **Falsas (F)**:
 
 **Completa la siguiente plantilla**:
 
-**Nombre de tu API**: _______________
+**Nombre de tu API**: SISTEMA DE LISTA DE TAREAS_______________
 
-**Descripción**: _______________
+**Descripción**: EL SISTEMA SE USA PARA REVISAR, CREAR, ACTUALIZAR Y ELIMINAR(COMPLETAR) TAREAS_______________
 
 **Recursos y Endpoints** (completa al menos 4):
 
-1. **Operación**: Listar todos los _______________
-   - Método: ______
-   - Endpoint: ______
-   - Qué hace: _______________
+1. **Operación**: Listar todos lass TAREAS_______________
+   - Método: GET______
+   - Endpoint: /TAREAS______
+   - Qué hace: LISTA TODAS LAS TAREAS_______________
 
 2. **Operación**: Obtener uno específico
-   - Método: ______
-   - Endpoint: ______
-   - Qué hace: _______________
+   - Método: GET______
+   - Endpoint: /TAREAS/PAGAR-EPM______
+   - Qué hace: DETALLE DE FACTURA(FEHCA, VALOR, VENCIMIENTO)_______________
 
 3. **Operación**: Crear/Agregar nuevo(a) _______________
-   - Método: ______
-   - Endpoint: ______
-   - Datos que necesita: _______________
+   - Método: POST______
+   - Endpoint: /TAREAS/NATACION______
+   - Datos que necesita: NOMBRE,FECHA, DURACION_______________
 
 4. **Operación**: Actualizar un(a) _______________
-   - Método: ______
-   - Endpoint: ______
-   - Datos que necesita: _______________
+   - Método: PUT______
+   - Endpoint: /TAREAS/TERMINARAPPTRACKER______
+   - Datos que necesita: NOMBRE,FECHA FINALIZACION, DURACION_______________
 
-5. **Operación**: Eliminar un(a) _______________
-   - Método: ______
-   - Endpoint: ______
-   - Qué hace: _______________
+5. **Operación**: Eliminar un(a) TAREA_______________
+   - Método: DELETE______
+   - Endpoint: /TAREAS/TERMINARAPPTRACKER______
+   - Qué hace: TERMINAR LA APP, CUANDO SE FINALIZA LA APP SE PODRIA CONSIDERAR UN DELETE SI LA BORRO, O UN PUT SI ACTUALIZO EL STATUS DE EJECUCIÓN_______________
 
 **Caso de uso práctico** (escribe un ejemplo de cómo se usaría tu API):
-_______________________________________________
+YO REVISO MI LISTADO DE TAREAS PREVIAMENTE CREADO PARA VER TODAS LAS TAREAS, DESPUES VOY A REVISAR UNA TAREA EN ESPECIFICO PARA VER EL STATUS ACTUAL DE LA MISMA, LA ACTUALIZO, PUEDO TAMBIEN CREAR NUEVAS TAREAS Y CUANDO LAS FINALIZO LAS PUEDO ELIMINAR TAMBIE._______________________________________________
 _______________________________________________
 
 ---
@@ -289,10 +289,10 @@ _______________________________________________
 ### Pregunta 1
 **Piensa en una aplicación que uses frecuentemente (Instagram, WhatsApp, Netflix, etc.). Describe 3 operaciones que crees que esa aplicación hace usando APIs.**
 
-Tu respuesta:
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
+Tu respuesta: NETFLIX
+1. GET(CATALOGO DE PELICULAS)_______________________________________________
+2. ENDPOINT CATALOGO/LISTA PELICULAS O SERIES_______________________________________________
+3. RESPUESTA MUESTRA TODAS LAS PELICULAS O SERIES_______________________________________________
 
 ---
 
@@ -300,7 +300,7 @@ Tu respuesta:
 **¿Por qué crees que es importante que una API sea "sin estado" (stateless)?**
 
 Tu respuesta:
-_______________________________________________
+PORQUE CADA PETICIÓN DEBE SER INDEPENDIENTE Y LA RESPUESTA NO DEBE DEPENDER DE UNA RESPUESTA ANTERIOR_______________________________________________
 _______________________________________________
 _______________________________________________
 
