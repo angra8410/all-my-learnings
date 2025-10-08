@@ -2,11 +2,11 @@
 
 ## Información del Estudiante
 
-**Nombre**: _______________________________________________
+**Nombre**: angra84
 
-**Fecha de inicio del módulo**: _______________________________________________
+**Fecha de inicio del módulo**: 10/07/2025 MM/DD/YYYY
 
-**Fecha de finalización del módulo**: _______________________________________________
+**Fecha de finalización del módulo**: 10/08/2025 MM/DD/YYYY
 
 ---
 
@@ -15,19 +15,15 @@
 Antes de empezar este módulo, responde honestamente:
 
 **1. ¿Qué sabías sobre APIs antes de este módulo?**
-_______________________________________________
-_______________________________________________
-_______________________________________________
+Nada, esa es la verdad
 
 **2. ¿Qué esperas aprender en este módulo?**
-_______________________________________________
-_______________________________________________
-_______________________________________________
+Tener conocimiento básico sobre las APIs, tema del que se habla a diario en todas partes.
 
 **3. ¿Cómo calificarías tu nivel actual de conocimiento en programación?**
 - [ ] Nunca he programado
 - [ ] He visto algo de código pero no he programado
-- [ ] Tengo conocimientos básicos
+- [x] Tengo conocimientos básicos
 - [ ] Tengo experiencia previa
 
 ---
@@ -36,17 +32,17 @@ _______________________________________________
 
 ### ✅ Lista de Actividades Completadas
 
-- [ ] Leí completamente el README.md
-- [ ] Entendí qué es una API y REST
-- [ ] Completé todas las preguntas de opción múltiple
-- [ ] Completé las analogías
-- [ ] Asocié términos con definiciones
-- [ ] Respondí verdadero/falso
-- [ ] Creé mi propia API de la vida cotidiana
-- [ ] Respondí las preguntas de pensamiento crítico
-- [ ] Completé el caso práctico de tienda online
-- [ ] Revisé la retroalimentación de mis respuestas
-- [ ] Exploré al menos una API pública real
+- [x] Leí completamente el README.md
+- [x] Entendí qué es una API y REST
+- [x] Completé todas las preguntas de opción múltiple
+- [x] Completé las analogías
+- [x] Asocié términos con definiciones
+- [x] Respondí verdadero/falso
+- [x] Creé mi propia API de la vida cotidiana
+- [x] Respondí las preguntas de pensamiento crítico
+- [x] Completé el caso práctico de tienda online
+- [x] Revisé la retroalimentación de mis respuestas
+- [x] Exploré al menos una API pública real
 
 ---
 
@@ -76,11 +72,11 @@ _______________________________________________
 
 Anota los conceptos que te quedaron claros:
 
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
-4. _______________________________________________
-5. _______________________________________________
+1. Definición de una API RESTFUL
+2. RECURSOS ENDPOINTS
+3. METODOS HTTP DE LAS API
+4. STATELESS DE LAS APIs
+5. RESTFUL
 
 ---
 
@@ -99,30 +95,30 @@ Anota lo que aún no te queda claro o quieres investigar más:
 ## Reflexión Diaria/Semanal
 
 ### Día 1 / Sesión 1
-**Fecha**: _______________
+**Fecha**: 10/07/2025
 
 **¿Qué aprendí hoy?**
-_______________________________________________
+Qué son las RESTFUL APIs
 _______________________________________________
 
 **¿Qué me resultó difícil?**
-_______________________________________________
+Entender los Endpoints y conceptos o definiciones
 _______________________________________________
 
 **¿Qué me resultó fácil?**
-_______________________________________________
+Qué son las APIs
 _______________________________________________
 
-**Tiempo dedicado**: _______ horas/minutos
+**Tiempo dedicado**: 2:30 horas/minutos
 
 ---
 
 ### Día 2 / Sesión 2
-**Fecha**: _______________
+**Fecha**: 1
 
 **¿Qué aprendí hoy?**
-_______________________________________________
-_______________________________________________
+COntinué realizando el test desde la sección 6.
+
 
 **¿Qué me resultó difícil?**
 _______________________________________________
