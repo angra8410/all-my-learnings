@@ -310,28 +310,27 @@ _______________________________________________
 **¿Qué ventajas tiene usar JSON en lugar de enviar los datos en texto plano?**
 
 Tu respuesta:
-_______________________________________________
-_______________________________________________
-_______________________________________________
-
----
+Facil acceso.
+Interoperabilidad.
+Organización
+--
 
 ## Sección 7: Diagrama - Completa el Flujo
 
 **Instrucciones**: Completa el siguiente diagrama con las palabras faltantes.
 
 ```
-1. El __________ envía una petición HTTP
+1. El CLIENTE envía una petición HTTP
         ↓
-2. La __________ recibe la petición
+2. La API recibe la petición
         ↓
-3. La API __________ la petición
+3. La API VALIDA/PROCESA la petición
         ↓
-4. La API consulta la __________
+4. La API consulta la BASE DE DATOS(SERVIDOR)
         ↓
-5. La API construye una __________
+5. La API construye una RESPUESTA
         ↓
-6. El cliente __________ la respuesta
+6. El cliente RECIBE la respuesta
 ```
 
 **Banco de palabras**: API, Cliente, Base de Datos, Respuesta, Valida/Procesa, Recibe
@@ -343,39 +342,40 @@ _______________________________________________
 Imagina que estás diseñando la API para una tienda online simple.
 
 ### Escenario 1: Un cliente quiere ver todos los productos disponibles
-- ¿Qué método HTTP usarías? _______________
-- ¿Cuál sería el endpoint? _______________
-- ¿Qué tipo de respuesta esperarías? _______________
+- ¿Qué método HTTP usarías? GET
+- ¿Cuál sería el endpoint? /PRODUCTOS
+- ¿Qué tipo de respuesta esperarías? NOMBRE, CANTIDAD DISPONIBLE, PRECIO, DESCRIPCION, CODIGO
 
 ### Escenario 2: Un cliente quiere agregar un producto al carrito
-- ¿Qué método HTTP usarías? _______________
-- ¿Cuál sería el endpoint? _______________
-- ¿Qué datos necesitarías enviar? _______________
+- ¿Qué método HTTP usarías? POST
+- ¿Cuál sería el endpoint? /PRODUCTO/123
+- ¿Qué datos necesitarías enviar? NOMBRE, CANTIDAD, PRECIO
 
 ### Escenario 3: Un cliente quiere actualizar la cantidad de un producto en su carrito
-- ¿Qué método HTTP usarías? _______________
-- ¿Cuál sería el endpoint? _______________
-- ¿Qué datos necesitarías enviar? _______________
+- ¿Qué método HTTP usarías? PUT
+- ¿Cuál sería el endpoint? /PRODUCTO/456
+- ¿Qué datos necesitarías enviar? NOMBRE, CODIGO, CANTIDAD, PRECIO.
 
 ### Escenario 4: Un cliente quiere eliminar un producto de su carrito
-- ¿Qué método HTTP usarías? _______________
-- ¿Cuál sería el endpoint? _______________
+- ¿Qué método HTTP usarías? DELETE
+- ¿Cuál sería el endpoint? /PRODUCTO ELIMINADO DEL CARRITO
 
 ---
 
 ## Reflexión Final
 
 **¿Qué fue lo más interesante que aprendiste en este módulo?**
-_______________________________________________
-_______________________________________________
+Los Métodos http de las API, conceptos sobre lo que son y para
+que sirven las APIs, analogías bastante interesantes antes
+desconocidas por mi.
 
 **¿Qué concepto te gustaría explorar más a fondo?**
-_______________________________________________
-_______________________________________________
+Los Endpoints y Recursos, pero en general me siento
+cómodo con este primer módulo.
 
 **¿Cómo aplicarías lo aprendido en un proyecto personal?**
-_______________________________________________
-_______________________________________________
+Ya ahora si tengo claridad sobre lo que son las APIs, nada mas
+no es copiar y pegar cosas sin sentido alguno.
 
 ---
 
