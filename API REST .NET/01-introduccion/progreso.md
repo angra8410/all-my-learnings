@@ -49,22 +49,22 @@ Tener conocimiento básico sobre las APIs, tema del que se habla a diario en tod
 ## Resultados de Actividades
 
 ### Opción Múltiple (8 preguntas)
-- Respuestas correctas: ___ / 8
-- Porcentaje: ___%
+- Respuestas correctas: 8 / 8
+- Porcentaje: 100 %
 
 ### Analogías (5 ejercicios)
-- Respuestas correctas: ___ / 5
-- Porcentaje: ___%
+- Respuestas correctas: 5 / 5
+- Porcentaje: 100 %
 
 ### Asociación de Términos (8 pares)
-- Pares correctos: ___ / 8
-- Porcentaje: ___%
+- Pares correctos: 8 / 8
+- Porcentaje: 100 %
 
 ### Verdadero o Falso (8 afirmaciones)
-- Respuestas correctas: ___ / 8
-- Porcentaje: ___%
+- Respuestas correctas: 8 / 8
+- Porcentaje: 100 %
 
-**Resultado total**: ___% de aciertos
+**Resultado total**: 100 % de aciertos
 
 ---
 
@@ -114,7 +114,7 @@ _______________________________________________
 ---
 
 ### Día 2 / Sesión 2
-**Fecha**: 1
+**Fecha**: 10//2025
 
 **¿Qué aprendí hoy?**
 COntinué realizando el test desde la sección 6.
