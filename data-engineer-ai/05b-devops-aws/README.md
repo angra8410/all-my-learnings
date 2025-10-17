@@ -164,7 +164,94 @@ En producción, no basta con que tu código funcione localmente. Necesitas:
 - Serverless, pay-per-query
 - Integración con Glue catalog
 
-## Cómo Usar los Ejemplos
+## Lab Local (Sin Coste) 🆓
+
+¿Quieres practicar sin gastar en AWS? Tenemos un **laboratorio 100% local** que simula servicios de AWS:
+
+### 🎯 ¿Qué incluye el Lab Local?
+
+- **Aplicación containerizada** (simula ECS Fargate)
+- **PostgreSQL** (simula Amazon RDS)
+- **LocalStack** (simula S3, Secrets Manager, CloudWatch, IAM)
+- **MinIO** (alternativa visual a S3)
+- **DevContainer** (entorno preconfigurado con todas las herramientas)
+
+### 🚀 Inicio Rápido con DevContainer
+
+Si usas **VS Code**, el entorno está listo para usar con Remote - Containers:
+
+1. Instala VS Code + Docker Desktop + extensión Remote - Containers
+2. Abre esta carpeta en VS Code
+3. Click en "Reopen in Container" cuando aparezca la notificación
+4. Una vez dentro del container:
+   ```bash
+   cd labs/lab-01-local
+   make up      # Inicia todos los servicios
+   make check   # Verifica que todo funciona
+   make info    # Muestra URLs e información
+   ```
+
+Ver guía completa: [.devcontainer/README-codespaces.md](.devcontainer/README-codespaces.md)
+
+### 🏗️ Sin DevContainer (Instalación Local)
+
+Si prefieres trabajar sin DevContainer, solo necesitas Docker y Docker Compose:
+
+```bash
+cd labs/lab-01-local
+
+# Ver comandos disponibles
+make help
+
+# Iniciar servicios
+make up
+
+# Verificar que todo funciona
+make check
+
+# Ver logs
+make logs
+
+# Detener servicios
+make down
+```
+
+**Documentación completa del lab**: [labs/lab-01-local/README.md](labs/lab-01-local/README.md)
+
+### ✨ Ventajas del Lab Local
+
+- ✅ **Costo cero**: No necesitas cuenta AWS ni tarjeta de crédito
+- ✅ **Aprendizaje seguro**: Experimenta sin miedo a generar costos
+- ✅ **Iteración rápida**: Desarrolla y prueba localmente antes de ir a la nube
+- ✅ **Offline**: Trabaja sin conexión a internet
+- ✅ **Mismos conceptos**: Lo que aprendas aplica directamente a AWS real
+
+### 📊 Servicios Disponibles
+
+Una vez levantes el lab con `make up`, tendrás acceso a:
+
+| Servicio | URL | Descripción |
+|----------|-----|-------------|
+| Flask App | http://localhost:8080 | Aplicación de ejemplo con endpoints |
+| PostgreSQL | localhost:5432 | Base de datos (user: devuser, pass: devpass123) |
+| LocalStack | http://localhost:4566 | Servicios AWS simulados |
+| MinIO Console | http://localhost:9001 | Interfaz web para S3 (user: minioadmin) |
+
+### 🎓 Ejercicios del Lab
+
+El lab incluye ejercicios prácticos para:
+
+1. Explorar bases de datos PostgreSQL
+2. Interactuar con APIs REST
+3. Simular servicios AWS con LocalStack
+4. Gestionar objetos en S3 (MinIO)
+5. Modificar y reconstruir aplicaciones containerizadas
+
+**¿Listo para empezar?** → [labs/lab-01-local/README.md](labs/lab-01-local/README.md)
+
+---
+
+## Cómo Usar los Ejemplos de AWS
 
 ### Paso 1: Revisar el Código Terraform
 

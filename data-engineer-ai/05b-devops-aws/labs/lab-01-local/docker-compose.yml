@@ -1,0 +1,120 @@
+version: '3.8'
+
+services:
+  # Aplicación Flask de ejemplo
+  app:
+    build:
+      context: ../../examples/docker
+      dockerfile: Dockerfile
+    container_name: devops_app
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_ENV=development
+      - DB_HOST=lab_postgres
+      - DB_PORT=5432
+      - DB_NAME=appdb
+      - DB_USER=devuser
+      - DB_PASSWORD=devpass123
+      - AWS_ENDPOINT_URL=http://localstack:4566
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+    depends_on:
+      lab_postgres:
+        condition: service_healthy
+      localstack:
+        condition: service_healthy
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL para simular RDS
+  lab_postgres:
+    image: postgres:15-alpine
+    container_name: lab_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=devpass123
+      - POSTGRES_DB=appdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devuser -d appdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # LocalStack para simular servicios AWS
+  localstack:
+    image: localstack/localstack:3.0
+    container_name: localstack
+    ports:
+      - "4566:4566"  # LocalStack Gateway
+      - "4510-4559:4510-4559"  # Servicios externos
+    environment:
+      - SERVICES=s3,secretsmanager,cloudwatch,ecs,rds,iam
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+      - PERSISTENCE=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - localstack_data:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # MinIO para simular S3 de forma más visual
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"  # API
+      - "9001:9001"  # Console
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  lab_network:
+    driver: bridge
+    name: devops_lab_network
+
+volumes:
+  postgres_data:
+    name: lab_postgres_data
+  localstack_data:
+    name: lab_localstack_data
+  minio_data:
+    name: lab_minio_data
