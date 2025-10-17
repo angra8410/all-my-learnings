@@ -153,6 +153,30 @@ Al completar este plan de estudio, habrás:
 - Guía: boto3 reference
 - Curso: AWS Certified Data Analytics prep
 
+#### Módulo 5b: DevOps y AWS para Data Engineering
+**Tiempo estimado**: 12-15 horas
+
+**Objetivos**:
+- [ ] Dominar Infrastructure as Code con Terraform
+- [ ] Desplegar aplicaciones con Docker, ECS y Fargate
+- [ ] Configurar bases de datos con RDS
+- [ ] Implementar CI/CD con GitHub Actions
+- [ ] Gestionar networking, seguridad e IAM
+- [ ] Configurar monitoreo con CloudWatch
+
+**Actividades**:
+- Crear infraestructura con Terraform (VPC, ECS, RDS)
+- Dockerizar aplicación Python
+- Configurar CI/CD pipeline
+- Desplegar en ECS Fargate
+- Mini-proyecto: Sistema completo con IaC
+
+**Recursos**:
+- Documentación: Terraform AWS Provider
+- Tutorial: ECS Workshop
+- Guía: AWS Well-Architected Framework
+- Libro: "Terraform: Up & Running"
+
 ---
 
 ### Fase 5: ML en Producción (Semana 10)
@@ -271,12 +295,13 @@ Al completar este plan de estudio, habrás:
 - [ ] Módulo 3: Ingesta de Documentos _(10-12h)_
 - [ ] Módulo 4: RAG y Sistemas Agentic _(15-18h)_
 - [ ] Módulo 5: AWS Bedrock _(12-15h)_
+- [ ] Módulo 5b: DevOps y AWS _(12-15h)_
 - [ ] Módulo 6: ML Pipelines y Experiments _(12-14h)_
 - [ ] Módulo 7: Buenas Prácticas _(10-12h)_
 - [ ] Módulo 8: Colaboración e Inglés _(8-10h)_
 - [ ] Módulo 9: Proyecto Integrador _(25-30h)_
 
-**Total estimado**: 110-135 horas (10-13 semanas a 10-12h/semana)
+**Total estimado**: 122-150 horas (11-14 semanas a 10-12h/semana)
 
 ### Habilidades Técnicas
 - [ ] Python avanzado para data engineering
