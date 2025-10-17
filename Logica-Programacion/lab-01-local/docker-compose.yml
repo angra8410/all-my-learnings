@@ -1,0 +1,24 @@
+services:
+  # Aplicación Python para ejercicios de lógica y programación
+  app:
+    image: python:3.11-slim
+    container_name: logica_programacion_app
+    working_dir: /app
+    volumes:
+      - ./ejercicios:/app/ejercicios
+      - ./tests:/app/tests
+      - ./revision.md:/app/revision.md
+    command: sleep infinity
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "python", "--version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  lab_network:
+    driver: bridge
+    name: logica_programacion_lab_network
