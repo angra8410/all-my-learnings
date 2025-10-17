@@ -24,7 +24,8 @@ RUN apt-get update && \
 # RUN pip install --no-cache-dir -r requirements.txt
 
 # Por ahora solo necesitamos Flask para el servidor simple
-RUN pip install --no-cache-dir flask gunicorn
+# Usar trusted-host para evitar problemas de SSL en algunos entornos
+RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org flask gunicorn
 
 # Copiar código de la aplicación
 COPY app.py .

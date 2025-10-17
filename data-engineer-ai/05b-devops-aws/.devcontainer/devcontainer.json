@@ -1,0 +1,54 @@
+{
+  "name": "DevOps AWS Lab Environment",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "ms-azuretools.vscode-docker",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "amazonwebservices.aws-toolkit-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "terraform.languageServer.enable": true
+      }
+    }
+  },
+  "forwardPorts": [8080, 5432, 4566, 9000],
+  "portsAttributes": {
+    "8080": {
+      "label": "Flask App",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    },
+    "4566": {
+      "label": "LocalStack",
+      "onAutoForward": "silent"
+    },
+    "9000": {
+      "label": "MinIO",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "terraform --version && docker --version && aws --version",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
+}
