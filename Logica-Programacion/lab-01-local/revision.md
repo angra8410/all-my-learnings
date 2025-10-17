@@ -2,22 +2,17 @@
 
 ## 📊 Resumen de Calificación
 
-**Fecha y Hora:** 2025-10-17 20:20:40  
-**Puntuación Total:** 80.0%
+**Fecha y Hora:** 2025-10-17 20:22:59  
+**Puntuación Total:** 100.0%
 
 ## 📝 Resultados Detallados
 
-### ⚠️ suma.py
+### ✅ suma.py
 
-- **Tests pasados:** 1/5
-- **Porcentaje:** 20.0%
+- **Tests pasados:** 5/5
+- **Porcentaje:** 100.0%
 
-**Errores encontrados:**
-
-- suma(2, 3) = -1, esperado 5
-- suma(-1, 1) = -2, esperado 0
-- suma(10, -5) = 15, esperado 5
-- suma(100, 200) = -100, esperado 300
+✨ ¡Todos los tests pasaron correctamente!
 
 ### ✅ factorial.py
 
