@@ -399,6 +399,25 @@ curl http://localhost:4566/_localstack/health
 docker compose restart localstack
 ```
 
+### Los datos de LocalStack se pierden al reiniciar
+
+Por defecto, LocalStack no persiste datos entre reinicios. Esto es intencional para mantener el lab simple. Si necesitas persistencia:
+
+1. Edita `docker-compose.yml`
+2. Cambia `PERSISTENCE=0` a `PERSISTENCE=1`
+3. Añade un volumen en la sección de LocalStack:
+   ```yaml
+   volumes:
+     - localstack_data:/var/lib/localstack
+     - /var/run/docker.sock:/var/run/docker.sock
+   ```
+4. Añade el volumen en la sección `volumes` al final del archivo:
+   ```yaml
+   localstack_data:
+     name: lab_localstack_data
+   ```
+5. Reconstruye: `make rebuild`
+
 ## 📚 Recursos de Referencia
 
 ### Documentación de Servicios

@@ -63,11 +63,14 @@ services:
       - "4510-4559:4510-4559"  # Servicios externos
     environment:
       - SERVICES=s3,secretsmanager,cloudwatch,ecs,rds,iam
-      - DEBUG=0
+      - DEBUG=1  # Activado para facilitar troubleshooting durante los ejercicios
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_DEFAULT_REGION=us-east-1
+      # NOTA: PERSISTENCE=0 significa que los datos se pierden al detener el contenedor
+      # Esto es intencional para mantener el lab simple y evitar problemas de permisos
+      # Si necesitas persistencia, cambia a PERSISTENCE=1 y añade volumen para /var/lib/localstack
       - PERSISTENCE=0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
