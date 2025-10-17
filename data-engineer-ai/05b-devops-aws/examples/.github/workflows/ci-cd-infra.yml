@@ -1,0 +1,261 @@
+# GitHub Actions Workflow para CI/CD de Infraestructura y Aplicación
+# Este workflow automatiza:
+# 1. Validación de Terraform
+# 2. Build y push de imagen Docker a ECR
+# 3. Deploy a ECS Service
+
+name: CI/CD Infrastructure and Application
+
+# Trigger del workflow
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'data-engineer-ai/05b-devops-aws/examples/**'
+      - '.github/workflows/ci-cd-infra.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'data-engineer-ai/05b-devops-aws/examples/**'
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+# Variables de entorno globales
+env:
+  AWS_REGION: us-east-1
+  TERRAFORM_VERSION: 1.5.0
+  TERRAFORM_WORKING_DIR: ./data-engineer-ai/05b-devops-aws/examples/terraform
+  DOCKER_WORKING_DIR: ./data-engineer-ai/05b-devops-aws/examples/docker
+
+jobs:
+  # ========================================
+  # Job 1: Terraform Validation and Plan
+  # ========================================
+  terraform-check:
+    name: Terraform Validate and Plan
+    runs-on: ubuntu-latest
+    
+    # Permisos necesarios
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check -recursive
+        working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
+        continue-on-error: true
+      
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
+      
+      - name: Terraform Plan
+        id: plan
+        run: |
+          terraform plan -no-color -input=false \
+            -var="ecr_image=${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}" \
+            -var="db_username=${{ secrets.DB_USERNAME }}" \
+            -var="db_password=${{ secrets.DB_PASSWORD }}"
+        working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
+        continue-on-error: true
+      
+      # Comentar en PR con los resultados de Terraform
+      - name: Comment PR with Terraform Results
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            
+            <details><summary>Show Plan</summary>
+            
+            \`\`\`terraform
+            ${{ steps.plan.outputs.stdout }}
+            \`\`\`
+            
+            </details>
+            
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+  # ========================================
+  # Job 2: Build and Push Docker Image to ECR
+  # ========================================
+  build-and-push:
+    name: Build Docker Image and Push to ECR
+    runs-on: ubuntu-latest
+    needs: terraform-check
+    
+    # Solo ejecutar en push a main/develop, no en PRs
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    
+    outputs:
+      image: ${{ steps.build-image.outputs.image }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build Docker image
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          
+          # Push image to ECR
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          
+          # Output image URI
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        working-directory: ${{ env.DOCKER_WORKING_DIR }}
+      
+      - name: Scan Docker image for vulnerabilities
+        id: scan-image
+        run: |
+          # Usar ECR image scanning
+          aws ecr start-image-scan \
+            --repository-name ${{ secrets.ECR_REPOSITORY }} \
+            --image-id imageTag=${{ github.sha }} \
+            --region ${{ env.AWS_REGION }} || true
+          
+          echo "Image scan initiated. Check ECR console for results."
+
+  # ========================================
+  # Job 3: Deploy to ECS (Placeholder)
+  # ========================================
+  deploy-to-ecs:
+    name: Deploy to ECS Service
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    
+    # Solo ejecutar en push a main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      # Opción 1: Update ECS service para forzar nuevo deployment
+      - name: Force new ECS deployment
+        run: |
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER }} \
+            --service ${{ secrets.ECS_SERVICE }} \
+            --force-new-deployment \
+            --region ${{ env.AWS_REGION }}
+      
+      # Opción 2: Renderizar nueva task definition y actualizar servicio
+      # (Más control sobre la configuración)
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition ${{ secrets.ECS_TASK_DEFINITION_FAMILY }} \
+            --query taskDefinition > task-definition.json
+      
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ secrets.ECS_CONTAINER_NAME }}
+          image: ${{ needs.build-and-push.outputs.image }}
+      
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ secrets.ECS_SERVICE }}
+          cluster: ${{ secrets.ECS_CLUSTER }}
+          wait-for-service-stability: true
+      
+      - name: Deployment success notification
+        run: |
+          echo "✅ Deployment completed successfully!"
+          echo "Image: ${{ needs.build-and-push.outputs.image }}"
+          echo "Cluster: ${{ secrets.ECS_CLUSTER }}"
+          echo "Service: ${{ secrets.ECS_SERVICE }}"
+
+# ========================================
+# Secretos requeridos en GitHub:
+# ========================================
+# AWS_ACCESS_KEY_ID          - AWS access key para deploy
+# AWS_SECRET_ACCESS_KEY      - AWS secret key para deploy
+# ECR_REPOSITORY             - Nombre del repositorio ECR (ej: my-app)
+# ECS_CLUSTER                - Nombre del cluster ECS (ej: devops-cluster)
+# ECS_SERVICE                - Nombre del servicio ECS (ej: devops-service)
+# ECS_TASK_DEFINITION_FAMILY - Familia de la task definition (ej: devops-task)
+# ECS_CONTAINER_NAME         - Nombre del container en la task definition
+# DB_USERNAME                - Usuario de base de datos (para Terraform)
+# DB_PASSWORD                - Contraseña de base de datos (para Terraform)
+# ========================================
+# 
+# Para configurar estos secretos:
+# 1. Ve a tu repositorio en GitHub
+# 2. Settings > Secrets and variables > Actions
+# 3. Click "New repository secret"
+# 4. Agrega cada secret con su valor correspondiente
+# ========================================

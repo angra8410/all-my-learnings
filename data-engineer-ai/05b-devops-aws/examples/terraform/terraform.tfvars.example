@@ -1,0 +1,45 @@
+# Ejemplo de archivo terraform.tfvars
+# Copia este archivo a terraform.tfvars y completa con tus valores
+# NUNCA subas terraform.tfvars a git (ya está en .gitignore)
+
+# Región de AWS donde desplegar recursos
+aws_region = "us-east-1"
+
+# Nombre del proyecto (usado como prefijo para recursos)
+project_name = "devops-learning"
+
+# Ambiente (dev, staging, prod)
+environment = "dev"
+
+# URI de la imagen Docker en ECR
+# Ejemplo: 123456789012.dkr.ecr.us-east-1.amazonaws.com/mi-app:latest
+# Para testing inicial, puedes usar: public.ecr.aws/nginx/nginx:latest
+ecr_image = "public.ecr.aws/nginx/nginx:latest"
+
+# Configuración de ECS Task
+task_cpu    = 256  # 256, 512, 1024, 2048, 4096
+task_memory = 512  # MB, debe ser compatible con CPU
+
+# Número de tasks que deben estar corriendo
+desired_count = 1
+
+# Configuración de RDS
+db_instance_class = "db.t3.micro"  # Free tier elegible
+db_name           = "appdb"
+db_username       = "dbadmin"
+
+# ⚠️ IMPORTANTE: Cambia esta contraseña inmediatamente
+# En producción, usa AWS Secrets Manager
+db_password = "ChangeMe123!"
+
+# Ejemplo de valores reales (comentados):
+# aws_region        = "us-east-1"
+# project_name      = "mi-proyecto-real"
+# environment       = "prod"
+# ecr_image         = "123456789012.dkr.ecr.us-east-1.amazonaws.com/mi-app:v1.2.3"
+# task_cpu          = 512
+# task_memory       = 1024
+# desired_count     = 2
+# db_instance_class = "db.t3.small"
+# db_username       = "prodadmin"
+# db_password       = "SuperSecurePassword123!"  # Mejor: obtener de Secrets Manager

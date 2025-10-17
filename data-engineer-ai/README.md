@@ -44,6 +44,9 @@ Implementación de sistemas RAG, bases de datos vectoriales, embeddings, y arqui
 ### [Módulo 5: AWS Bedrock](05-aws-bedrock/)
 Servicios de IA en AWS, modelos foundation, integración con Bedrock, y arquitecturas serverless.
 
+### [Módulo 5b: DevOps y AWS para Data Engineering](05b-devops-aws/)
+Infrastructure as Code con Terraform, containerización con Docker y ECS Fargate, bases de datos con RDS, CI/CD con GitHub Actions, y mejores prácticas de DevOps.
+
 ### [Módulo 6: ML Pipelines y Experiments](06-ml-pipelines-experiments/)
 Pipelines de Machine Learning, MLflow, versionado de modelos, y gestión de experimentos.
 
