@@ -7,6 +7,7 @@ services:
     volumes:
       - ./ejercicios:/app/ejercicios
       - ./tests:/app/tests
+      - ./revision.md:/app/revision.md
     command: sleep infinity
     networks:
       - lab_network
