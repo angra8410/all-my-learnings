@@ -2,11 +2,11 @@
 
 ## Información del Estudiante
 
-**Nombre**: _______________________________________________
+**Nombre**: ANTONIO GUTIERREZ
 
-**Fecha de inicio del módulo**: _______________________________________________
+**Fecha de inicio del módulo**: 10/18/2025
 
-**Fecha de finalización del módulo**: _______________________________________________
+**Fecha de finalización del módulo**: 10/18/2025
 
 ---
 
@@ -15,18 +15,16 @@
 Antes de empezar este módulo, responde honestamente:
 
 **1. ¿Habías oído hablar de .NET antes? ¿Qué sabías?**
-_______________________________________________
-_______________________________________________
-_______________________________________________
+No
 
 **2. ¿Tienes experiencia instalando herramientas de desarrollo?**
 - [ ] Es mi primera vez
-- [ ] He instalado algunas cosas antes
+- [x] He instalado algunas cosas antes
 - [ ] Tengo experiencia instalando software de desarrollo
 - [ ] Soy experto en configuración de entornos
 
 **3. ¿Qué sistema operativo usarás para este curso?**
-- [ ] Windows
+- [x] Windows
 - [ ] macOS
 - [ ] Linux (distribución: _______________)
 - [ ] Otro: _______________
@@ -38,41 +36,41 @@ _______________________________________________
 ### ✅ Lista de Actividades Completadas
 
 **Lectura y Comprensión:**
-- [ ] Leí completamente el README.md
-- [ ] Entendí qué es .NET y para qué sirve
-- [ ] Comprendí la diferencia entre SDK y Runtime
-- [ ] Entendí la relación entre .NET y C#
+- [x] Leí completamente el README.md
+- [x] Entendí qué es .NET y para qué sirve
+- [x] Comprendí la diferencia entre SDK y Runtime
+- [x] Entendí la relación entre .NET y C#
 
 **Instalación:**
-- [ ] Descargué .NET 8 SDK
-- [ ] Instalé .NET correctamente
-- [ ] Verifiqué la instalación con `dotnet --version`
-- [ ] Ejecuté `dotnet --info` exitosamente
+- [x] Descargué .NET 8 SDK
+- [x] Instalé .NET correctamente
+- [x] Verifiqué la instalación con `dotnet --version`
+- [x] Ejecuté `dotnet --info` exitosamente
 
 **Editor de Código:**
-- [ ] Instalé Visual Studio Code
-- [ ] Instalé la extensión de C# en VS Code
-- [ ] Instalé C# Dev Kit (opcional)
+- [x] Instalé Visual Studio Code
+- [x] Instalé la extensión de C# en VS Code
+- [x] Instalé C# Dev Kit (opcional)
 
 **Práctica:**
-- [ ] Creé el proyecto de prueba "HolaMundo"
-- [ ] Ejecuté `dotnet run` exitosamente
-- [ ] Exploré los archivos del proyecto
-- [ ] Probé otros comandos de .NET CLI
+- [x] Creé el proyecto de prueba "HolaMundo"
+- [x] Ejecuté `dotnet run` exitosamente
+- [x] Exploré los archivos del proyecto
+- [x] Probé otros comandos de .NET CLI
 
 **Actividades Interactivas:**
-- [ ] Completé todas las preguntas de opción múltiple
-- [ ] Completé las analogías
-- [ ] Asocié términos con definiciones
-- [ ] Respondí verdadero/falso
-- [ ] Completé el ejercicio de comandos
-- [ ] Identifiqué componentes correctamente
-- [ ] Respondí las preguntas de solución de problemas
-- [ ] Documenté mi instalación en el caso práctico
+- [x] Completé todas las preguntas de opción múltiple
+- [x] Completé las analogías
+- [x] Asocié términos con definiciones
+- [x] Respondí verdadero/falso
+- [x] Completé el ejercicio de comandos
+- [x] Identifiqué componentes correctamente
+- [x] Respondí las preguntas de solución de problemas
+- [x] Documenté mi instalación en el caso práctico
 
 **Revisión:**
-- [ ] Revisé la retroalimentación de mis respuestas
-- [ ] Verifiqué que cumplí todos los prerequisitos
+- [x] Revisé la retroalimentación de mis respuestas
+- [x] Verifiqué que cumplí todos los prerequisitos
 
 ---
 
