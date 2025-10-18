@@ -6,7 +6,7 @@
 **¿Qué es .NET?**
 
 A) Un lenguaje de programación  
-B) Una plataforma de desarrollo  
+B) Una plataforma de desarrollo(X)  
 C) Un sistema operativo  
 D) Un editor de código  
 
@@ -16,7 +16,7 @@ D) Un editor de código
 **¿Cuál es la diferencia entre .NET SDK y .NET Runtime?**
 
 A) Son lo mismo  
-B) SDK es para desarrollar, Runtime es para ejecutar aplicaciones  
+B) SDK es para desarrollar, Runtime es para ejecutar aplicaciones(X)  
 C) Runtime es más nuevo que SDK  
 D) SDK solo funciona en Windows  
 
@@ -27,7 +27,7 @@ D) SDK solo funciona en Windows
 
 A) JavaScript  
 B) Python  
-C) C#  
+C) C#(X)  
 D) Java  
 
 ---
@@ -36,7 +36,7 @@ D) Java
 **¿Qué framework de .NET se usa específicamente para crear APIs web?**
 
 A) .NET Framework  
-B) ASP.NET Core  
+B) ASP.NET Core (X) 
 C) Entity Framework  
 D) Xamarin  
 
@@ -47,7 +47,7 @@ D) Xamarin
 
 A) Solo Windows  
 B) Solo Windows y Linux  
-C) Windows, Linux y macOS  
+C) Windows, Linux y macOS(X)  
 D) Solo macOS  
 
 ---
@@ -56,7 +56,7 @@ D) Solo macOS
 **¿Qué comando usas para verificar la versión de .NET instalada?**
 
 A) `dotnet version`  
-B) `dotnet --version`  
+B) `dotnet --version`(x)  
 C) `dotnet check`  
 D) `dotnet info`  
 
@@ -67,7 +67,7 @@ D) `dotnet info`
 
 A) `dotnet create webapi`  
 B) `dotnet new api`  
-C) `dotnet new webapi`  
+C) `dotnet new webapi`(x)  
 D) `dotnet init webapi`  
 
 ---
@@ -76,7 +76,7 @@ D) `dotnet init webapi`
 **¿Qué archivo contiene la configuración de un proyecto .NET?**
 
 A) `.config`  
-B) `.csproj`  
+B) `.csproj`(x)  
 C) `.json`  
 D) `.xml`  
 
@@ -91,7 +91,7 @@ Completa las siguientes analogías basándote en lo que aprendiste:
 
 A) Ladrillo  
 B) Casa  
-C) Caja de herramientas  
+C) Caja de herramientas(x)  
 D) Cemento  
 
 ---
@@ -100,7 +100,7 @@ D) Cemento
 **SDK es a desarrollador como __________ es a conductor**
 
 A) Gasolina  
-B) Automóvil completo con manual  
+B) Automóvil completo con manual(x)  
 C) Llantas  
 D) Radio  
 
@@ -110,7 +110,7 @@ D) Radio
 **C# es a .NET como __________ es a automóvil**
 
 A) Motor  
-B) Volante y pedales  
+B) Volante y pedales(x)  
 C) Gasolina  
 D) Carretera  
 
@@ -120,7 +120,7 @@ D) Carretera
 **Runtime es a aplicación como __________ es a electrodoméstico**
 
 A) Enchufe  
-B) Electricidad  
+B) Electricidad(x)  
 C) Interruptor  
 D) Cable  
 
@@ -129,7 +129,7 @@ D) Cable
 ### Analogía 5
 **ASP.NET Core es a APIs como __________ es a construcción**
 
-A) Herramientas generales  
+A) Herramientas generales(x)  
 B) Herramientas especializadas para plomería  
 C) Materiales  
 D) Planos  
@@ -161,14 +161,14 @@ G) Herramienta de línea de comandos (Command Line Interface)
 H) Motor que ejecuta aplicaciones .NET  
 
 **Tus respuestas**:
-1 → ___  
-2 → ___  
-3 → ___  
-4 → ___  
-5 → ___  
-6 → ___  
-7 → ___  
-8 → ___  
+1 → C  
+2 → H
+3 → A  
+4 → E  
+5 → G  
+6 → B  
+7 → F  
+8 → D  
 
 ---
 
@@ -176,21 +176,21 @@ H) Motor que ejecuta aplicaciones .NET
 
 Indica si cada afirmación es Verdadera (V) o Falsa (F):
 
-1. **___** .NET solo funciona en Windows.
+1. **F** .NET solo funciona en Windows.
 
-2. **___** Necesitas el SDK de .NET para desarrollar aplicaciones.
+2. **V** Necesitas el SDK de .NET para desarrollar aplicaciones.
 
-3. **___** El Runtime de .NET es suficiente para desarrollar aplicaciones.
+3. **V** El Runtime de .NET es suficiente para desarrollar aplicaciones.
 
-4. **___** C# y .NET son exactamente lo mismo.
+4. **F** C# y .NET son exactamente lo mismo.
 
-5. **___** Visual Studio Code es un producto de pago.
+5. **F** Visual Studio Code es un producto de pago.
 
-6. **___** El comando `dotnet run` compila y ejecuta tu proyecto.
+6. **V** El comando `dotnet run` compila y ejecuta tu proyecto.
 
-7. **___** .NET 8 es una versión LTS (Long Term Support).
+7. **V** .NET 8 es una versión LTS (Long Term Support).
 
-8. **___** ASP.NET Core solo sirve para crear aplicaciones de escritorio.
+8. **F** ASP.NET Core solo sirve para crear aplicaciones de escritorio.
 
 ---
 
@@ -201,42 +201,42 @@ Indica si cada afirmación es Verdadera (V) o Falsa (F):
 ### Tarea 1
 **Quieres verificar qué versión de .NET tienes instalada.**
 
-Tu comando: _______________________________________________
+Tu comando: dotnet --version
 
 ---
 
 ### Tarea 2
 **Quieres ver información detallada sobre tu instalación de .NET.**
 
-Tu comando: _______________________________________________
+Tu comando: dotnet --info
 
 ---
 
 ### Tarea 3
 **Quieres crear un nuevo proyecto de API web llamado "TiendaAPI".**
 
-Tu comando: _______________________________________________
+Tu comando: dotnet new -n TiendaAPI
 
 ---
 
 ### Tarea 4
 **Quieres ejecutar tu proyecto actual.**
 
-Tu comando: _______________________________________________
+Tu comando: dotnet run
 
 ---
 
 ### Tarea 5
 **Quieres ver todas las plantillas de proyecto disponibles.**
 
-Tu comando: _______________________________________________
+Tu comando: dotnet new lists
 
 ---
 
 ### Tarea 6
 **Quieres compilar tu proyecto sin ejecutarlo.**
 
-Tu comando: _______________________________________________
+Tu comando: dotnet build
 
 ---
 
@@ -250,7 +250,7 @@ Tu comando: _______________________________________________
 ¿Qué necesitas?
 A) Solo .NET SDK  
 B) Solo .NET Runtime  
-C) Visual Studio Code  
+C) Visual Studio Code(X)  
 D) ASP.NET Core  
 
 ---
@@ -260,7 +260,7 @@ D) ASP.NET Core
 
 ¿Qué necesitas?
 A) Solo .NET Runtime  
-B) .NET SDK + Editor de código  
+B) .NET SDK + Editor de código(X)  
 C) Solo Visual Studio Code  
 D) Solo ASP.NET Core  
 
@@ -272,7 +272,7 @@ D) Solo ASP.NET Core
 ¿Qué necesitas?
 A) Solo .NET SDK  
 B) Solo terminal  
-C) VS Code con extensión de C#  
+C) VS Code con extensión de C#(X)  
 D) Solo el Runtime  
 
 ---
@@ -286,7 +286,7 @@ D) Solo el Runtime
 
 ¿Cuál es la primera solución que deberías intentar?
 A) Desinstalar y reinstalar todo  
-B) Cerrar y abrir de nuevo la terminal  
+B) Cerrar y abrir de nuevo la terminal(X)  
 C) Reiniciar tu computadora  
 D) Instalar Visual Studio Code  
 
@@ -297,7 +297,7 @@ D) Instalar Visual Studio Code
 
 ¿Cuál es el problema más probable?
 A) No tienes .NET instalado  
-B) No estás en la carpeta correcta del proyecto  
+B) No estás en la carpeta correcta del proyecto(X)  
 C) Necesitas instalar VS Code  
 D) Tu computadora no tiene suficiente memoria  
 
@@ -308,7 +308,7 @@ D) Tu computadora no tiene suficiente memoria
 
 ¿Qué deberías hacer?
 A) Reinstalar .NET  
-B) Instalar la extensión de C# de Microsoft en VS Code  
+B) Instalar la extensión de C# de Microsoft en VS Code(X)  
 C) Cambiar de editor  
 D) Actualizar tu sistema operativo  
 
@@ -320,29 +320,29 @@ D) Actualizar tu sistema operativo
 
 ### Parte 1: Información del Sistema
 **¿Qué sistema operativo usas?**
-_______________________________________________
+Windows
 
 **¿Cuánta RAM tiene tu computadora?**
-_______________________________________________
+16gb
 
 **¿Cuánto espacio libre tienes en disco?**
-_______________________________________________
+600gb
 
 ---
 
 ### Parte 2: Proceso de Instalación
 
 **¿Descargaste el SDK o el Runtime?**
-_______________________________________________
+SDK
 
 **¿Qué versión de .NET instalaste?**
-_______________________________________________
+9.0.302
 
 **¿Cuánto tiempo tomó la instalación?**
-_______________________________________________
+2 Minutos
 
 **¿Tuviste algún problema durante la instalación?** (Sí/No)
-_______________________________________________
+No
 
 Si respondiste "Sí", describe el problema:
 _______________________________________________
@@ -353,30 +353,30 @@ _______________________________________________
 ### Parte 3: Verificación
 
 **Ejecuta `dotnet --version` y escribe el resultado aquí:**
-_______________________________________________
+9.0.302
 
 **Ejecuta `dotnet --info` y copia aquí la primera línea (versión del SDK):**
-_______________________________________________
-_______________________________________________
+.NET SDK:
+ Version:           9.0.302
 
 **¿Instalaste Visual Studio Code?** (Sí/No)
-_______________________________________________
+sI
 
 **Si instalaste VS Code, ¿instalaste la extensión de C#?** (Sí/No)
-_______________________________________________
+Si
 
 ---
 
 ### Parte 4: Primer Proyecto de Prueba
 
 **¿Creaste el proyecto "HolaMundo" de prueba?** (Sí/No)
-_______________________________________________
+Si
 
 **Si lo creaste, ¿qué mensaje apareció cuando ejecutaste `dotnet run`?**
-_______________________________________________
+HolaMundo
 
 **¿Pudiste ver los archivos del proyecto en VS Code?** (Sí/No)
-_______________________________________________
+s
 
 ---
 
@@ -388,8 +388,8 @@ _______________________________________________
 **¿Qué otras extensiones de VS Code podrían ser útiles para desarrollo .NET?**
 
 Investiga y menciona al menos 2:
-1. _______________________________________________
-2. _______________________________________________
+1. C# (OmniSharp)
+2. NuGet Package Manager
 
 ---
 
@@ -397,18 +397,16 @@ Investiga y menciona al menos 2:
 **¿Qué diferencia hay entre .NET 6, .NET 7 y .NET 8?**
 
 Resume brevemente:
-_______________________________________________
-_______________________________________________
-_______________________________________________
+la version NET 6 Y NET8 son LTS, mientras que la NET7 es STS
 
 ---
 
 ### Pregunta 3
 **¿Qué es NuGet y para qué sirve?**
 
-_______________________________________________
-_______________________________________________
-_______________________________________________
+NuGet facilita la gestion de paquetes NuGet
+que son la base para el desarrollo de aplicaciones
+modernas en .NET
 
 ---
 
@@ -418,37 +416,35 @@ _______________________________________________
 
 ### Mi Checklist de Instalación .NET
 
-- [ ] **Paso 1**: _______________________________________________
-- [ ] **Paso 2**: _______________________________________________
-- [ ] **Paso 3**: _______________________________________________
-- [ ] **Paso 4**: _______________________________________________
-- [ ] **Paso 5**: _______________________________________________
-- [ ] **Paso 6**: _______________________________________________
-- [ ] **Paso 7**: _______________________________________________
-- [ ] **Paso 8**: _______________________________________________
+- [ ] **Paso 1**: Crea una carpeta con el archivo del proyecto
+- [ ] **Paso 2**: Usando el mkdir
+- [ ] **Paso 3**: Dentro de la carpeta crea el proyecto
+- [ ] **Paso 4**: dotnet new -n
+- [ ] **Paso 5**: Dirigete a la carpeta del proyecto
+- [ ] **Paso 6**: Dentro del proyecto ejecuta el comando para inicializar el proyecto
+- [ ] **Paso 7**: dotnet run
+- [ ] **Paso 8**: tambien puedes ejecutar el dotnet build y despues el dotnet run
 
 ### Comandos Importantes a Recordar
 
 Escribe los 3 comandos que consideras más importantes:
 
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
+1. dotnet new -n
+2. dotnet build
+3. dotnet run
 
 ---
 
 ## Reflexión Final
 
 **¿Qué fue lo más desafiante de este módulo?**
-_______________________________________________
-_______________________________________________
+Recordar definiciones
 
 **¿Qué concepto te gustaría explorar más a fondo?**
-_______________________________________________
-_______________________________________________
+De este modulo ninguno
 
 **¿Te sientes listo para crear tu primera API en el siguiente módulo?** (Sí/No/Casi)
-_______________________________________________
+Si
 
 **Si respondiste "No" o "Casi", ¿qué necesitas repasar?**
 _______________________________________________
