@@ -6,7 +6,7 @@
 **¿Qué comando se usa para crear un nuevo proyecto de API web en .NET?**
 
 A) `dotnet create webapi`  
-B) `dotnet new webapi -n NombreProyecto`  
+B) `dotnet new webapi -n NombreProyecto`(X) 
 C) `dotnet init api`  
 D) `dotnet start webapi`  
 
@@ -17,7 +17,7 @@ D) `dotnet start webapi`
 
 A) `Main.cs`  
 B) `Startup.cs`  
-C) `Program.cs`  
+C) `Program.cs`(X)  
 D) `App.cs`  
 
 ---
@@ -26,7 +26,7 @@ D) `App.cs`
 **¿Qué hace el atributo `[ApiController]` en una clase?**
 
 A) Crea la API automáticamente  
-B) Marca la clase como un controlador de API  
+B) Marca la clase como un controlador de API(X)  
 C) Define las rutas  
 D) Inicia el servidor  
 
@@ -36,7 +36,7 @@ D) Inicia el servidor
 **¿Qué clase base deben heredar los controladores de API?**
 
 A) `Controller`  
-B) `ControllerBase`  
+B) `ControllerBase`(X)  
 C) `ApiController`  
 D) `BaseController`  
 
@@ -46,7 +46,7 @@ D) `BaseController`
 **¿Para qué sirve Swagger en una API?**
 
 A) Para compilar el código  
-B) Para generar documentación automática e interfaz de pruebas  
+B) Para generar documentación automática e interfaz de pruebas(X)  
 C) Para conectar a la base de datos  
 D) Para crear modelos  
 
@@ -55,7 +55,7 @@ D) Para crear modelos
 ### Pregunta 6
 **¿Qué indica el atributo `[HttpGet]` en un método?**
 
-A) Que el método obtiene datos mediante GET  
+A) Que el método obtiene datos mediante GET(X)  
 B) Que el método crea datos  
 C) Que el método elimina datos  
 D) Que el método actualiza datos  
@@ -66,7 +66,7 @@ D) Que el método actualiza datos
 **¿Qué devuelve el método `Ok(datos)`?**
 
 A) Error 404  
-B) Código 200 con los datos  
+B) Código 200 con los datos(X)  
 C) Código 201  
 D) Error 500  
 
@@ -76,7 +76,7 @@ D) Error 500
 **¿Qué es un modelo (Model) en una API?**
 
 A) La base de datos  
-B) Una clase que representa la estructura de los datos  
+B) Una clase que representa la estructura de los datos(X)  
 C) El controlador  
 D) La ruta de la API  
 
@@ -85,7 +85,7 @@ D) La ruta de la API
 ## Sección 2: Completa la Analogía
 
 ### Analogía 1
-**Controlador es a API como __________ es a restaurante**
+**Controlador es a API como (A) es a restaurante**
 
 A) Cocina  
 B) Mesero  
@@ -95,7 +95,7 @@ D) Plato
 ---
 
 ### Analogía 2
-**Modelo es a datos como __________ es a construcción**
+**Modelo es a datos como (A) es a construcción**
 
 A) Herramienta  
 B) Plano o molde  
@@ -105,7 +105,7 @@ D) Pintura
 ---
 
 ### Analogía 3
-**Swagger es a API como __________ es a restaurante**
+**Swagger es a API como (B) es a restaurante**
 
 A) Cocina  
 B) Menú ilustrado con fotos  
@@ -115,7 +115,7 @@ D) Caja registradora
 ---
 
 ### Analogía 4
-**Program.cs es a aplicación como __________ es a automóvil**
+**Program.cs es a aplicación como (B) es a automóvil**
 
 A) Volante  
 B) Motor de arranque  
@@ -125,7 +125,7 @@ D) Radio
 ---
 
 ### Analogía 5
-**ActionResult es a respuesta como __________ es a carta**
+**ActionResult es a respuesta como (A) es a carta**
 
 A) Sobre con respuesta dentro  
 B) Buzón  
@@ -159,14 +159,14 @@ G) Clase que representa la estructura de datos
 H) Ruta específica de la API (ej: /api/tareas)  
 
 **Tus respuestas**:
-1 → ___  
-2 → ___  
-3 → ___  
-4 → ___  
-5 → ___  
-6 → ___  
-7 → ___  
-8 → ___  
+1 → E  
+2 → G  
+3 → D  
+4 → A  
+5 → B  
+6 → C  
+7 → H  
+8 → F 
 
 ---
 
