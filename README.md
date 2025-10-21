@@ -6,7 +6,15 @@ Dentro de cada carpeta encontrarás planes de estudio, materiales, ejercicios y 
 ## Estructura
 
 - `/API REST .NET/` → Todo lo relacionado con aprender a crear APIs RESTful en .NET desde cero.
-- (Agrega aquí otras carpetas para nuevas herramientas en el futuro)
+- `/English-Automatismo/` → Curso práctico de inglés de A2 a C1 enfocado en automatismo del habla mediante ejercicios hablados, shadowing, drills y práctica cronometrada.
+- `/AI-Para-Principiantes/` → Curso de Inteligencia Artificial para principiantes.
+- `/CI-CD GitHub/` → Integración y despliegue continuo con GitHub.
+- `/Docker-Orquestacion/` → Docker y orquestación de contenedores.
+- `/Logica-Programacion/` → Fundamentos de lógica de programación.
+- `/PowerBI-Business-Intelligence/` → Análisis de datos con Power BI.
+- `/Python/` → Programación en Python.
+- `/SQL-Server/` → Gestión de bases de datos con SQL Server.
+- `/data-engineer-ai/` → Ingeniería de datos con IA.
 
 ---
 
