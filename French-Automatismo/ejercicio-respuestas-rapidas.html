@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French-Automatismo - Ejercicio de Respuestas Rápidas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .question-text {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .timer {
+            font-size: 3em;
+            text-align: center;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .timer.warning {
+            color: #f39c12;
+        }
+        
+        .timer.danger {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #27ae60;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        .status.recording {
+            background: #ffe6e6;
+            color: #e74c3c;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #2ecc71;
+        }
+        
+        .progress-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #ecf0f1;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        
+        .recordings-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .recording-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .recording-info {
+            flex: 1;
+        }
+        
+        .recording-question {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .recording-meta {
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        .recording-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .instructions h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+        }
+        
+        .export-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .question-text {
+                font-size: 1.3em;
+            }
+            
+            .timer {
+                font-size: 2em;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 French-Automatismo</h1>
+        <p class="subtitle">Ejercicio de Respuestas Rápidas - Práctica Interactiva</p>
+        
+        <div class="instructions">
+            <h3>📋 Instrucciones:</h3>
+            <ul>
+                <li>Se te presentará una pregunta en francés</li>
+                <li>Tienes <strong>3 segundos</strong> para comenzar a responder</li>
+                <li>Presiona <strong>"Grabar Respuesta"</strong> y responde en voz alta</li>
+                <li>La grabación se detiene automáticamente después de 10 segundos</li>
+                <li>Puedes descargar tus grabaciones al finalizar</li>
+                <li><strong>Objetivo:</strong> Eliminar la traducción mental y responder automáticamente</li>
+            </ul>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-text" id="questionText">¿Listo para empezar?</div>
+            <div class="timer" id="timer">3.00</div>
+            <div class="status hidden" id="status"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn-primary" id="startBtn" onclick="startExercise()">▶️ Comenzar Ejercicio</button>
+            <button class="btn-success hidden" id="recordBtn" onclick="startRecording()">🎙️ Grabar Respuesta</button>
+            <button class="btn-danger hidden" id="stopBtn" onclick="stopRecording()">⏹️ Detener</button>
+            <button class="btn-primary hidden" id="nextBtn" onclick="nextQuestion()">⏭️ Siguiente</button>
+            <button class="btn-secondary" id="resetBtn" onclick="resetExercise()">🔄 Reiniciar</button>
+        </div>
+        
+        <div class="progress-section">
+            <h3>📊 Progreso del Ejercicio</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">
+                    <span id="progressText">0 / 20</span>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="completedCount">0</div>
+                    <div class="stat-label">Completadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="recordedCount">0</div>
+                    <div class="stat-label">Grabadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avgTime">0.00s</div>
+                    <div class="stat-label">Tiempo Promedio</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="export-section hidden" id="exportSection">
+            <h3>💾 Exportar Resultados</h3>
+            <p>Descarga tus grabaciones y estadísticas para revisarlas después.</p>
+            <div class="controls">
+                <button class="btn-primary btn-small" onclick="downloadAllRecordings()">⬇️ Descargar Audios</button>
+                <button class="btn-secondary btn-small" onclick="exportCSV()">📄 Exportar CSV</button>
+            </div>
+            
+            <div class="recordings-list" id="recordingsList"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Preguntas en francés (20 preguntas comunes)
+        const questions = [
+            "Comment tu t'appelles ?",
+            "Quel âge as-tu ?",
+            "D'où viens-tu ?",
+            "Qu'est-ce que tu fais dans la vie ?",
+            "Où habites-tu ?",
+            "Tu aimes le café ?",
+            "Quelle est ta couleur préférée ?",
+            "Qu'est-ce que tu aimes faire le weekend ?",
+            "Tu as des frères ou des sœurs ?",
+            "Quel est ton plat préféré ?",
+            "Tu parles combien de langues ?",
+            "Qu'est-ce que tu as fait hier ?",
+            "Quel temps fait-il aujourd'hui ?",
+            "Tu aimes voyager ?",
+            "Quelle est ta saison préférée ?",
+            "Tu fais du sport ?",
+            "Qu'est-ce que tu as mangé ce matin ?",
+            "Tu as des animaux domestiques ?",
+            "Quel est ton film préféré ?",
+            "Qu'est-ce que tu vas faire ce soir ?"
+        ];
+        
+        let currentQuestionIndex = 0;
+        let mediaRecorder;
+        let audioChunks = [];
+        let recordings = [];
+        let startTime;
+        let timerInterval;
+        let exerciseStarted = false;
+        let responseTimes = [];
+        
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        let shuffledQuestions = shuffleArray(questions);
+        
+        function startExercise() {
+            exerciseStarted = true;
+            currentQuestionIndex = 0;
+            shuffledQuestions = shuffleArray(questions);
+            recordings = [];
+            responseTimes = [];
+            
+            document.getElementById('startBtn').classList.add('hidden');
+            document.getElementById('exportSection').classList.add('hidden');
+            
+            showQuestion();
+        }
+        
+        function showQuestion() {
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                finishExercise();
+                return;
+            }
+            
+            const question = shuffledQuestions[currentQuestionIndex];
+            document.getElementById('questionText').textContent = question;
+            document.getElementById('recordBtn').classList.remove('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+            document.getElementById('stopBtn').classList.add('hidden');
+            
+            updateProgress();
+            startCountdown();
+        }
+        
+        function startCountdown() {
+            let timeLeft = 3.0;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = timeLeft.toFixed(2);
+            timerEl.className = 'timer';
+            
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.01;
+                timerEl.textContent = timeLeft.toFixed(2);
+                
+                if (timeLeft <= 1.5 && timeLeft > 0.5) {
+                    timerEl.className = 'timer warning';
+                } else if (timeLeft <= 0.5) {
+                    timerEl.className = 'timer danger';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerEl.textContent = '0.00';
+                }
+            }, 10);
+        }
+        
+        async function startRecording() {
+            try {
+                startTime = Date.now();
+                clearInterval(timerInterval);
+                
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+                
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const responseTime = (Date.now() - startTime) / 1000;
+                    
+                    recordings.push({
+                        question: shuffledQuestions[currentQuestionIndex],
+                        audioBlob: audioBlob,
+                        audioUrl: audioUrl,
+                        responseTime: responseTime,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    responseTimes.push(responseTime);
+                    updateStats();
+                    
+                    stream.getTracks().forEach(track => track.stop());
+                };
+                
+                mediaRecorder.start();
+                
+                document.getElementById('recordBtn').classList.add('hidden');
+                document.getElementById('stopBtn').classList.remove('hidden');
+                document.getElementById('status').className = 'status recording';
+                document.getElementById('status').textContent = '🔴 Grabando... (máx 10 segundos)';
+                document.getElementById('status').classList.remove('hidden');
+                
+                // Auto-stop after 10 seconds
+                setTimeout(() => {
+                    if (mediaRecorder && mediaRecorder.state === 'recording') {
+                        stopRecording();
+                    }
+                }, 10000);
+                
+            } catch (error) {
+                alert('Error al acceder al micrófono. Por favor, permite el acceso al micrófono.');
+                console.error('Error:', error);
+            }
+        }
+        
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                
+                document.getElementById('stopBtn').classList.add('hidden');
+                document.getElementById('nextBtn').classList.remove('hidden');
+                document.getElementById('status').className = 'status success';
+                document.getElementById('status').textContent = '✅ Grabación completada';
+                
+                setTimeout(() => {
+                    document.getElementById('status').classList.add('hidden');
+                }, 2000);
+            }
+        }
+        
+        function nextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+        
+        function updateProgress() {
+            const progress = (currentQuestionIndex / shuffledQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = 
+                `${currentQuestionIndex} / ${shuffledQuestions.length}`;
+            document.getElementById('completedCount').textContent = currentQuestionIndex;
+        }
+        
+        function updateStats() {
+            document.getElementById('recordedCount').textContent = recordings.length;
+            
+            if (responseTimes.length > 0) {
+                const avgTime = responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length;
+                document.getElementById('avgTime').textContent = avgTime.toFixed(2) + 's';
+            }
+        }
+        
+        function finishExercise() {
+            clearInterval(timerInterval);
+            document.getElementById('questionText').textContent = '🎉 ¡Ejercicio Completado!';
+            document.getElementById('timer').textContent = '✓';
+            document.getElementById('timer').className = 'timer';
+            document.getElementById('recordBtn').classList.add('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+            document.getElementById('exportSection').classList.remove('hidden');
+            
+            displayRecordings();
+        }
+        
+        function displayRecordings() {
+            const listEl = document.getElementById('recordingsList');
+            listEl.innerHTML = '';
+            
+            recordings.forEach((rec, index) => {
+                const item = document.createElement('div');
+                item.className = 'recording-item';
+                item.innerHTML = `
+                    <div class="recording-info">
+                        <div class="recording-question">${index + 1}. ${rec.question}</div>
+                        <div class="recording-meta">
+                            Tiempo: ${rec.responseTime.toFixed(2)}s | 
+                            ${new Date(rec.timestamp).toLocaleTimeString()}
+                        </div>
+                    </div>
+                    <div class="recording-actions">
+                        <audio controls src="${rec.audioUrl}" style="height: 30px;"></audio>
+                        <button class="btn-primary btn-small" onclick="downloadRecording(${index})">
+                            ⬇️
+                        </button>
+                    </div>
+                `;
+                listEl.appendChild(item);
+            });
+        }
+        
+        function downloadRecording(index) {
+            const rec = recordings[index];
+            const link = document.createElement('a');
+            link.href = rec.audioUrl;
+            link.download = `french-respuesta-${index + 1}-${Date.now()}.wav`;
+            link.click();
+        }
+        
+        function downloadAllRecordings() {
+            recordings.forEach((rec, index) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = rec.audioUrl;
+                    link.download = `french-respuesta-${index + 1}-${Date.now()}.wav`;
+                    link.click();
+                }, index * 500);
+            });
+        }
+        
+        function exportCSV() {
+            let csv = 'Pregunta,Tiempo de Respuesta (s),Fecha y Hora\n';
+            recordings.forEach(rec => {
+                csv += `"${rec.question}",${rec.responseTime.toFixed(2)},${new Date(rec.timestamp).toLocaleString()}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `french-automatismo-resultados-${Date.now()}.csv`;
+            link.click();
+        }
+        
+        function resetExercise() {
+            clearInterval(timerInterval);
+            exerciseStarted = false;
+            currentQuestionIndex = 0;
+            recordings = [];
+            responseTimes = [];
+            
+            document.getElementById('questionText').textContent = '¿Listo para empezar?';
+            document.getElementById('timer').textContent = '3.00';
+            document.getElementById('timer').className = 'timer';
+            document.getElementById('startBtn').classList.remove('hidden');
+            document.getElementById('recordBtn').classList.add('hidden');
+            document.getElementById('stopBtn').classList.add('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+            document.getElementById('status').classList.add('hidden');
+            document.getElementById('exportSection').classList.add('hidden');
+            
+            updateProgress();
+            updateStats();
+        }
+    </script>
+</body>
+</html>
