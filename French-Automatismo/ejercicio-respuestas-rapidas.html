@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice: Réponses Rapides - French-Automatismo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        
+        .stat-card .label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .question-number {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .timer {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            color: #667eea;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .timer.warning {
+            color: #ffc107;
+        }
+        
+        .timer.danger {
+            color: #dc3545;
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .audio-player {
+            margin: 20px 0;
+            padding: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .audio-player.show {
+            display: block;
+        }
+        
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .result-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #e9ecef;
+        }
+        
+        .result-item.correct {
+            border-left-color: #28a745;
+        }
+        
+        .result-item.incorrect {
+            border-left-color: #dc3545;
+        }
+        
+        .result-item.pending {
+            border-left-color: #ffc107;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+        
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .instructions h3 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+        }
+        
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .status-message.recording {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .status-message.ready {
+            background: #28a745;
+            color: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎙️ Exercice: Réponses Rapides</h1>
+            <p>Entraînement intensif pour automatiser tes réponses en français</p>
+        </div>
+        
+        <div class="content">
+            <div class="instructions">
+                <h3>📋 Instrucciones</h3>
+                <ul>
+                    <li>Lee cada pregunta en francés</li>
+                    <li>Presiona <strong>Grabar</strong> y responde en voz alta</li>
+                    <li>Detén la grabación cuando termines</li>
+                    <li>Escucha tu respuesta</li>
+                    <li>Marca si fue <strong>Correcta</strong> o <strong>Incorrecta</strong></li>
+                    <li>El cronómetro te ayuda a controlar tu velocidad de respuesta</li>
+                </ul>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="label">Pregunta</div>
+                    <div class="value" id="currentQuestion">1</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Correctas</div>
+                    <div class="value" id="correctCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Incorrectas</div>
+                    <div class="value" id="incorrectCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Pendientes</div>
+                    <div class="value" id="pendingCount">20</div>
+                </div>
+            </div>
+            
+            <div class="question-card" id="questionCard">
+                <div class="question-number">Question <span id="questionNum">1</span> / 20</div>
+                <div class="question-text" id="questionText">Comment tu t'appelles ?</div>
+            </div>
+            
+            <div class="timer" id="timer">00:00</div>
+            
+            <div class="status-message hidden" id="statusMessage"></div>
+            
+            <div class="controls">
+                <button class="btn-danger" id="recordBtn" onclick="toggleRecording()">
+                    <span>🎤</span> Grabar
+                </button>
+                <button class="btn-primary" id="playBtn" onclick="playRecording()" disabled>
+                    <span>▶️</span> Escuchar
+                </button>
+                <button class="btn-success" id="correctBtn" onclick="markAnswer(true)" disabled>
+                    <span>✅</span> Correcto
+                </button>
+                <button class="btn-warning" id="incorrectBtn" onclick="markAnswer(false)" disabled>
+                    <span>❌</span> Incorrecto
+                </button>
+            </div>
+            
+            <div class="audio-player" id="audioPlayer">
+                <strong>Tu respuesta grabada:</strong>
+                <audio id="audioPlayback" controls></audio>
+            </div>
+            
+            <div class="controls">
+                <button class="btn-info" id="downloadBtn" onclick="downloadCSV()">
+                    <span>💾</span> Descargar CSV
+                </button>
+                <button class="btn-secondary" id="resetBtn" onclick="resetExercise()">
+                    <span>🔄</span> Reiniciar
+                </button>
+            </div>
+            
+            <div class="results hidden" id="results">
+                <h3>📊 Resultados</h3>
+                <div id="resultsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Preguntas en francés (nivel A2)
+        const questions = [
+            "Comment tu t'appelles ?",
+            "Quel âge as-tu ?",
+            "D'où viens-tu ?",
+            "Qu'est-ce que tu fais dans la vie ?",
+            "Tu habites où ?",
+            "Tu parles quelles langues ?",
+            "Qu'est-ce que tu aimes faire ?",
+            "Quelle est ta couleur préférée ?",
+            "Tu as des frères et sœurs ?",
+            "Qu'est-ce que tu fais le week-end ?",
+            "Tu aimes le café ?",
+            "Quelle heure est-il ?",
+            "Quel temps fait-il aujourd'hui ?",
+            "Tu as un animal de compagnie ?",
+            "Quelle est ta saison préférée ?",
+            "Tu fais du sport ?",
+            "Qu'est-ce que tu manges au petit-déjeuner ?",
+            "Tu aimes voyager ?",
+            "Quel est ton film préféré ?",
+            "Qu'est-ce que tu veux faire ce soir ?"
+        ];
+
+        let currentQuestionIndex = 0;
+        let results = [];
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let currentAudioBlob = null;
+        let timerInterval = null;
+        let seconds = 0;
+        let isRecording = false;
+
+        // Cargar resultados guardados del localStorage
+        function loadResults() {
+            const saved = localStorage.getItem('frenchRapidResults');
+            if (saved) {
+                results = JSON.parse(saved);
+                updateStats();
+            } else {
+                results = questions.map((q, i) => ({
+                    question: q,
+                    answer: null,
+                    correct: null,
+                    time: null
+                }));
+            }
+        }
+
+        // Guardar resultados en localStorage
+        function saveResults() {
+            localStorage.setItem('frenchRapidResults', JSON.stringify(results));
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+            const correct = results.filter(r => r.correct === true).length;
+            const incorrect = results.filter(r => r.correct === false).length;
+            const pending = results.filter(r => r.correct === null).length;
+            
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            
+            const progress = ((currentQuestionIndex) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Mostrar pregunta actual
+        function displayQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResults();
+                return;
+            }
+            
+            document.getElementById('questionNum').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = questions[currentQuestionIndex];
+            resetTimer();
+            
+            // Deshabilitar botones
+            document.getElementById('playBtn').disabled = true;
+            document.getElementById('correctBtn').disabled = true;
+            document.getElementById('incorrectBtn').disabled = true;
+            document.getElementById('audioPlayer').classList.remove('show');
+            
+            updateStats();
+        }
+
+        // Cronómetro
+        function startTimer() {
+            seconds = 0;
+            timerInterval = setInterval(() => {
+                seconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            seconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            const display = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = display;
+            
+            // Cambiar color según tiempo
+            timerEl.classList.remove('warning', 'danger');
+            if (seconds >= 10) {
+                timerEl.classList.add('danger');
+            } else if (seconds >= 5) {
+                timerEl.classList.add('warning');
+            }
+        }
+
+        // Grabación de audio
+        async function initRecorder() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+                
+                mediaRecorder.onstop = () => {
+                    currentAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(currentAudioBlob);
+                    document.getElementById('audioPlayback').src = audioUrl;
+                    document.getElementById('playBtn').disabled = false;
+                    document.getElementById('correctBtn').disabled = false;
+                    document.getElementById('incorrectBtn').disabled = false;
+                    document.getElementById('audioPlayer').classList.add('show');
+                };
+                
+                return true;
+            } catch (err) {
+                alert('Error al acceder al micrófono: ' + err.message);
+                return false;
+            }
+        }
+
+        async function toggleRecording() {
+            const recordBtn = document.getElementById('recordBtn');
+            const statusMsg = document.getElementById('statusMessage');
+            
+            if (!isRecording) {
+                // Iniciar grabación
+                if (!mediaRecorder) {
+                    const success = await initRecorder();
+                    if (!success) return;
+                }
+                
+                audioChunks = [];
+                mediaRecorder.start();
+                isRecording = true;
+                startTimer();
+                
+                recordBtn.textContent = '⏹️ Detener';
+                recordBtn.classList.remove('btn-danger');
+                recordBtn.classList.add('btn-secondary');
+                
+                statusMsg.textContent = '🔴 GRABANDO... Responde en voz alta';
+                statusMsg.classList.remove('hidden', 'ready');
+                statusMsg.classList.add('recording');
+            } else {
+                // Detener grabación
+                mediaRecorder.stop();
+                isRecording = false;
+                stopTimer();
+                
+                recordBtn.innerHTML = '<span>🎤</span> Grabar';
+                recordBtn.classList.remove('btn-secondary');
+                recordBtn.classList.add('btn-danger');
+                
+                statusMsg.textContent = '✅ Grabación completada. Escucha y evalúa tu respuesta.';
+                statusMsg.classList.remove('recording');
+                statusMsg.classList.add('ready');
+                
+                // Guardar tiempo de respuesta
+                results[currentQuestionIndex].time = seconds;
+            }
+        }
+
+        function playRecording() {
+            document.getElementById('audioPlayback').play();
+        }
+
+        function markAnswer(isCorrect) {
+            results[currentQuestionIndex].correct = isCorrect;
+            results[currentQuestionIndex].answer = 'recorded';
+            saveResults();
+            
+            // Pasar a siguiente pregunta
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('questionCard').classList.add('hidden');
+            document.getElementById('timer').classList.add('hidden');
+            document.getElementById('statusMessage').classList.add('hidden');
+            document.getElementById('recordBtn').classList.add('hidden');
+            document.getElementById('playBtn').classList.add('hidden');
+            document.getElementById('correctBtn').classList.add('hidden');
+            document.getElementById('incorrectBtn').classList.add('hidden');
+            document.getElementById('audioPlayer').classList.add('hidden');
+            
+            const resultsDiv = document.getElementById('results');
+            const resultsList = document.getElementById('resultsList');
+            resultsDiv.classList.remove('hidden');
+            
+            resultsList.innerHTML = '';
+            results.forEach((result, index) => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                
+                if (result.correct === true) {
+                    div.classList.add('correct');
+                } else if (result.correct === false) {
+                    div.classList.add('incorrect');
+                } else {
+                    div.classList.add('pending');
+                }
+                
+                const status = result.correct === true ? '✅ Correcta' : 
+                              result.correct === false ? '❌ Incorrecta' : 
+                              '⏳ Pendiente';
+                const time = result.time ? `${result.time}s` : '-';
+                
+                div.innerHTML = `
+                    <div><strong>${index + 1}.</strong> ${result.question}</div>
+                    <div>${status} | Tiempo: ${time}</div>
+                `;
+                resultsList.appendChild(div);
+            });
+        }
+
+        function downloadCSV() {
+            let csv = 'Pregunta,Estado,Tiempo (segundos)\n';
+            results.forEach((result, index) => {
+                const status = result.correct === true ? 'Correcta' : 
+                              result.correct === false ? 'Incorrecta' : 
+                              'Pendiente';
+                const time = result.time || 0;
+                csv += `"${result.question}","${status}",${time}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `french-rapid-results-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function resetExercise() {
+            if (confirm('¿Estás seguro de que quieres reiniciar el ejercicio? Perderás todos los resultados.')) {
+                localStorage.removeItem('frenchRapidResults');
+                currentQuestionIndex = 0;
+                results = questions.map((q, i) => ({
+                    question: q,
+                    answer: null,
+                    correct: null,
+                    time: null
+                }));
+                
+                document.getElementById('questionCard').classList.remove('hidden');
+                document.getElementById('timer').classList.remove('hidden');
+                document.getElementById('recordBtn').classList.remove('hidden');
+                document.getElementById('playBtn').classList.remove('hidden');
+                document.getElementById('correctBtn').classList.remove('hidden');
+                document.getElementById('incorrectBtn').classList.remove('hidden');
+                document.getElementById('results').classList.add('hidden');
+                document.getElementById('statusMessage').classList.add('hidden');
+                
+                displayQuestion();
+            }
+        }
+
+        // Inicializar
+        window.onload = () => {
+            loadResults();
+            displayQuestion();
+        };
+    </script>
+</body>
+</html>
