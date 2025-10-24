@@ -8,6 +8,7 @@ Dentro de cada carpeta encontrarás planes de estudio, materiales, ejercicios y 
 - `/API REST .NET/` → Todo lo relacionado con aprender a crear APIs RESTful en .NET desde cero.
 - `/English-Automatismo/` → Curso práctico de inglés de A2 a C1 enfocado en automatismo del habla mediante ejercicios hablados, shadowing, drills y práctica cronometrada.
 - `/French-Automatismo/` → Curso práctico de francés de A2 a C1 enfocado en automatismo del habla mediante ejercicios hablados, shadowing, drills, práctica cronometrada y herramientas interactivas HTML.
+- `/FromZero-Agentic-Docker/` → Curso práctico From Zero to Agentic con Docker - 90% hands-on para construir, contenedorizar y desplegar agentes con IA usando FastAPI y Docker.
 - `/AI-Para-Principiantes/` → Curso de Inteligencia Artificial para principiantes.
 - `/CI-CD GitHub/` → Integración y despliegue continuo con GitHub.
 - `/Docker-Orquestacion/` → Docker y orquestación de contenedores.
