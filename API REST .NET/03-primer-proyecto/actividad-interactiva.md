@@ -172,21 +172,21 @@ H) Ruta específica de la API (ej: /api/tareas)
 
 ## Sección 4: Verdadero o Falso
 
-1. **___** El comando `dotnet new webapi` crea un proyecto de API web.
+1. **V ** El comando `dotnet new webapi` crea un proyecto de API web.
 
-2. **___** Swagger solo funciona en producción.
+2. **F ** Swagger solo funciona en producción.
 
-3. **___** Un controlador puede tener múltiples métodos HTTP.
+3. **V ** Un controlador puede tener múltiples métodos HTTP.
 
-4. **___** El atributo `[ApiController]` es opcional en controladores de API.
+4. **F ** El atributo `[ApiController]` es opcional en controladores de API.
 
-5. **___** Los modelos representan la estructura de los datos.
+5. **V ** Los modelos representan la estructura de los datos.
 
-6. **___** `NotFound()` devuelve un código de estado 200.
+6. **F ** `NotFound()` devuelve un código de estado 200.
 
-7. **___** Puedes tener múltiples controladores en una API.
+7. **V ** Puedes tener múltiples controladores en una API.
 
-8. **___** El comando `dotnet run` compila y ejecuta la API.
+8. **V ** El comando `dotnet run` compila y ejecuta la API.
 
 ---
 
@@ -197,16 +197,16 @@ H) Ruta específica de la API (ej: /api/tareas)
 ### Parte 1: Creación del Proyecto
 
 **¿Creaste el proyecto TareasAPI exitosamente?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿Qué comando usaste?**
-_______________________________________________
+dotnet create new -n webapi Tareas
 
 **¿En qué carpeta creaste el proyecto?**
-_______________________________________________
+En la carpeta local de mi máquina llamada proyectos/dotnet
 
 **¿Qué archivos y carpetas se generaron?** (enumera al menos 4)
-1. _______________________________________________
+1. Program.cs
 2. _______________________________________________
 3. _______________________________________________
 4. _______________________________________________
@@ -216,33 +216,33 @@ _______________________________________________
 ### Parte 2: Primer Ejecución
 
 **¿Ejecutaste `dotnet run` exitosamente?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿En qué puerto se ejecutó tu API?** (ej: 7001, 5000)
-- HTTPS: _______________________________________________
-- HTTP: _______________________________________________
+- HTTPS: 5000
+- HTTP: 7001
 
 **¿Pudiste acceder a Swagger?** (Sí/No)
-_______________________________________________
+Sí
 
 **URL de Swagger que usaste:**
-_______________________________________________
+https:localhost:5000/swagger/Tareas
 
 ---
 
 ### Parte 3: Explorando Swagger
 
 **¿Cuántos endpoints encontraste inicialmente?**
-_______________________________________________
+1
 
 **¿Qué endpoint(s) vienen por defecto?**
-_______________________________________________
+Weather get
 
 **¿Probaste el endpoint de ejemplo?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿Qué respuesta recibiste?**
-_______________________________________________
+EL clima código 200
 _______________________________________________
 
 ---
@@ -250,17 +250,17 @@ _______________________________________________
 ### Parte 4: Creando el Modelo Tarea
 
 **¿Creaste la carpeta Models?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿Creaste la clase Tarea?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿Qué propiedades tiene tu modelo Tarea?** (enumera todas)
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
-4. _______________________________________________
-5. _______________________________________________
+1. Id
+2. Título
+3. Descripción
+4. Realizada(True, False)
+5. FechaRealizacion
 
 ---
 
@@ -270,31 +270,30 @@ _______________________________________________
 _______________________________________________
 
 **¿Qué métodos HTTP implementaste?** (marca todos)
-- [ ] GET (listar todas)
-- [ ] GET (obtener una específica)
-- [ ] POST
-- [ ] PUT
-- [ ] DELETE
+- [x ] GET (listar todas)
+- [x ] GET (obtener una específica)
+- [x ] POST
+- [x ] PUT
+- [x ] DELETE
 
 **¿Aparece tu controlador en Swagger?** (Sí/No)
-_______________________________________________
+Sí
 
 ---
 
 ### Parte 6: Probando tu API
 
 **¿Probaste GET /api/tareas?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿Cuántas tareas devolvió?**
-_______________________________________________
+4 tareas
 
 **¿Probaste GET /api/tareas/{id}?** (Sí/No)
-_______________________________________________
+Sí
 
 **¿Qué pasó cuando pediste un ID que no existe?**
-_______________________________________________
-_______________________________________________
+Me arrijó un error 404
 
 ---
 
@@ -319,26 +318,26 @@ public ActionResult<Tarea> GetTarea(int id)
 
 ### Pregunta 1
 **¿Qué hace `{id}` en `[HttpGet("{id}")]`?**
-_______________________________________________
-_______________________________________________
+Busca por el id especificado y si lo encuentra
+devuelve el código 200 ok
 
 ### Pregunta 2
 **¿Qué significa `FirstOrDefault`?**
-_______________________________________________
-_______________________________________________
+La tarea que aparece de primero
+
 
 ### Pregunta 3
 **¿Qué código de estado devuelve `NotFound()`?**
-_______________________________________________
+404
 
 ### Pregunta 4
 **¿Qué código de estado devuelve `Ok(tarea)`?**
-_______________________________________________
+200
 
 ### Pregunta 5
 **¿Por qué verificamos si `tarea == null`?**
-_______________________________________________
-_______________________________________________
+Para lanzar el código de validación, si existe,
+arroja el codigo 200, sino, el código 404
 
 ---
 
@@ -361,11 +360,11 @@ D) 404 Not Found
 E) 500 Internal Server Error  
 
 **Tus respuestas**:
-1 → ___  
-2 → ___  
-3 → ___  
-4 → ___  
-5 → ___  
+1 → D 
+2 → A  
+3 → B  
+4 → C  
+5 → E  
 
 ---
 
@@ -376,10 +375,10 @@ E) 500 Internal Server Error
 ### Tarea 1: Agregar una Propiedad
 **Agrega una propiedad `Prioridad` (Alta, Media, Baja) al modelo Tarea.**
 
-¿Lo completaste? [ ] Sí [ ] No
+¿Lo completaste? [X] Sí [ ] No
 
 ¿Qué tipo de dato usaste?
-_______________________________________________
+Prioridad: Alta, Media o Baja.
 
 ---
 
@@ -389,22 +388,22 @@ _______________________________________________
 ¿Lo completaste? [ ] Sí [ ] No
 
 Enumera tus tareas:
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
+1. Leer un Libro
+2. Hacer burpees a las 04:00 am
+3. Nadar todos los dias.
 
 ---
 
 ### Tarea 3: Probar con Diferentes Herramientas
 **Prueba tu API usando al menos 2 de estas herramientas:**
 
-- [ ] Swagger
-- [ ] Navegador
+- [x ] Swagger
+- [x ] Navegador
 - [ ] Postman
 - [ ] cURL
 
 ¿Cuál te gustó más y por qué?
-_______________________________________________
+Insomnia, pero no está en la lista proveida.
 _______________________________________________
 
 ---
@@ -417,12 +416,12 @@ _______________________________________________
 **Ejecutas `dotnet run` pero recibes: "Error: Failed to bind to address https://localhost:7001"**
 
 ¿Qué podría estar pasando?
-_______________________________________________
+Que el puerto 7001 está siendo usado por otra app. 
 _______________________________________________
 
 ¿Qué solución intentarías?
-_______________________________________________
-_______________________________________________
+habria que detener la ejecución en ese puerto. hacer la compilación nuevamente y ejecutar dotnet run
+o agregar un nuevo puerto usando launchSetting.json
 
 ---
 
@@ -430,9 +429,9 @@ _______________________________________________
 **Tu controlador no aparece en Swagger.**
 
 ¿Qué verificarías?** (enumera al menos 3 cosas)
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
+1. Verificar en el COntroller model
+2. Revisar los nombres en el controlador
+3. verificar la herencia
 
 ---
 
@@ -440,27 +439,24 @@ _______________________________________________
 **El navegador dice que la conexión no es segura al acceder a https://localhost:7001**
 
 ¿Qué comando podrías ejecutar para solucionarlo?
-_______________________________________________
+dotnet dev-certs --trust
 
 ---
 
 ## Sección 10: Reflexión y Aprendizaje
 
 **¿Qué fue lo más emocionante de crear tu primera API?**
-_______________________________________________
-_______________________________________________
+Tener acceso a una API creada directamente por mi.
 
 **¿Qué concepto te resultó más difícil de entender?**
-_______________________________________________
-_______________________________________________
+en la parte de los Controllers
 
 **¿Qué te gustaría agregar a tu API?**
-_______________________________________________
-_______________________________________________
+la prioridad en las tareas
 
 **En una escala del 1 al 5, ¿qué tan cómodo te sientes con lo aprendido?**
 1 (nada cómodo) - 2 - 3 - 4 - 5 (muy cómodo)
-
+5
 **¿Qué quieres aprender en el próximo módulo?**
 _______________________________________________
 _______________________________________________
