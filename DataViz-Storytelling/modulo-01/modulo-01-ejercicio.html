@@ -201,7 +201,11 @@
     const STORAGE_KEY = 'dataviz-module-01';
 
     // --- Fallback functions if utils.js fails to load from CDN ---
+    // Mark that we're using fallback functions
+    let usingFallbackFunctions = false;
+    
     if (typeof parseCSV !== 'function') {
+      usingFallbackFunctions = true;
       function parseCSV(text) {
         const lines = text.trim().split('\n');
         const headers = lines[0].split(',').map(h => h.trim());
@@ -289,6 +293,13 @@
         const result = {};
         for (const [group, items] of Object.entries(grouped)) {
           const values = items.map(item => parseFloat(item[valueKey]) || 0);
+          
+          // Handle empty arrays
+          if (values.length === 0) {
+            result[group] = 0;
+            continue;
+          }
+          
           switch (operation) {
             case 'sum':
               result[group] = values.reduce((a, b) => a + b, 0);
@@ -305,6 +316,8 @@
             case 'min':
               result[group] = Math.min(...values);
               break;
+            default:
+              result[group] = 0;
           }
         }
         return result;
@@ -652,14 +665,9 @@
 
     // Init
     window.addEventListener('load', () => {
-      // Comprobación: utils.js (CDN) debe haber definido las funciones helper
-      const cdnLoaded = typeof parseCSV === 'function' && 
-                       typeof aggregate === 'function' && 
-                       typeof showNotification === 'function';
-      
       console.log('Verificando helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
       
-      if (!cdnLoaded) {
+      if (usingFallbackFunctions) {
         console.warn('utils.js no se cargó desde CDN. Usando funciones fallback inline.');
         // Show a subtle notification that we're using fallback
         const notification = document.createElement('div');
