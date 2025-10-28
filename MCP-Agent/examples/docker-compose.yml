@@ -1,0 +1,63 @@
+# docker-compose.yml para MCP Agent
+# Este archivo orquesta el agente MCP y potenciales dependencias
+
+version: '3.8'
+
+services:
+  # Servicio del agente MCP
+  mcp-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mcp-agent
+    ports:
+      - "8000:8000"  # Mapeo: host:container
+    environment:
+      # Variables de entorno para configuración
+      - AGENT_ENV=development
+      # En producción, usar variables de entorno para secrets:
+      # - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - mcp-network
+
+  # Ejemplo: Servicio de base de datos (opcional)
+  # Descomenta si necesitas persistencia para contexto/conversaciones
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: mcp-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - mcp-network
+
+  # Ejemplo: Servicio de vectorstore (opcional)
+  # Descomenta si implementas RAG o memoria semántica
+  # qdrant:
+  #   image: qdrant/qdrant:latest
+  #   container_name: mcp-qdrant
+  #   ports:
+  #     - "6333:6333"
+  #   volumes:
+  #     - qdrant-data:/qdrant/storage
+  #   networks:
+  #     - mcp-network
+
+# Volúmenes para persistencia (opcional)
+# volumes:
+#   redis-data:
+#   qdrant-data:
+
+# Red personalizada para comunicación entre servicios
+networks:
+  mcp-network:
+    driver: bridge
