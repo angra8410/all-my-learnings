@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mcp-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mcp-agent
+    image: mcp-agent:latest
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MODEL_NAME=mcp-mock-v1
+    # Uncomment to mount agent.py for development
+    # volumes:
+    #   - ./agent.py:/app/agent.py
+    networks:
+      - mcp-network
+    # Uncomment to expose port for future API
+    # ports:
+    #   - "8000:8000"
+
+  # Mock dependency service (placeholder for future integrations)
+  # Uncomment when you need a database, cache, or other services
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: mcp-redis
+  #   restart: unless-stopped
+  #   networks:
+  #     - mcp-network
+  #   ports:
+  #     - "6379:6379"
+
+networks:
+  mcp-network:
+    driver: bridge
