@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # Main MCP Agent service
+  mcp-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mcp-agent
+    restart: unless-stopped
+    environment:
+      # Environment variables for the agent
+      # In production, add API keys and configuration here
+      - AGENT_VERSION=0.1-mock
+      - LOG_LEVEL=INFO
+    volumes:
+      # Mount agent code for development (optional - comment out for production)
+      - ./agent.py:/app/agent.py:ro
+    networks:
+      - mcp-network
+    # Uncomment below to expose ports if agent becomes a web service
+    # ports:
+    #   - "8000:8000"
+
+  # Mock database service (example dependency)
+  # Uncomment when you need persistent storage
+  # mock-db:
+  #   image: postgres:15-alpine
+  #   container_name: mcp-mock-db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: mcpuser
+  #     POSTGRES_PASSWORD: mcppass
+  #     POSTGRES_DB: mcpdb
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   networks:
+  #     - mcp-network
+  #   ports:
+  #     - "5432:5432"
+
+  # Mock Redis for caching (example dependency)
+  # Uncomment when you need caching
+  # mock-redis:
+  #   image: redis:7-alpine
+  #   container_name: mcp-mock-redis
+  #   restart: unless-stopped
+  #   networks:
+  #     - mcp-network
+  #   ports:
+  #     - "6379:6379"
+
+# Define networks
+networks:
+  mcp-network:
+    driver: bridge
+
+# Define volumes for persistent data
+# volumes:
+#   postgres-data:
