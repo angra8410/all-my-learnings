@@ -8,9 +8,15 @@
     <!-- styles: usamos CDN para que funcione en htmlpreview/jsDelivr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/angra8410/all-my-learnings@main/DataViz-Storytelling/examples/styles.css">
 
+    <!-- Chart & Plotly CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
+
     <style>
+      /* Aseguramos tamaño visible del canvas */
       .chart-container{ position: relative; height: 420px; margin-bottom: 12px; }
       .chart-canvas{ width:100% !important; height:100% !important; display:block; }
+      /* Pequeñas mejoras visuales para htmlpreview */
       .hidden{ display:none; }
     </style>
 </head>
@@ -153,10 +159,8 @@
     </div>
   </div>
 
-  <!-- utils.js desde jsDelivr (apunta a tu repo/branch), Chart.js y Plotly al FINAL para asegurar carga -->
+  <!-- utils.js desde jsDelivr (apunta a tu repo/branch) -->
   <script src="https://cdn.jsdelivr.net/gh/angra8410/all-my-learnings@main/DataViz-Storytelling/examples/utils.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
 
   <script>
     // Variables de estado
@@ -233,13 +237,6 @@
 
     // --- Función principal renderChart con soporte scatter robusto ---
     function renderChart() {
-      // Verifica que Chart.js esté disponible
-      if (typeof Chart === 'undefined') {
-        showNotification('Error: Chart.js no se ha cargado. Verifica la conexión o la URL del CDN.', 'error');
-        console.error('Chart.js no está disponible. Revisa la carga del script.');
-        return;
-      }
-
       const xCol = document.getElementById('xAxis').value;
       const yCol = document.getElementById('yAxis').value;
       const chartType = document.getElementById('chartType').value;
@@ -422,6 +419,7 @@
     window.addEventListener('load', () => {
       // Comprobación: utils.js (CDN) debe haber definido las funciones helper
       console.log('Verificando helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
+      // Si alguna función no existe, avisar al usuario
       if (typeof parseCSV !== 'function' || typeof aggregate !== 'function') {
         showNotification('Advertencia: helpers no cargados (utils.js). Comprueba la consola y la red.', 'error');
       }
