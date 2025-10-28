@@ -200,28 +200,232 @@
     let processedData = [];
     const STORAGE_KEY = 'dataviz-module-01';
 
-    // --- (Funciones de carga/preview idénticas) ---
+    // --- Fallback functions if utils.js fails to load from CDN ---
+    if (typeof parseCSV !== 'function') {
+      function parseCSV(text) {
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',').map(h => h.trim());
+        return lines.slice(1).map(line => {
+          const values = line.split(',').map(v => v.trim());
+          const obj = {};
+          headers.forEach((header, index) => {
+            obj[header] = values[index];
+          });
+          return obj;
+        });
+      }
+    }
+
+    if (typeof arrayToCSV !== 'function') {
+      function arrayToCSV(data) {
+        if (!data || data.length === 0) return '';
+        const headers = Object.keys(data[0]);
+        const csvRows = [headers.join(',')];
+        for (const row of data) {
+          const values = headers.map(header => {
+            const val = row[header];
+            return typeof val === 'string' && val.includes(',') ? `"${val}"` : val;
+          });
+          csvRows.push(values.join(','));
+        }
+        return csvRows.join('\n');
+      }
+    }
+
+    if (typeof downloadFile !== 'function') {
+      function downloadFile(content, filename, contentType = 'text/plain') {
+        const blob = new Blob([content], { type: contentType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    if (typeof saveToLocalStorage !== 'function') {
+      function saveToLocalStorage(key, data) {
+        try {
+          localStorage.setItem(key, JSON.stringify(data));
+          return true;
+        } catch (e) {
+          console.error('Error saving to localStorage:', e);
+          return false;
+        }
+      }
+    }
+
+    if (typeof loadFromLocalStorage !== 'function') {
+      function loadFromLocalStorage(key) {
+        try {
+          const data = localStorage.getItem(key);
+          return data ? JSON.parse(data) : null;
+        } catch (e) {
+          console.error('Error loading from localStorage:', e);
+          return null;
+        }
+      }
+    }
+
+    if (typeof formatDate !== 'function') {
+      function formatDate(date = new Date()) {
+        return date.toISOString().split('T')[0];
+      }
+    }
+
+    if (typeof groupBy !== 'function') {
+      function groupBy(array, key) {
+        return array.reduce((result, item) => {
+          (result[item[key]] = result[item[key]] || []).push(item);
+          return result;
+        }, {});
+      }
+    }
+
+    if (typeof aggregate !== 'function') {
+      function aggregate(array, groupKey, valueKey, operation = 'sum') {
+        const grouped = groupBy(array, groupKey);
+        const result = {};
+        for (const [group, items] of Object.entries(grouped)) {
+          const values = items.map(item => parseFloat(item[valueKey]) || 0);
+          switch (operation) {
+            case 'sum':
+              result[group] = values.reduce((a, b) => a + b, 0);
+              break;
+            case 'avg':
+              result[group] = values.reduce((a, b) => a + b, 0) / values.length;
+              break;
+            case 'count':
+              result[group] = values.length;
+              break;
+            case 'max':
+              result[group] = Math.max(...values);
+              break;
+            case 'min':
+              result[group] = Math.min(...values);
+              break;
+          }
+        }
+        return result;
+      }
+    }
+
+    if (typeof showNotification !== 'function') {
+      function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 15px 25px;
+          background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+          color: white;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          z-index: 10000;
+          animation: slideIn 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+          notification.style.animation = 'slideOut 0.3s ease';
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+      
+      // Add CSS animations if not already added
+      if (!document.getElementById('notification-animations')) {
+        const style = document.createElement('style');
+        style.id = 'notification-animations';
+        style.textContent = `
+          @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+          }
+          @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    // --- (Funciones de carga/preview con manejo robusto de errores) ---
     function loadCSV(event) {
       const file = event.target.files[0];
       if (!file) return;
+      
+      // Validate file type
+      if (!file.name.endsWith('.csv')) {
+        showNotification('Por favor selecciona un archivo CSV válido', 'error');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showNotification('El archivo es demasiado grande. Máximo 5MB', 'error');
+        return;
+      }
+      
       const reader = new FileReader();
-      reader.onload = function(e) {
-        const text = e.target.result;
-        currentData = parseCSV(text);
-        displayData();
-        populateColumnSelects();
-        showNotification('CSV cargado correctamente', 'success');
+      
+      reader.onerror = function() {
+        showNotification('Error al leer el archivo. Intenta de nuevo', 'error');
+        console.error('FileReader error:', reader.error);
       };
+      
+      reader.onload = function(e) {
+        try {
+          const text = e.target.result;
+          if (!text || text.trim().length === 0) {
+            showNotification('El archivo está vacío', 'error');
+            return;
+          }
+          
+          currentData = parseCSV(text);
+          
+          if (!currentData || currentData.length === 0) {
+            showNotification('No se pudieron extraer datos del CSV', 'error');
+            return;
+          }
+          
+          displayData();
+          populateColumnSelects();
+          showNotification('CSV cargado correctamente', 'success');
+        } catch (error) {
+          showNotification('Error al procesar el CSV: ' + error.message, 'error');
+          console.error('CSV parsing error:', error);
+        }
+      };
+      
       reader.readAsText(file);
     }
 
     function parseManualCSV() {
       const text = document.getElementById('csvTextInput').value.trim();
-      if (!text) { showNotification('Por favor ingresa datos CSV', 'error'); return; }
-      currentData = parseCSV(text);
-      displayData();
-      populateColumnSelects();
-      showNotification('Datos cargados correctamente', 'success');
+      if (!text) { 
+        showNotification('Por favor ingresa datos CSV', 'error'); 
+        return; 
+      }
+      
+      try {
+        currentData = parseCSV(text);
+        
+        if (!currentData || currentData.length === 0) {
+          showNotification('No se pudieron extraer datos del CSV', 'error');
+          return;
+        }
+        
+        displayData();
+        populateColumnSelects();
+        showNotification('Datos cargados correctamente', 'success');
+      } catch (error) {
+        showNotification('Error al procesar el CSV: ' + error.message, 'error');
+        console.error('CSV parsing error:', error);
+      }
     }
 
     function displayData() {
@@ -449,11 +653,34 @@
     // Init
     window.addEventListener('load', () => {
       // Comprobación: utils.js (CDN) debe haber definido las funciones helper
+      const cdnLoaded = typeof parseCSV === 'function' && 
+                       typeof aggregate === 'function' && 
+                       typeof showNotification === 'function';
+      
       console.log('Verificando helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
-      // Si alguna función no existe, avisar al usuario
-      if (typeof parseCSV !== 'function' || typeof aggregate !== 'function') {
-        showNotification('Advertencia: helpers no cargados (utils.js). Comprueba la consola y la red.', 'error');
+      
+      if (!cdnLoaded) {
+        console.warn('utils.js no se cargó desde CDN. Usando funciones fallback inline.');
+        // Show a subtle notification that we're using fallback
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          padding: 10px 15px;
+          background: #ff9800;
+          color: white;
+          border-radius: 6px;
+          font-size: 0.85em;
+          z-index: 9999;
+        `;
+        notification.textContent = '⚠️ Modo offline: usando funciones locales';
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 5000);
+      } else {
+        console.log('✅ utils.js cargado correctamente desde CDN');
       }
+      
       updateSavedDataInfo();
     });
   </script>
