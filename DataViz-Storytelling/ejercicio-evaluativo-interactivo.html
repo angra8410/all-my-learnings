@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Global - DataViz-Storytelling</title>
+    <link rel="stylesheet" href="examples/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Evaluación Global del Curso</h1>
+            <p>DataViz-Storytelling: Evaluación Final Interactiva</p>
+        </div>
+
+        <div class="content">
+            <div class="alert alert-info">
+                <strong>Instrucciones:</strong> Este cuestionario evalúa tu comprensión de todos los módulos del curso.
+                Responde todas las preguntas y obtén tu puntuación final (0-100%). Los resultados se guardan automáticamente en localStorage.
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="label">Preguntas</div>
+                    <div class="value" id="totalQuestions">20</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Respondidas</div>
+                    <div class="value" id="answeredQuestions">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Puntuación</div>
+                    <div class="value" id="scoreDisplay">-</div>
+                </div>
+            </div>
+
+            <form id="quizForm">
+                <!-- Question 1 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 1 de 20</div>
+                    <div class="question-text">¿Cuál es el objetivo principal de la visualización de datos?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q1" value="a" id="q1a">
+                            <label for="q1a">Hacer gráficos bonitos</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q1" value="b" id="q1b">
+                            <label for="q1b">Comunicar información de manera clara y efectiva</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q1" value="c" id="q1c">
+                            <label for="q1c">Impresionar a la audiencia</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q1" value="d" id="q1d">
+                            <label for="q1d">Ocultar datos complejos</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 2 de 20</div>
+                    <div class="question-text">¿Qué tipo de gráfico es más adecuado para mostrar la evolución temporal de una variable?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q2" value="a" id="q2a">
+                            <label for="q2a">Gráfico de barras</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q2" value="b" id="q2b">
+                            <label for="q2b">Gráfico de líneas</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q2" value="c" id="q2c">
+                            <label for="q2c">Gráfico circular</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q2" value="d" id="q2d">
+                            <label for="q2d">Gráfico de dispersión</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 3 de 20</div>
+                    <div class="question-text">¿Cuáles son principios importantes de diseño visual? (Selecciona todas las correctas)</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q3" value="a" id="q3a">
+                            <label for="q3a">Jerarquía visual</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q3" value="b" id="q3b">
+                            <label for="q3b">Contraste</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q3" value="c" id="q3c">
+                            <label for="q3c">Uso excesivo de colores</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q3" value="d" id="q3d">
+                            <label for="q3d">Alineación</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 4 de 20</div>
+                    <div class="question-text">¿Qué librería JavaScript es conocida por su simplicidad para crear gráficos básicos?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q4" value="a" id="q4a">
+                            <label for="q4a">D3.js</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q4" value="b" id="q4b">
+                            <label for="q4b">Chart.js</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q4" value="c" id="q4c">
+                            <label for="q4c">Three.js</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q4" value="d" id="q4d">
+                            <label for="q4d">jQuery</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 5 de 20</div>
+                    <div class="question-text">¿Cuál es el propósito de agregar datos antes de visualizarlos?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q5" value="a" id="q5a">
+                            <label for="q5a">Reducir el tamaño del archivo</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q5" value="b" id="q5b">
+                            <label for="q5b">Resumir información y facilitar la interpretación</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q5" value="c" id="q5c">
+                            <label for="q5c">Eliminar datos innecesarios</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q5" value="d" id="q5d">
+                            <label for="q5d">Hacer el análisis más complejo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 6 de 20</div>
+                    <div class="question-text">¿Qué elementos hacen que un dashboard sea interactivo?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q6" value="a" id="q6a">
+                            <label for="q6a">Filtros dinámicos</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q6" value="b" id="q6b">
+                            <label for="q6b">Tooltips</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q6" value="c" id="q6c">
+                            <label for="q6c">Imágenes estáticas</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q6" value="d" id="q6d">
+                            <label for="q6d">Zoom y pan</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 7 de 20</div>
+                    <div class="question-text">En storytelling con datos, ¿qué es lo más importante?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q7" value="a" id="q7a">
+                            <label for="q7a">Mostrar todos los datos disponibles</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q7" value="b" id="q7b">
+                            <label for="q7b">Guiar a la audiencia hacia insights clave</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q7" value="c" id="q7c">
+                            <label for="q7c">Usar el mayor número de gráficos posible</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q7" value="d" id="q7d">
+                            <label for="q7d">Evitar conclusiones</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 8 de 20</div>
+                    <div class="question-text">¿Por qué es importante considerar la accesibilidad en visualizaciones?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q8" value="a" id="q8a">
+                            <label for="q8a">Para cumplir regulaciones</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q8" value="b" id="q8b">
+                            <label for="q8b">Para que todas las personas puedan entender la información</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q8" value="c" id="q8c">
+                            <label for="q8c">Solo es importante para sitios web gubernamentales</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q8" value="d" id="q8d">
+                            <label for="q8d">No es importante</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 9 de 20</div>
+                    <div class="question-text">¿Qué indica un gráfico engañoso?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q9" value="a" id="q9a">
+                            <label for="q9a">Eje Y que no comienza en cero</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q9" value="b" id="q9b">
+                            <label for="q9b">Uso de 3D innecesario</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q9" value="c" id="q9c">
+                            <label for="q9c">Etiquetas claras</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q9" value="d" id="q9d">
+                            <label for="q9d">Escalas manipuladas</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 10 de 20</div>
+                    <div class="question-text">¿Cuál es el primer paso al trabajar con datos reales?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q10" value="a" id="q10a">
+                            <label for="q10a">Crear visualizaciones inmediatamente</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q10" value="b" id="q10b">
+                            <label for="q10b">Explorar y limpiar los datos</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q10" value="c" id="q10c">
+                            <label for="q10c">Compartir con otros</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q10" value="d" id="q10d">
+                            <label for="q10d">Aplicar machine learning</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 11 de 20</div>
+                    <div class="question-text">¿Qué formato es mejor para intercambiar datos tabulares?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q11" value="a" id="q11a">
+                            <label for="q11a">PDF</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q11" value="b" id="q11b">
+                            <label for="q11b">CSV</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q11" value="c" id="q11c">
+                            <label for="q11c">Imagen PNG</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q11" value="d" id="q11d">
+                            <label for="q11d">Documento de Word</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 12 de 20</div>
+                    <div class="question-text">¿Cuándo es apropiado usar un gráfico circular (pie chart)?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q12" value="a" id="q12a">
+                            <label for="q12a">Para mostrar partes de un todo (con pocas categorías)</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q12" value="b" id="q12b">
+                            <label for="q12b">Para comparar valores entre muchas categorías</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q12" value="c" id="q12c">
+                            <label for="q12c">Para mostrar tendencias temporales</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q12" value="d" id="q12d">
+                            <label for="q12d">Siempre, es el mejor tipo de gráfico</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 13 de 20</div>
+                    <div class="question-text">¿Qué colores se deben evitar juntos para usuarios con daltonismo?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q13" value="a" id="q13a">
+                            <label for="q13a">Azul y amarillo</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q13" value="b" id="q13b">
+                            <label for="q13b">Rojo y verde</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q13" value="c" id="q13c">
+                            <label for="q13c">Negro y blanco</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q13" value="d" id="q13d">
+                            <label for="q13d">Morado y naranja</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 14 de 20</div>
+                    <div class="question-text">¿Qué API del navegador permite cargar archivos locales?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q14" value="a" id="q14a">
+                            <label for="q14a">Fetch API</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q14" value="b" id="q14b">
+                            <label for="q14b">FileReader API</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q14" value="c" id="q14c">
+                            <label for="q14c">Canvas API</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q14" value="d" id="q14d">
+                            <label for="q14d">WebSocket API</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 15 de 20</div>
+                    <div class="question-text">¿Dónde se almacenan los resultados de los ejercicios interactivos?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q15" value="a" id="q15a">
+                            <label for="q15a">En un servidor remoto</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q15" value="b" id="q15b">
+                            <label for="q15b">En localStorage del navegador</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q15" value="c" id="q15c">
+                            <label for="q15c">En cookies</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q15" value="d" id="q15d">
+                            <label for="q15d">No se almacenan</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 16 de 20</div>
+                    <div class="question-text">¿Qué elementos son esenciales en un buen storytelling con datos?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q16" value="a" id="q16a">
+                            <label for="q16a">Contexto</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q16" value="b" id="q16b">
+                            <label for="q16b">Narrativa clara</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q16" value="c" id="q16c">
+                            <label for="q16c">Muchas animaciones</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="checkbox" name="q16" value="d" id="q16d">
+                            <label for="q16d">Call to action</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 17 de 20</div>
+                    <div class="question-text">¿Qué ventaja tiene Plotly.js sobre Chart.js?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q17" value="a" id="q17a">
+                            <label for="q17a">Es más ligero</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q17" value="b" id="q17b">
+                            <label for="q17b">Ofrece mayor interactividad por defecto</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q17" value="c" id="q17c">
+                            <label for="q17c">Es más fácil de aprender</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q17" value="d" id="q17d">
+                            <label for="q17d">No tiene ventajas</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 18 de 20</div>
+                    <div class="question-text">¿Qué tipo de gráfico es mejor para mostrar correlación entre dos variables?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q18" value="a" id="q18a">
+                            <label for="q18a">Gráfico de barras</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q18" value="b" id="q18b">
+                            <label for="q18b">Gráfico de dispersión (scatter)</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q18" value="c" id="q18c">
+                            <label for="q18c">Gráfico circular</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q18" value="d" id="q18d">
+                            <label for="q18d">Histograma</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 19 de 20</div>
+                    <div class="question-text">En un dashboard, ¿qué es más importante?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q19" value="a" id="q19a">
+                            <label for="q19a">Mostrar la mayor cantidad de métricas posible</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q19" value="b" id="q19b">
+                            <label for="q19b">Enfocarse en métricas clave y facilitar la toma de decisiones</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q19" value="c" id="q19c">
+                            <label for="q19c">Usar muchos colores diferentes</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q19" value="d" id="q19d">
+                            <label for="q19d">Incluir gráficos 3D</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="quiz-question">
+                    <div class="question-number">Pregunta 20 de 20</div>
+                    <div class="question-text">¿Cuál es el objetivo de un proyecto integrador de visualización?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" name="q20" value="a" id="q20a">
+                            <label for="q20a">Aplicar todos los conceptos aprendidos en un proyecto real</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q20" value="b" id="q20b">
+                            <label for="q20b">Crear el gráfico más complejo posible</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q20" value="c" id="q20c">
+                            <label for="q20c">Copiar ejemplos de internet</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" name="q20" value="d" id="q20d">
+                            <label for="q20d">Terminar rápidamente el curso</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="evaluateQuiz()">Evaluar Respuestas</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Reiniciar</button>
+                    <button type="button" class="btn btn-success" onclick="downloadResults()">Descargar Resultados</button>
+                </div>
+            </form>
+
+            <div id="resultsSection" class="results hidden">
+                <h3>Resultados</h3>
+                <div class="score" id="finalScore">0%</div>
+                <p id="feedbackText"></p>
+                <div id="detailedResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="examples/utils.js"></script>
+    <script>
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'b',
+            q3: ['a', 'b', 'd'],
+            q4: 'b',
+            q5: 'b',
+            q6: ['a', 'b', 'd'],
+            q7: 'b',
+            q8: 'b',
+            q9: ['a', 'b', 'd'],
+            q10: 'b',
+            q11: 'b',
+            q12: 'a',
+            q13: 'b',
+            q14: 'b',
+            q15: 'b',
+            q16: ['a', 'b', 'd'],
+            q17: 'b',
+            q18: 'b',
+            q19: 'b',
+            q20: 'a'
+        };
+
+        // Update answered questions count
+        document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', updateAnsweredCount);
+        });
+
+        function updateAnsweredCount() {
+            const allQuestions = Object.keys(correctAnswers);
+            let answered = 0;
+            
+            allQuestions.forEach(q => {
+                const inputs = document.querySelectorAll(`input[name="${q}"]`);
+                const hasAnswer = Array.from(inputs).some(input => input.checked);
+                if (hasAnswer) answered++;
+            });
+            
+            document.getElementById('answeredQuestions').textContent = answered;
+        }
+
+        function evaluateQuiz() {
+            const userAnswers = {};
+            let correct = 0;
+            const total = Object.keys(correctAnswers).length;
+            const details = [];
+
+            // Collect answers
+            for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+                const inputs = document.querySelectorAll(`input[name="${question}"]`);
+                
+                if (Array.isArray(correctAnswer)) {
+                    // Checkbox question
+                    userAnswers[question] = Array.from(inputs)
+                        .filter(input => input.checked)
+                        .map(input => input.value)
+                        .sort();
+                    
+                    const isCorrect = JSON.stringify(userAnswers[question]) === JSON.stringify(correctAnswer.sort());
+                    if (isCorrect) correct++;
+                    details.push({
+                        question: question,
+                        correct: isCorrect,
+                        userAnswer: userAnswers[question],
+                        correctAnswer: correctAnswer
+                    });
+                } else {
+                    // Radio question
+                    const checked = Array.from(inputs).find(input => input.checked);
+                    userAnswers[question] = checked ? checked.value : null;
+                    
+                    const isCorrect = userAnswers[question] === correctAnswer;
+                    if (isCorrect) correct++;
+                    details.push({
+                        question: question,
+                        correct: isCorrect,
+                        userAnswer: userAnswers[question],
+                        correctAnswer: correctAnswer
+                    });
+                }
+            }
+
+            const score = Math.round((correct / total) * 100);
+            
+            // Display results
+            const resultsSection = document.getElementById('resultsSection');
+            const finalScore = document.getElementById('finalScore');
+            const feedbackText = document.getElementById('feedbackText');
+            
+            resultsSection.classList.remove('hidden');
+            finalScore.textContent = `${score}%`;
+            finalScore.className = 'score';
+            
+            if (score >= 70) {
+                finalScore.classList.add('high');
+                resultsSection.classList.remove('error');
+                feedbackText.textContent = '¡Excelente trabajo! Has demostrado un buen dominio de los conceptos del curso.';
+            } else if (score >= 50) {
+                finalScore.classList.add('medium');
+                resultsSection.classList.remove('error');
+                feedbackText.textContent = 'Buen esfuerzo. Considera repasar algunos conceptos clave.';
+            } else {
+                finalScore.classList.add('low');
+                resultsSection.classList.add('error');
+                feedbackText.textContent = 'Te recomendamos revisar el material del curso y volver a intentarlo.';
+            }
+            
+            document.getElementById('scoreDisplay').textContent = `${score}%`;
+            
+            // Save to localStorage
+            const result = {
+                date: new Date().toISOString(),
+                score: score,
+                correct: correct,
+                total: total,
+                answers: userAnswers,
+                details: details
+            };
+            
+            saveToLocalStorage('dataviz-global-evaluation', result);
+            showNotification(`Resultados guardados. Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            if (confirm('¿Estás seguro de que quieres reiniciar el cuestionario?')) {
+                document.getElementById('quizForm').reset();
+                document.getElementById('resultsSection').classList.add('hidden');
+                document.getElementById('answeredQuestions').textContent = '0';
+                document.getElementById('scoreDisplay').textContent = '-';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                showNotification('Cuestionario reiniciado', 'info');
+            }
+        }
+
+        function downloadResults() {
+            const savedResults = loadFromLocalStorage('dataviz-global-evaluation');
+            
+            if (!savedResults) {
+                showNotification('No hay resultados para descargar. Completa el cuestionario primero.', 'error');
+                return;
+            }
+            
+            // Download as JSON
+            downloadFile(
+                JSON.stringify(savedResults, null, 2),
+                `dataviz-evaluacion-global-${formatDate()}.json`,
+                'application/json'
+            );
+            
+            // Also create CSV summary
+            const csvContent = `Fecha,Puntuación,Correctas,Total\n${savedResults.date},${savedResults.score}%,${savedResults.correct},${savedResults.total}`;
+            downloadFile(
+                csvContent,
+                `dataviz-evaluacion-global-${formatDate()}.csv`,
+                'text/csv'
+            );
+            
+            showNotification('Resultados descargados correctamente', 'success');
+        }
+
+        // Load previous results if available
+        window.addEventListener('load', () => {
+            const savedResults = loadFromLocalStorage('dataviz-global-evaluation');
+            if (savedResults) {
+                showNotification('Se encontraron resultados previos guardados', 'info');
+            }
+        });
+    </script>
+</body>
+</html>

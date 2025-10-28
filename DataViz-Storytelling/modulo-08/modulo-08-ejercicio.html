@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Crítica - DataViz-Storytelling</title>
+    <link rel="stylesheet" href="../examples/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Módulo 08: Evaluación Crítica</h1>
+            <p>Ejercicio Interactivo - DataViz-Storytelling</p>
+        </div>
+
+        <div class="content">
+            <div class="alert alert-info">
+                <strong>Instrucciones:</strong> Este ejercicio te permite practicar visualización de datos directamente en el navegador.
+                Carga un CSV, configura el gráfico, responde el cuestionario y descarga tus resultados.
+            </div>
+
+            <!-- Section 1: Data Loading -->
+            <div class="section">
+                <h2>📁 Paso 1: Cargar Datos</h2>
+                <p>Selecciona un archivo CSV o pega tus datos manualmente.</p>
+                
+                <div class="form-group">
+                    <label>Cargar archivo CSV:</label>
+                    <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
+                        <input type="file" id="fileInput" accept=".csv" onchange="loadCSV(event)">
+                        <p>📂 Click aquí para seleccionar un archivo CSV</p>
+                        <p style="font-size: 0.9em; opacity: 0.7;">O usa los archivos de ejemplo en /examples/</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>O pega datos CSV manualmente:</label>
+                    <textarea id="csvTextInput" placeholder="Mes,Producto,Ventas&#10;Enero,A,150&#10;Febrero,A,180"></textarea>
+                    <button class="btn btn-secondary" onclick="parseManualCSV()">Cargar datos pegados</button>
+                </div>
+
+                <div id="dataPreview" class="hidden">
+                    <h3>Vista previa de datos:</h3>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="dataTable"></table>
+                    </div>
+                    <p><strong>Filas cargadas:</strong> <span id="rowCount">0</span></p>
+                </div>
+            </div>
+
+            <!-- Section 2: Chart Configuration -->
+            <div class="section">
+                <h2>⚙️ Paso 2: Configurar Gráfico</h2>
+                
+                <div class="form-group">
+                    <label for="chartType">Tipo de gráfico:</label>
+                    <select id="chartType">
+                        <option value="bar">Barras</option>
+                        <option value="line">Líneas</option>
+                        <option value="scatter">Dispersión (Scatter)</option>
+                        <option value="pie">Circular (Pie)</option>
+                        <option value="doughnut">Dona (Doughnut)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="xAxis">Eje X (etiquetas):</label>
+                    <select id="xAxis">
+                        <option value="">Selecciona columna...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="yAxis">Eje Y (valores):</label>
+                    <select id="yAxis">
+                        <option value="">Selecciona columna...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="groupBy">Agrupar por (opcional):</label>
+                    <select id="groupBy">
+                        <option value="">Sin agrupación</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="aggregation">Operación de agregación:</label>
+                    <select id="aggregation">
+                        <option value="sum">Suma</option>
+                        <option value="avg">Promedio</option>
+                        <option value="count">Conteo</option>
+                        <option value="max">Máximo</option>
+                        <option value="min">Mínimo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="chartTitle">Título del gráfico:</label>
+                    <input type="text" id="chartTitle" placeholder="Mi Gráfico de Datos">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="renderChart()">Generar Gráfico</button>
+                    <button class="btn btn-secondary" onclick="clearChart()">Limpiar</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Chart Display -->
+            <div class="section">
+                <h2>📊 Paso 3: Visualización</h2>
+                <div class="chart-container">
+                    <canvas id="myChart" class="chart-canvas"></canvas>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="downloadChart()">Descargar Gráfico PNG</button>
+                    <button class="btn btn-secondary" onclick="downloadProcessedData()">Descargar Datos Procesados CSV</button>
+                </div>
+            </div>
+
+            <!-- Section 4: Quiz -->
+            <div class="section">
+                <h2>✅ Paso 4: Cuestionario del Módulo</h2>
+                <p>Responde las siguientes preguntas sobre los conceptos del módulo:</p>
+
+                <form id="quizForm">
+                    
+                    <div class="quiz-question">
+                        <div class="question-number">Pregunta 1 de 3</div>
+                        <div class="question-text">¿Has completado todos los ejercicios del módulo?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">Sí, todos</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">La mayoría</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">Algunos</label></div>
+                        </div>
+                    </div>
+                    <div class="quiz-question">
+                        <div class="question-number">Pregunta 2 de 3</div>
+                        <div class="question-text">¿Comprendes los conceptos principales del módulo?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a" id="q2a"><label for="q2a">Sí, claramente</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b" id="q2b"><label for="q2b">Parcialmente</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c" id="q2c"><label for="q2c">Necesito repasar</label></div>
+                        </div>
+                    </div>
+                    <div class="quiz-question">
+                        <div class="question-number">Pregunta 3 de 3</div>
+                        <div class="question-text">¿Qué técnicas has aplicado? (Selecciona todas)</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="checkbox" name="q3" value="a" id="q3a"><label for="q3a">Carga de CSV</label></div>
+                            <div class="quiz-option"><input type="checkbox" name="q3" value="b" id="q3b"><label for="q3b">Creación de gráficos</label></div>
+                            <div class="quiz-option"><input type="checkbox" name="q3" value="c" id="q3c"><label for="q3c">Agregación de datos</label></div>
+                            <div class="quiz-option"><input type="checkbox" name="q3" value="d" id="q3d"><label for="q3d">Exportación de resultados</label></div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" onclick="evaluateQuiz()">Evaluar</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Reiniciar</button>
+                    </div>
+                </form>
+
+                <div id="quizResults" class="results hidden">
+                    <h3>Resultados del Cuestionario</h3>
+                    <div class="score" id="quizScore">0%</div>
+                    <p id="quizFeedback"></p>
+                </div>
+            </div>
+
+            <!-- Section 5: Save & Export -->
+            <div class="section">
+                <h2>💾 Paso 5: Guardar y Exportar</h2>
+                <p>Tus resultados se guardan automáticamente en localStorage. También puedes descargarlos:</p>
+                
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="downloadAllResults()">Descargar Todos los Resultados JSON</button>
+                    <button class="btn btn-secondary" onclick="clearSavedData()">Limpiar Datos Guardados</button>
+                </div>
+
+                <div id="savedDataInfo" class="card">
+                    <div class="card-header">Información de Guardado</div>
+                    <div class="card-body" id="savedDataContent">
+                        No hay datos guardados aún.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../examples/utils.js"></script>
+    <script>
+        let currentData = [];
+        let currentChart = null;
+        let processedData = [];
+        const STORAGE_KEY = 'dataviz-module-08';
+
+        // Load CSV from file
+        function loadCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                currentData = parseCSV(text);
+                displayData();
+                populateColumnSelects();
+                showNotification('CSV cargado correctamente', 'success');
+            };
+            reader.readAsText(file);
+        }
+
+        // Parse manual CSV input
+        function parseManualCSV() {
+            const text = document.getElementById('csvTextInput').value.trim();
+            if (!text) {
+                showNotification('Por favor ingresa datos CSV', 'error');
+                return;
+            }
+
+            currentData = parseCSV(text);
+            displayData();
+            populateColumnSelects();
+            showNotification('Datos cargados correctamente', 'success');
+        }
+
+        // Display data in table
+        function displayData() {
+            if (currentData.length === 0) return;
+
+            const preview = document.getElementById('dataPreview');
+            const table = document.getElementById('dataTable');
+            const rowCount = document.getElementById('rowCount');
+
+            preview.classList.remove('hidden');
+            rowCount.textContent = currentData.length;
+
+            const headers = Object.keys(currentData[0]);
+            let html = '<thead><tr>';
+            headers.forEach(h => html += `<th>${h}</th>`);
+            html += '</tr></thead><tbody>';
+
+            currentData.slice(0, 10).forEach(row => {
+                html += '<tr>';
+                headers.forEach(h => html += `<td>${row[h]}</td>`);
+                html += '</tr>';
+            });
+
+            if (currentData.length > 10) {
+                html += `<tr><td colspan="${headers.length}" style="text-align: center; font-style: italic;">... y ${currentData.length - 10} filas más</td></tr>`;
+            }
+
+            html += '</tbody>';
+            table.innerHTML = html;
+        }
+
+        // Populate column selects
+        function populateColumnSelects() {
+            if (currentData.length === 0) return;
+
+            const headers = Object.keys(currentData[0]);
+            const xAxis = document.getElementById('xAxis');
+            const yAxis = document.getElementById('yAxis');
+            const groupBy = document.getElementById('groupBy');
+
+            [xAxis, yAxis, groupBy].forEach(select => {
+                const current = select.value;
+                select.innerHTML = select.id === 'groupBy' ? '<option value="">Sin agrupación</option>' : '<option value="">Selecciona columna...</option>';
+                headers.forEach(h => {
+                    const option = document.createElement('option');
+                    option.value = h;
+                    option.textContent = h;
+                    select.appendChild(option);
+                });
+                if (current) select.value = current;
+            });
+        }
+
+        // Render chart
+        function renderChart() {
+            const xCol = document.getElementById('xAxis').value;
+            const yCol = document.getElementById('yAxis').value;
+            const chartType = document.getElementById('chartType').value;
+            const groupByCol = document.getElementById('groupBy').value;
+            const aggType = document.getElementById('aggregation').value;
+            const title = document.getElementById('chartTitle').value || 'Gráfico de Datos';
+
+            if (!xCol || !yCol) {
+                showNotification('Selecciona columnas para X e Y', 'error');
+                return;
+            }
+
+            if (currentData.length === 0) {
+                showNotification('Primero carga un CSV', 'error');
+                return;
+            }
+
+            // Process data
+            let chartData;
+            if (groupByCol) {
+                const grouped = groupBy(currentData, groupByCol);
+                const datasets = [];
+                
+                for (const [group, items] of Object.entries(grouped)) {
+                    const aggregated = aggregate(items, xCol, yCol, aggType);
+                    datasets.push({
+                        label: group,
+                        data: Object.values(aggregated),
+                        backgroundColor: `hsla(${Math.random() * 360}, 70%, 60%, 0.8)`,
+                        borderColor: `hsla(${Math.random() * 360}, 70%, 50%, 1)`,
+                        borderWidth: 2
+                    });
+                }
+                
+                chartData = {
+                    labels: Object.keys(aggregate(currentData, xCol, yCol, aggType)),
+                    datasets: datasets
+                };
+            } else {
+                const aggregated = aggregate(currentData, xCol, yCol, aggType);
+                processedData = Object.entries(aggregated).map(([k, v]) => ({ [xCol]: k, [yCol]: v }));
+                
+                chartData = {
+                    labels: Object.keys(aggregated),
+                    datasets: [{
+                        label: yCol,
+                        data: Object.values(aggregated),
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            }
+
+            // Clear previous chart
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            // Create new chart
+            const ctx = document.getElementById('myChart').getContext('2d');
+            currentChart = new Chart(ctx, {
+                type: chartType,
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title,
+                            font: { size: 18 }
+                        },
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: chartType !== 'pie' && chartType !== 'doughnut' ? {
+                        y: { beginAtZero: true }
+                    } : {}
+                }
+            });
+
+            showNotification('Gráfico generado correctamente', 'success');
+        }
+
+        // Clear chart
+        function clearChart() {
+            if (currentChart) {
+                currentChart.destroy();
+                currentChart = null;
+                showNotification('Gráfico limpiado', 'info');
+            }
+        }
+
+        // Download chart as PNG
+        function downloadChart() {
+            if (!currentChart) {
+                showNotification('Primero genera un gráfico', 'error');
+                return;
+            }
+
+            const canvas = document.getElementById('myChart');
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `modulo-08-grafico-${formatDate()}.png`;
+                link.click();
+                URL.revokeObjectURL(url);
+                showNotification('Gráfico descargado', 'success');
+            });
+        }
+
+        // Download processed data
+        function downloadProcessedData() {
+            if (processedData.length === 0 && currentData.length === 0) {
+                showNotification('No hay datos para descargar', 'error');
+                return;
+            }
+
+            const dataToDownload = processedData.length > 0 ? processedData : currentData;
+            const csv = arrayToCSV(dataToDownload);
+            downloadFile(csv, `modulo-08-datos-${formatDate()}.csv`, 'text/csv');
+            showNotification('Datos descargados', 'success');
+        }
+
+        // Quiz evaluation
+        const correctAnswers = { q1: 'a', q2: 'a', q3: ['a', 'b', 'c', 'd'] };
+
+        function evaluateQuiz() {
+            let correct = 0;
+            const total = Object.keys(correctAnswers).length;
+            const userAnswers = {};
+
+            for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+                const inputs = document.querySelectorAll(`input[name="${question}"]`);
+                
+                if (Array.isArray(correctAnswer)) {
+                    userAnswers[question] = Array.from(inputs)
+                        .filter(i => i.checked)
+                        .map(i => i.value)
+                        .sort();
+                    if (JSON.stringify(userAnswers[question]) === JSON.stringify(correctAnswer.sort())) {
+                        correct++;
+                    }
+                } else {
+                    const checked = Array.from(inputs).find(i => i.checked);
+                    userAnswers[question] = checked ? checked.value : null;
+                    if (userAnswers[question] === correctAnswer) {
+                        correct++;
+                    }
+                }
+            }
+
+            const score = Math.round((correct / total) * 100);
+            displayQuizResults(score);
+            saveResults(score, userAnswers);
+        }
+
+        function displayQuizResults(score) {
+            const resultsDiv = document.getElementById('quizResults');
+            const scoreDiv = document.getElementById('quizScore');
+            const feedbackDiv = document.getElementById('quizFeedback');
+
+            resultsDiv.classList.remove('hidden');
+            scoreDiv.textContent = `${score}%`;
+            scoreDiv.className = 'score';
+
+            if (score >= 70) {
+                scoreDiv.classList.add('high');
+                resultsDiv.classList.remove('error');
+                feedbackDiv.textContent = '¡Excelente! Has comprendido bien los conceptos del módulo.';
+            } else if (score >= 50) {
+                scoreDiv.classList.add('medium');
+                resultsDiv.classList.remove('error');
+                feedbackDiv.textContent = 'Buen trabajo. Repasa algunos conceptos para mejorar.';
+            } else {
+                scoreDiv.classList.add('low');
+                resultsDiv.classList.add('error');
+                feedbackDiv.textContent = 'Te recomendamos revisar el material del módulo.';
+            }
+
+            showNotification(`Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            document.getElementById('quizResults').classList.add('hidden');
+            showNotification('Cuestionario reiniciado', 'info');
+        }
+
+        function saveResults(score, answers) {
+            const results = {
+                date: new Date().toISOString(),
+                score: score,
+                answers: answers,
+                module: '08'
+            };
+
+            saveToLocalStorage(STORAGE_KEY, results);
+            updateSavedDataInfo();
+        }
+
+        function downloadAllResults() {
+            const results = loadFromLocalStorage(STORAGE_KEY);
+            if (!results) {
+                showNotification('No hay resultados guardados', 'error');
+                return;
+            }
+
+            downloadFile(
+                JSON.stringify(results, null, 2),
+                `modulo-08-resultados-${formatDate()}.json`,
+                'application/json'
+            );
+            showNotification('Resultados descargados', 'success');
+        }
+
+        function clearSavedData() {
+            if (confirm('¿Seguro que quieres borrar los datos guardados?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                updateSavedDataInfo();
+                showNotification('Datos borrados', 'info');
+            }
+        }
+
+        function updateSavedDataInfo() {
+            const results = loadFromLocalStorage(STORAGE_KEY);
+            const content = document.getElementById('savedDataContent');
+
+            if (results) {
+                content.innerHTML = `
+                    <p><strong>Última evaluación:</strong> ${new Date(results.date).toLocaleString('es-ES')}</p>
+                    <p><strong>Puntuación:</strong> ${results.score}%</p>
+                    <p><strong>Módulo:</strong> ${results.module}</p>
+                `;
+            } else {
+                content.textContent = 'No hay datos guardados aún.';
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            updateSavedDataInfo();
+        });
+    </script>
+</body>
+</html>
