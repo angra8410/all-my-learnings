@@ -554,7 +554,7 @@
       if (typeof showNotification === 'function') showNotification('Cuestionario reiniciado', 'info');
     }
 
-    // storage & quiz save functions
+    // storage & quiz save functions (updated: store array of results)
     function updateSavedDataInfo() {
       try {
         let content = document.getElementById('savedDataContent');
@@ -578,7 +578,12 @@
         }
 
         const results = loadFromLocalStorage(STORAGE_KEY);
-        if (results) {
+        // support both array (new) and single object (legacy)
+        if (Array.isArray(results) && results.length > 0) {
+          const last = results[results.length - 1];
+          content.innerHTML = `<p><strong>Última evaluación:</strong> ${new Date(last.date).toLocaleString('es-ES')}</p><p><strong>Puntuación:</strong> ${last.score}%</p><p><strong>Módulo:</strong> ${last.module}</p><p><small>${results.length} resultados guardados</small></p>`;
+        } else if (results && typeof results === 'object') {
+          // legacy single object
           content.innerHTML = `<p><strong>Última evaluación:</strong> ${new Date(results.date).toLocaleString('es-ES')}</p><p><strong>Puntuación:</strong> ${results.score}%</p><p><strong>Módulo:</strong> ${results.module}</p>`;
         } else {
           content.textContent = 'No hay datos guardados aún.';
@@ -589,9 +594,32 @@
     }
 
     function saveResults(score, answers) {
-      const results = { date: new Date().toISOString(), score, answers, module: '01' };
-      try { saveToLocalStorage(STORAGE_KEY, results); } catch(e){ console.error('saveToLocalStorage failed', e); }
+      const entry = { date: new Date().toISOString(), score, answers, module: '01' };
+      try {
+        const existing = loadFromLocalStorage(STORAGE_KEY);
+        let arr = [];
+        if (Array.isArray(existing)) arr = existing;
+        else if (existing && typeof existing === 'object') arr = [existing]; // handle legacy single-object
+        // push new entry
+        arr.push(entry);
+        saveToLocalStorage(STORAGE_KEY, arr);
+      } catch (e) {
+        console.error('saveToLocalStorage failed', e);
+      }
       updateSavedDataInfo();
+    }
+
+    function downloadAllResults() {
+      const results = loadFromLocalStorage(STORAGE_KEY);
+      if (!results) { if (typeof showNotification === 'function') showNotification('No hay resultados guardados', 'error'); return; }
+      const payload = Array.isArray(results) ? results : [results];
+      try {
+        downloadFile(JSON.stringify(payload, null, 2), `modulo-01-resultados-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`, 'application/json');
+        if (typeof showNotification === 'function') showNotification('Resultados descargados', 'success');
+      } catch (e) {
+        console.error('downloadAllResults error', e);
+        if (typeof showNotification === 'function') showNotification('Error descargando resultados', 'error');
+      }
     }
 
     function clearSavedData() {
