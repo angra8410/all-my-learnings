@@ -18,6 +18,8 @@
       .chart-canvas{ width:100% !important; height:100% !important; display:block; }
       /* Pequeñas mejoras visuales para htmlpreview */
       .hidden{ display:none; }
+      /* fallback toast container styling */
+      #fallback-toast { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
     </style>
 </head>
 <body>
@@ -45,7 +47,7 @@
         </div>
         <div class="form-group">
           <label>O pega datos CSV:</label>
-          <textarea id="csvTextInput" placeholder="Mes,Producto,Ventas&#10;Enero,A,150&#10;Febrero,A,180"></textarea>
+          <textarea id="csvTextInput" placeholder="Mes,Producto,Ventas&#10;Enero,A,150&#10;Febrero,A,180" rows="6" style="width:100%"></textarea>
           <button class="btn btn-secondary" onclick="parseManualCSV()">Cargar datos pegados</button>
         </div>
 
@@ -160,6 +162,119 @@
   <!-- utils.js desde jsDelivr (apunta a tu repo/branch) -->
   <script src="https://cdn.jsdelivr.net/gh/angra8410/all-my-learnings@main/DataViz-Storytelling/examples/utils.js"></script>
 
+  <!-- Fallbacks mínimos: en caso de que utils.js no cargue correctamente -->
+  <script>
+  (function(){
+    // parseCSV fallback (delimitador automático: coma/; o tab)
+    if (typeof parseCSV !== 'function') {
+      window.parseCSV = function(text) {
+        if (!text) return [];
+        const sample = String(text).slice(0, 2000);
+        const counts = {
+          ',': (sample.match(/,/g) || []).length,
+          ';': (sample.match(/;/g) || []).length,
+          '\t': (sample.match(/\t/g) || []).length
+        };
+        let delim = ',';
+        if (counts[';'] > counts[','] && counts[';'] >= counts['\t']) delim = ';';
+        else if (counts['\t'] > counts[','] && counts['\t'] >= counts[';']) delim = '\t';
+        const lines = String(text).trim().split(/\r?\n/).filter(l => l.trim().length > 0);
+        if (lines.length === 0) return [];
+        const headers = lines.shift().split(delim).map(h => h.trim());
+        return lines.map(l => {
+          const cols = l.split(delim);
+          const obj = {};
+          for (let i = 0; i < headers.length; i++) obj[headers[i]] = (cols[i] || '').trim();
+          return obj;
+        });
+      };
+      console.info('[fallbacks] parseCSV fallback installed');
+    }
+
+    // showNotification fallback (no intrusivo)
+    if (typeof showNotification !== 'function') {
+      window.showNotification = function(message, type) {
+        console.log('[showNotification]', type || 'info', message);
+        try {
+          const id = 'fallback-toast';
+          let toast = document.getElementById(id);
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.id = id;
+            toast.style.position = 'fixed';
+            toast.style.right = '16px';
+            toast.style.top = '16px';
+            toast.style.zIndex = 99999;
+            toast.style.maxWidth = '320px';
+            document.body.appendChild(toast);
+          }
+          const item = document.createElement('div');
+          item.textContent = message;
+          item.style.margin = '6px';
+          item.style.padding = '8px 12px';
+          item.style.borderRadius = '6px';
+          item.style.color = '#fff';
+          item.style.fontSize = '13px';
+          item.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+          if (type === 'success') item.style.background = '#28a745';
+          else if (type === 'error') item.style.background = '#dc3545';
+          else if (type === 'warning') { item.style.background = '#ffc107'; item.style.color = '#000'; }
+          else item.style.background = '#17a2b8';
+          toast.appendChild(item);
+          setTimeout(() => { try { item.remove(); } catch(e){} }, 4000);
+        } catch (e) { /* swallow */ }
+      };
+      console.info('[fallbacks] showNotification fallback installed');
+    }
+
+    // LocalStorage wrappers
+    if (typeof loadFromLocalStorage !== 'function') {
+      window.loadFromLocalStorage = function(key) {
+        try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e) { return null; }
+      };
+      console.info('[fallbacks] loadFromLocalStorage fallback installed');
+    }
+    if (typeof saveToLocalStorage !== 'function') {
+      window.saveToLocalStorage = function(key, value) {
+        try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch(e) { return false; }
+      };
+      console.info('[fallbacks] saveToLocalStorage fallback installed');
+    }
+
+    // arrayToCSV & downloadFile fallbacks
+    if (typeof arrayToCSV !== 'function') {
+      window.arrayToCSV = function(arr) {
+        if (!Array.isArray(arr) || arr.length === 0) return '';
+        const headers = Object.keys(arr[0]);
+        const lines = [headers.join(',')];
+        arr.forEach(row => {
+          const cols = headers.map(h => {
+            let v = row[h] === null || row[h] === undefined ? '' : String(row[h]);
+            if (v.includes('"')) v = v.replace(/"/g, '""');
+            if (/[,"\n]/.test(v)) v = `"${v}"`;
+            return v;
+          });
+          lines.push(cols.join(','));
+        });
+        return lines.join('\r\n');
+      };
+      console.info('[fallbacks] arrayToCSV fallback installed');
+    }
+    if (typeof downloadFile !== 'function') {
+      window.downloadFile = function(content, filename, mime='text/plain') {
+        try {
+          const blob = new Blob([content], { type: mime });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = filename || 'download';
+          document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        } catch (e) { console.error('[fallbacks] downloadFile error', e); }
+      };
+      console.info('[fallbacks] downloadFile fallback installed');
+    }
+  })();
+  </script>
+
   <script>
     // Variables de estado
     let currentData = [];
@@ -169,26 +284,30 @@
 
     // --- (Funciones de carga/preview idénticas) ---
     function loadCSV(event) {
-      const file = event.target.files[0];
+      const file = event.target.files && event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(e) {
         const text = e.target.result;
-        currentData = parseCSV(text);
+        try {
+          currentData = (typeof parseCSV === 'function') ? parseCSV(text) : [];
+        } catch(err) { currentData = []; console.error('parseCSV error', err); }
         displayData();
         populateColumnSelects();
-        showNotification('CSV cargado correctamente', 'success');
+        if (typeof showNotification === 'function') showNotification('CSV cargado correctamente', 'success');
       };
       reader.readAsText(file);
     }
 
     function parseManualCSV() {
       const text = document.getElementById('csvTextInput').value.trim();
-      if (!text) { showNotification('Por favor ingresa datos CSV', 'error'); return; }
-      currentData = parseCSV(text);
+      if (!text) { if (typeof showNotification === 'function') showNotification('Por favor ingresa datos CSV', 'error'); return; }
+      try {
+        currentData = (typeof parseCSV === 'function') ? parseCSV(text) : [];
+      } catch(err) { currentData = []; console.error('parseCSV error', err); }
       displayData();
       populateColumnSelects();
-      showNotification('Datos cargados correctamente', 'success');
+      if (typeof showNotification === 'function') showNotification('Datos cargados correctamente', 'success');
     }
 
     function displayData() {
@@ -242,8 +361,8 @@
       const aggType = document.getElementById('aggregation').value;
       const title = document.getElementById('chartTitle').value || 'Gráfico de Datos';
 
-      if (!xCol || !yCol) { showNotification('Selecciona columnas para X e Y', 'error'); return; }
-      if (currentData.length === 0) { showNotification('Primero carga un CSV', 'error'); return; }
+      if (!xCol || !yCol) { if (typeof showNotification === 'function') showNotification('Selecciona columnas para X e Y', 'error'); return; }
+      if (currentData.length === 0) { if (typeof showNotification === 'function') showNotification('Primero carga un CSV', 'error'); return; }
 
       let chartData;
       // Agrupado por categoría
@@ -278,7 +397,7 @@
           }).filter(p => p.x !== null && p.y !== null);
 
           if (points.length === 0) {
-            showNotification('Scatter requiere valores numéricos en el eje X; usa Línea o Barras', 'error');
+            if (typeof showNotification === 'function') showNotification('Scatter requiere valores numéricos en el eje X; usa Línea o Barras', 'error');
             return;
           }
 
@@ -326,35 +445,35 @@
           }
         };
         currentChart = new Chart(ctx, cfg);
-        showNotification('Gráfico generado correctamente', 'success');
+        if (typeof showNotification === 'function') showNotification('Gráfico generado correctamente', 'success');
       } catch (err) {
         console.error('Error creando chart:', err);
-        showNotification('Error al generar el gráfico (ver consola)', 'error');
+        if (typeof showNotification === 'function') showNotification('Error al generar el gráfico (ver consola)', 'error');
       }
     }
 
     function clearChart() {
-      if (currentChart) { currentChart.destroy(); currentChart = null; showNotification('Gráfico limpiado', 'info'); }
+      if (currentChart) { currentChart.destroy(); currentChart = null; if (typeof showNotification === 'function') showNotification('Gráfico limpiado', 'info'); }
     }
 
     function downloadChart() {
-      if (!currentChart) { showNotification('Primero genera un gráfico', 'error'); return; }
+      if (!currentChart) { if (typeof showNotification === 'function') showNotification('Primero genera un gráfico', 'error'); return; }
       const canvas = document.getElementById('myChart');
       canvas.toBlob(blob => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.href = url; link.download = `modulo-01-grafico-${formatDate()}.png`;
+        link.href = url; link.download = `modulo-01-grafico-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.png`;
         link.click(); URL.revokeObjectURL(url);
-        showNotification('Gráfico descargado', 'success');
+        if (typeof showNotification === 'function') showNotification('Gráfico descargado', 'success');
       });
     }
 
     function downloadProcessedData() {
-      if (processedData.length === 0 && currentData.length === 0) { showNotification('No hay datos para descargar', 'error'); return; }
+      if (processedData.length === 0 && currentData.length === 0) { if (typeof showNotification === 'function') showNotification('No hay datos para descargar', 'error'); return; }
       const dataToDownload = processedData.length > 0 ? processedData : currentData;
       const csv = arrayToCSV(dataToDownload);
-      downloadFile(csv, `modulo-01-datos-${formatDate()}.csv`, 'text/csv');
-      showNotification('Datos descargados', 'success');
+      downloadFile(csv, `modulo-01-datos-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`, 'text/csv');
+      if (typeof showNotification === 'function') showNotification('Datos descargados', 'success');
     }
 
     // --- Quiz (idéntico al tuyo) ---
@@ -386,10 +505,10 @@
       if (score >= 70) { scoreDiv.classList.add('high'); resultsDiv.classList.remove('error'); feedbackDiv.textContent = '¡Excelente!'; }
       else if (score >= 50) { scoreDiv.classList.add('medium'); resultsDiv.classList.remove('error'); feedbackDiv.textContent = 'Buen trabajo.'; }
       else { scoreDiv.classList.add('low'); resultsDiv.classList.add('error'); feedbackDiv.textContent = 'Revisa el material.'; }
-      showNotification(`Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
+      if (typeof showNotification === 'function') showNotification(`Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
     }
 
-    function resetQuiz() { document.getElementById('quizForm').reset(); document.getElementById('quizResults').classList.add('hidden'); showNotification('Cuestionario reiniciado', 'info'); }
+    function resetQuiz() { document.getElementById('quizForm').reset(); document.getElementById('quizResults').classList.add('hidden'); if (typeof showNotification === 'function') showNotification('Cuestionario reiniciado', 'info'); }
 
     function saveResults(score, answers) {
       const results = { date: new Date().toISOString(), score: score, answers: answers, module: '01' };
@@ -398,12 +517,12 @@
 
     function downloadAllResults() {
       const results = loadFromLocalStorage(STORAGE_KEY);
-      if (!results) { showNotification('No hay resultados guardados', 'error'); return; }
-      downloadFile(JSON.stringify(results, null, 2), `modulo-01-resultados-${formatDate()}.json`, 'application/json');
-      showNotification('Resultados descargados', 'success');
+      if (!results) { if (typeof showNotification === 'function') showNotification('No hay resultados guardados', 'error'); return; }
+      downloadFile(JSON.stringify(results, null, 2), `modulo-01-resultados-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`, 'application/json');
+      if (typeof showNotification === 'function') showNotification('Resultados descargados', 'success');
     }
 
-    function clearSavedData() { if (confirm('¿Seguro que quieres borrar los datos guardados?')) { localStorage.removeItem(STORAGE_KEY); updateSavedDataInfo(); showNotification('Datos borrados', 'info'); } }
+    function clearSavedData() { if (confirm('¿Seguro que quieres borrar los datos guardados?')) { localStorage.removeItem(STORAGE_KEY); updateSavedDataInfo(); if (typeof showNotification === 'function') showNotification('Datos borrados', 'info'); } }
 
     function updateSavedDataInfo() {
       const results = loadFromLocalStorage(STORAGE_KEY);
@@ -417,7 +536,6 @@
     window.addEventListener('load', () => {
       // Comprobación: utils.js (CDN) debe haber definido las funciones helper
       console.log('Verificando helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
-      // Si alguna función no existe, avisar al usuario (showNotification puede no existir)
       if (typeof parseCSV !== 'function' || typeof aggregate !== 'function') {
         if (typeof showNotification === 'function') {
           showNotification('Advertencia: helpers no cargados (utils.js). Comprueba la consola y la red.', 'error');
@@ -429,7 +547,7 @@
     });
   </script>
 
-  <!-- HOTFIX2: robust file input + drag&drop + delimiter-tolerant CSV parser -->
+  <!-- HOTFIX2: robust file input + drag&drop + delimiter-tolerant CSV parser (no auto-open) -->
   <script>
   (function(){
     console.debug('[HOTFIX2] start');
@@ -455,7 +573,8 @@
     const drop = document.querySelector('.file-upload-area');
     if (drop) {
       drop.style.position = drop.style.position || 'relative';
-      drop.appendChild(fi);
+      // keep the existing input if your HTML already has one — otherwise append
+      if (!drop.querySelector('#fileInput')) drop.appendChild(fi);
       fi.style.position = 'relative';
       fi.style.display = 'inline-block';
       fi.style.opacity = 1;
@@ -463,6 +582,15 @@
       fi.style.width = '1px';
       fi.style.height = '1px';
       console.debug('[HOTFIX2] moved #fileInput into .file-upload-area');
+      // make drop area accept drag & drop
+      drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList && drop.classList.add('dragover'); });
+      drop.addEventListener('dragleave', e => { e.preventDefault(); drop.classList && drop.classList.remove('dragover'); });
+      drop.addEventListener('drop', e => {
+        e.preventDefault();
+        drop.classList && drop.classList.remove('dragover');
+        const files = e.dataTransfer && e.dataTransfer.files;
+        if (files && files.length) handleFiles(files);
+      });
     } else {
       // make input clearly visible at top if no drop area
       fi.style.position = 'fixed';
@@ -474,21 +602,27 @@
       console.debug('[HOTFIX2] no .file-upload-area found — placed input top-right');
     }
 
-    // robust delimiter-aware parser
+    // helper: handle FileList
+    function handleFiles(files) {
+      if (!files || files.length === 0) { console.debug('[HOTFIX2] no files provided'); return; }
+      const file = files[0];
+      console.debug('[HOTFIX2] file selected:', file.name, file.size);
+      readFile(file);
+    }
+
+    // robust delimiter-aware parser (fallback)
     function autoParseCSV(text) {
       if (!text) return [];
       const sample = text.slice(0, 2000);
-      // try to detect delimiter: comma, semicolon, tab
       const counts = {
         ',': (sample.match(/,/g)||[]).length,
         ';': (sample.match(/;/g)||[]).length,
-        '\\t': (sample.match(/\\t/g)||[]).length
+        '\\t': (sample.match(/\t/g)||[]).length
       };
       let delim = ',';
       if (counts[';'] > counts[','] && counts[';'] >= counts['\\t']) delim=';';
       else if (counts['\\t'] > counts[','] && counts['\\t'] >= counts[';']) delim='\\t';
-      // split lines robustly (handle \r\n or \n)
-      const lines = text.trim().split(/\\r?\\n/).filter(l=>l.trim().length>0);
+      const lines = String(text).trim().split(/\\r?\\n/).filter(l=>l.trim().length>0);
       if (lines.length === 0) return [];
       const headers = lines.shift().split(delim).map(h=>h.trim());
       return lines.map(l => {
@@ -499,45 +633,30 @@
       });
     }
 
-    // change handler
-    fi.onchange = async (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) { console.debug('[HOTFIX2] onchange: no file'); return; }
-      console.debug('[HOTFIX2] file selected:', file.name, file.size);
-      try {
-        const text = await file.text();
-        // prefer repo parseCSV if available, otherwise autoParseCSV
-        const parser = (typeof parseCSV === 'function') ? parseCSV : autoParseCSV;
-        console.debug('[HOTFIX2] using parser:', (typeof parseCSV === 'function') ? 'parseCSV (repo)' : 'autoParseCSV (fallback)');
+    function readFile(file) {
+      if (!file) return;
+      if (typeof FileReader === 'undefined') { console.error('[HOTFIX2] FileReader not supported'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const parseFn = (typeof parseCSV === 'function') ? parseCSV : autoParseCSV;
         let data;
-        try { data = parser(text); } catch(err){ console.error('[HOTFIX2] parse error', err); if (typeof showNotification === 'function') showNotification('Error parsing CSV', 'error'); return; }
+        try { data = parseFn(text); } catch(err) { console.error('[HOTFIX2] parse error', err); if (typeof showNotification === 'function') showNotification('Error parsing CSV', 'error'); return; }
         console.debug('[HOTFIX2] parsed rows:', Array.isArray(data) ? data.length : '(unknown)');
         window.currentData = data;
-        if (typeof displayData === 'function') {
-          try { displayData(); console.debug('[HOTFIX2] displayData() invoked'); } catch(e){ console.error('[HOTFIX2] displayData() error', e); }
-        }
-        if (typeof populateColumnSelects === 'function') {
-          try { populateColumnSelects(); console.debug('[HOTFIX2] populateColumnSelects() invoked'); } catch(e){ console.error('[HOTFIX2] populateColumnSelects() error', e); }
-        }
+        if (typeof displayData === 'function') { try { displayData(); console.debug('[HOTFIX2] displayData() invoked'); } catch(e){ console.error('[HOTFIX2] displayData() error', e); } }
+        if (typeof populateColumnSelects === 'function') { try { populateColumnSelects(); console.debug('[HOTFIX2] populateColumnSelects() invoked'); } catch(e){ console.error('[HOTFIX2] populateColumnSelects() error', e); } }
         if (typeof showNotification === 'function') showNotification('CSV cargado correctamente', 'success');
-      } catch (err) {
-        console.error('[HOTFIX2] File read error', err);
-        if (typeof showNotification === 'function') showNotification('Error leyendo archivo', 'error');
-      }
-    };
+      };
+      reader.onerror = function(err) { console.error('[HOTFIX2] FileReader error', err); if (typeof showNotification === 'function') showNotification('Error leyendo archivo', 'error'); };
+      reader.readAsText(file, 'UTF-8');
+    }
 
-    // auto-open dialog
-    setTimeout(()=> {
-      try {
-        fi.click();
-        console.debug('[HOTFIX2] triggered click() on #fileInput');
-      } catch(e) {
-        console.warn('[HOTFIX2] cannot programmatically click input — click it manually', e);
-      }
-    }, 120);
+    // wire input change
+    fi.addEventListener('change', e => handleFiles(e.target.files));
 
-    window.__hotfix2 = { autoParseCSV };
-    console.debug('[HOTFIX2] ready');
+    window.__hotfix2 = { autoParseCSV, handleFiles };
+    console.debug('[HOTFIX2] ready (user must click area or drop file)');
   })();
   </script>
 
