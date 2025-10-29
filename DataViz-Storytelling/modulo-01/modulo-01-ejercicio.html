@@ -617,12 +617,12 @@
       const counts = {
         ',': (sample.match(/,/g)||[]).length,
         ';': (sample.match(/;/g)||[]).length,
-        '\\t': (sample.match(/\t/g)||[]).length
+        '\t': (sample.match(/\t/g)||[]).length
       };
       let delim = ',';
-      if (counts[';'] > counts[','] && counts[';'] >= counts['\\t']) delim=';';
-      else if (counts['\\t'] > counts[','] && counts['\\t'] >= counts[';']) delim='\\t';
-      const lines = String(text).trim().split(/\\r?\\n/).filter(l=>l.trim().length>0);
+      if (counts[';'] > counts[','] && counts[';'] >= counts['\t']) delim=';';
+      else if (counts['\t'] > counts[','] && counts['\t'] >= counts[';']) delim='\t';
+      const lines = String(text).trim().split(/\r?\n/).filter(l=>l.trim().length>0);
       if (lines.length === 0) return [];
       const headers = lines.shift().split(delim).map(h=>h.trim());
       return lines.map(l => {
