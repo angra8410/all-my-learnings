@@ -426,115 +426,134 @@
       updateSavedDataInfo();
     });
   </script>
-    <script>
-(function(){
-  console.debug('[HOTFIX2] start');
-
-  // detect helpers
-  console.log('helpers:', {
-    parseCSV: typeof parseCSV,
-    displayData: typeof displayData,
-    populateColumnSelects: typeof populateColumnSelects,
-    showNotification: typeof showNotification
-  });
-
-  // ensure input exists
-  let fi = document.getElementById('fileInput');
-  if (!fi) {
-    fi = document.createElement('input');
-    fi.type = 'file'; fi.id = 'fileInput'; fi.accept = '.csv,text/csv';
-    document.body.appendChild(fi);
-    console.debug('[HOTFIX2] created #fileInput at end of body');
-  }
-
-  // place input inside visible drop area (if present) so user sees it
-  const drop = document.querySelector('.file-upload-area');
-  if (drop) {
-    drop.style.position = drop.style.position || 'relative';
-    drop.appendChild(fi);
-    fi.style.position = 'relative';
-    fi.style.display = 'inline-block';
-    fi.style.opacity = 1;
-    fi.style.zIndex = 9999;
-    fi.style.width = '1px';
-    fi.style.height = '1px';
-    console.debug('[HOTFIX2] moved #fileInput into .file-upload-area');
-  } else {
-    // make input clearly visible at top if no drop area
-    fi.style.position = 'fixed';
-    fi.style.right = '20px';
-    fi.style.top = '80px';
-    fi.style.display = 'inline-block';
-    fi.style.zIndex = 9999;
-    fi.style.opacity = 1;
-    console.debug('[HOTFIX2] no .file-upload-area found — placed input top-right');
-  }
-
-  // robust delimiter-aware parser
-  function autoParseCSV(text) {
-    if (!text) return [];
-    const sample = text.slice(0, 2000);
-    // try to detect delimiter: comma, semicolon, tab
-    const counts = {
-      ',': (sample.match(/,/g)||[]).length,
-      ';': (sample.match(/;/g)||[]).length,
-      '\\t': (sample.match(/\t/g)||[]).length
-    };
-    let delim = ',';
-    if (counts[';'] > counts[','] && counts[';'] >= counts['\\t']) delim=';';
-    else if (counts['\\t'] > counts[','] && counts['\\t'] >= counts[';']) delim='\t';
-    // split lines robustly (handle \r\n or \n)
-    const lines = text.trim().split(/\r?\n/).filter(l=>l.trim().length>0);
-    if (lines.length === 0) return [];
-    const headers = lines.shift().split(delim).map(h=>h.trim());
-    return lines.map(l => {
-      const cols = l.split(delim);
-      const obj = {};
-      for (let i=0;i<headers.length;i++) obj[headers[i]] = (cols[i]||'').trim();
-      return obj;
-    });
-  }
-
-  // change handler
-  fi.onchange = async (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) { console.debug('[HOTFIX2] onchange: no file'); return; }
-    console.debug('[HOTFIX2] file selected:', file.name, file.size);
-    try {
-      const text = await file.text();
-      // prefer repo parseCSV if available, otherwise autoParseCSV
-      const parser = (typeof parseCSV === 'function') ? parseCSV : autoParseCSV;
-      console.debug('[HOTFIX2] using parser:', (typeof parseCSV === 'function') ? 'parseCSV (repo)' : 'autoParseCSV (fallback)');
-      let data;
-      try { data = parser(text); } catch(err){ console.error('[HOTFIX2] parse error', err); if (typeof showNotification === 'function') showNotification('Error parsing CSV', 'error'); return; }
-      console.debug('[HOTFIX2] parsed rows:', Array.isArray(data) ? data.length : '(unknown)');
-      window.currentData = data;
-      if (typeof displayData === 'function') {
-        try { displayData(); console.debug('[HOTFIX2] displayData() invoked'); } catch(e){ console.error('[HOTFIX2] displayData() error', e); }
-      }
-      if (typeof populateColumnSelects === 'function') {
-        try { populateColumnSelects(); console.debug('[HOTFIX2] populateColumnSelects() invoked'); } catch(e){ console.error('[HOTFIX2] populateColumnSelects() error', e); }
-      }
-      if (typeof showNotification === 'function') showNotification('CSV cargado correctamente', 'success');
-    } catch (err) {
-      console.error('[HOTFIX2] File read error', err);
-      if (typeof showNotification === 'function') showNotification('Error leyendo archivo', 'error');
-    }
-  };
-
-  // auto-open dialog
-  setTimeout(()=> {
-    try {
-      fi.click();
-      console.debug('[HOTFIX2] triggered click() on #fileInput');
-    } catch(e) {
-      console.warn('[HOTFIX2] cannot programmatically click input — click it manually', e);
-    }
-  }, 120);
-
-  window.__hotfix2 = { autoParseCSV };
-  console.debug('[HOTFIX2] ready');
-})();
-</script>
+  *** Begin Patch
+*** Update File: DataViz-Storytelling/modulo-01/modulo-01-ejercicio.html
+@@
+   // Init
+   window.addEventListener('load', () => {
+     // Comprobación: utils.js (CDN) debe haber definido las funciones helper
+     console.log('Verificando helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
+     // Si alguna función no existe, avisar al usuario
+     if (typeof parseCSV !== 'function' || typeof aggregate !== 'function') {
+       showNotification('Advertencia: helpers no cargados (utils.js). Comprueba la consola y la red.', 'error');
+     }
+     updateSavedDataInfo();
+   });
+ +  
+ +  <!-- HOTFIX2: robust file input + drag&drop + delimiter-tolerant CSV parser -->
+ +  <script>
+ +  (function(){
+ +    console.debug('[HOTFIX2] start');
+ +
+ +    // detect helpers
+ +    console.log('helpers:', {
+ +      parseCSV: typeof parseCSV,
+ +      displayData: typeof displayData,
+ +      populateColumnSelects: typeof populateColumnSelects,
+ +      showNotification: typeof showNotification
+ +    });
+ +
+ +    // ensure input exists
+ +    let fi = document.getElementById('fileInput');
+ +    if (!fi) {
+ +      fi = document.createElement('input');
+ +      fi.type = 'file'; fi.id = 'fileInput'; fi.accept = '.csv,text/csv';
+ +      document.body.appendChild(fi);
+ +      console.debug('[HOTFIX2] created #fileInput at end of body');
+ +    }
+ +
+ +    // place input inside visible drop area (if present) so user sees it
+ +    const drop = document.querySelector('.file-upload-area');
+ +    if (drop) {
+ +      drop.style.position = drop.style.position || 'relative';
+ +      drop.appendChild(fi);
+ +      fi.style.position = 'relative';
+ +      fi.style.display = 'inline-block';
+ +      fi.style.opacity = 1;
+ +      fi.style.zIndex = 9999;
+ +      fi.style.width = '1px';
+ +      fi.style.height = '1px';
+ +      console.debug('[HOTFIX2] moved #fileInput into .file-upload-area');
+ +    } else {
+ +      // make input clearly visible at top if no drop area
+ +      fi.style.position = 'fixed';
+ +      fi.style.right = '20px';
+ +      fi.style.top = '80px';
+ +      fi.style.display = 'inline-block';
+ +      fi.style.zIndex = 9999;
+ +      fi.style.opacity = 1;
+ +      console.debug('[HOTFIX2] no .file-upload-area found — placed input top-right');
+ +    }
+ +
+ +    // robust delimiter-aware parser
+ +    function autoParseCSV(text) {
+ +      if (!text) return [];
+ +      const sample = text.slice(0, 2000);
+ +      // try to detect delimiter: comma, semicolon, tab
+ +      const counts = {
+ +        ',': (sample.match(/,/g)||[]).length,
+ +        ';': (sample.match(/;/g)||[]).length,
+ +        '\\t': (sample.match(/\\t/g)||[]).length
+ +      };
+ +      let delim = ',';
+ +      if (counts[';'] > counts[','] && counts[';'] >= counts['\\t']) delim=';';
+ +      else if (counts['\\t'] > counts[','] && counts['\\t'] >= counts[';']) delim='\\t';
+ +      // split lines robustly (handle \r\n or \n)
+ +      const lines = text.trim().split(/\\r?\\n/).filter(l=>l.trim().length>0);
+ +      if (lines.length === 0) return [];
+ +      const headers = lines.shift().split(delim).map(h=>h.trim());
+ +      return lines.map(l => {
+ +        const cols = l.split(delim);
+ +        const obj = {};
+ +        for (let i=0;i<headers.length;i++) obj[headers[i]] = (cols[i]||'').trim();
+ +        return obj;
+ +      });
+ +    }
+ +
+ +    // change handler
+ +    fi.onchange = async (e) => {
+ +      const file = e.target.files && e.target.files[0];
+ +      if (!file) { console.debug('[HOTFIX2] onchange: no file'); return; }
+ +      console.debug('[HOTFIX2] file selected:', file.name, file.size);
+ +      try {
+ +        const text = await file.text();
+ +        // prefer repo parseCSV if available, otherwise autoParseCSV
+ +        const parser = (typeof parseCSV === 'function') ? parseCSV : autoParseCSV;
+ +        console.debug('[HOTFIX2] using parser:', (typeof parseCSV === 'function') ? 'parseCSV (repo)' : 'autoParseCSV (fallback)');
+ +        let data;
+ +        try { data = parser(text); } catch(err){ console.error('[HOTFIX2] parse error', err); if (typeof showNotification === 'function') showNotification('Error parsing CSV', 'error'); return; }
+ +        console.debug('[HOTFIX2] parsed rows:', Array.isArray(data) ? data.length : '(unknown)');
+ +        window.currentData = data;
+ +        if (typeof displayData === 'function') {
+ +          try { displayData(); console.debug('[HOTFIX2] displayData() invoked'); } catch(e){ console.error('[HOTFIX2] displayData() error', e); }
+ +        }
+ +        if (typeof populateColumnSelects === 'function') {
+ +          try { populateColumnSelects(); console.debug('[HOTFIX2] populateColumnSelects() invoked'); } catch(e){ console.error('[HOTFIX2] populateColumnSelects() error', e); }
+ +        }
+ +        if (typeof showNotification === 'function') showNotification('CSV cargado correctamente', 'success');
+ +      } catch (err) {
+ +        console.error('[HOTFIX2] File read error', err);
+ +        if (typeof showNotification === 'function') showNotification('Error leyendo archivo', 'error');
+ +      }
+ +    };
+ +
+ +    // auto-open dialog
+ +    setTimeout(()=> {
+ +      try {
+ +        fi.click();
+ +        console.debug('[HOTFIX2] triggered click() on #fileInput');
+ +      } catch(e) {
+ +        console.warn('[HOTFIX2] cannot programmatically click input — click it manually', e);
+ +      }
+ +    }, 120);
+ +
+ +    window.__hotfix2 = { autoParseCSV };
+ +    console.debug('[HOTFIX2] ready');
+ +  })();
+ +  </script>
++
+ </body>
+ </html>
+*** End Patch
 </body>
 </html>
