@@ -2,10 +2,10 @@
 
 ## 📊 Estado General
 
-- **Fecha de inicio**: _____/_____/_____
-- **Fecha de finalización**: _____/_____/_____
-- **Tiempo invertido**: _____ horas
-- **Estado**: [ ] No iniciado | [ ] En progreso | [ ] Completado
+- **Fecha de inicio**: _10____/_29____/_2025____
+- **Fecha de finalización**: _10____/__29___/_2025____
+- **Tiempo invertido**: __3___ horas
+- **Estado**: [ ] No iniciado | [ ] En progreso | [x ] Completado
 
 ---
 
@@ -13,52 +13,52 @@
 
 ### Ejercicio 1: Exploración de Datos
 - [ ] Completado
-- **Fecha**: _____/_____/_____
+- **Fecha**: __10___/_29____/_2025____
 - **Notas**: 
 
 ### Ejercicio 2: Creación de Visualización Básica
 - [ ] Completado
-- **Fecha**: _____/_____/_____
+- **Fecha**: _10____/_29____/_2025____
 - **Notas**: 
 
 ### Ejercicio 3: Personalización y Diseño
 - [ ] Completado
-- **Fecha**: _____/_____/_____
+- **Fecha**: _10____/_29____/_2025____
 - **Notas**: 
 
 ### Ejercicio 4: Análisis y Agregación
 - [ ] Completado
-- **Fecha**: _____/_____/_____
+- **Fecha**: _10____/_29____/_2025____
 - **Notas**: 
 
 ### Ejercicio 5: Exportación y Guardado
 - [ ] Completado
-- **Fecha**: _____/_____/_____
+- **Fecha**: _10____/_29____/_2025____
 - **Notas**: 
 
 ### Ejercicio 6: Cuestionario de Evaluación
 - [ ] Completado
-- **Puntuación**: _____/100%
-- **Fecha**: _____/_____/_____
+- **Puntuación**: ___100__/100%
+- **Fecha**: _10____/_29____/_2025____
 - **Notas**: 
 
 ---
 
 ## 📈 Resultados del Cuestionario
 
-- **Intento 1**: _____% (Fecha: _____/_____/_____)
+- **Intento 1**: _100____% (Fecha: _10___/_29____/_2025____)
 - **Intento 2**: _____% (Fecha: _____/_____/_____)
-- **Mejor resultado**: _____%
+- **Mejor resultado**: _100____%
 
 ---
 
 ## 🎯 Objetivos de Aprendizaje
 
 ### Completados
-- [ ] Objetivo 1
-- [ ] Objetivo 2
-- [ ] Objetivo 3
-- [ ] Objetivo 4
+- [x] Objetivo 1
+- [x] Objetivo 2
+- [x] Objetivo 3
+- [x] Objetivo 4
 
 ---
 
@@ -78,33 +78,33 @@
 
 ### Herramientas Utilizadas
 
-- [ ] Chart.js
-- [ ] Plotly.js
-- [ ] CSV de muestra
-- [ ] localStorage
-- [ ] FileReader API
+- [x] Chart.js
+- [x] Plotly.js
+- [x] CSV de muestra
+- [x] localStorage
+- [x] FileReader API
 
 ---
 
 ## 🚀 Proyectos y Visualizaciones Creadas
 
 ### Visualización 1
-- **Tipo**: 
-- **Dataset**: 
+- **Tipo**: Barra
+- **Dataset**: ventas.csv
 - **Archivo**: modulo-01-grafico-1.png
-- **Descripción**: 
+- **Descripción**: Esta viz representò las ventas mensualess por producto
 
 ### Visualización 2
-- **Tipo**: 
-- **Dataset**: 
+- **Tipo**: Linea
+- **Dataset**: ventas.csv
 - **Archivo**: modulo-01-grafico-2.png
-- **Descripción**: 
+- **Descripción**: Esta viz representò las ventas para ver variaciones mes a mes 
 
 ---
 
 ## 💡 Insights Descubiertos
 
-1. 
+1. Ventas crecientes desde enero hasta marzo, ya que en abril decrecieron, pero a partir del mes de mayo siempre van creciendo.
 2. 
 3. 
 
