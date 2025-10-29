@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Introducción a Data Visualization - DataViz-Storytelling</title>
 
-  <!-- styles: usamos CDN para que funcione en htmlpreview/jsDelivr -->
+  <!-- styles -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/angra8410/all-my-learnings@main/DataViz-Storytelling/examples/styles.css">
 
-  <!-- Chart & Plotly CDN (se intenta cargar aquí; fallback dinámico si no está disponible) -->
+  <!-- Chart & Plotly (CDN primary; dynamic loader will try alternatives if needed) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
 
@@ -18,6 +18,7 @@
     .hidden{ display:none; }
     #fallback-toast { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
     .file-upload-area.dragover { outline: 3px dashed rgba(102,126,234,0.6); background: rgba(102,126,234,0.03); }
+    .saved-card { margin-top: 12px; padding: 8px; border: 1px solid #eee; border-radius: 6px; background: #fafafa; }
   </style>
 </head>
 <body>
@@ -43,6 +44,7 @@
             <p style="font-size: 0.9em; opacity: 0.7;">O usa los archivos de ejemplo en /examples/</p>
           </div>
         </div>
+
         <div class="form-group">
           <label>O pega datos CSV:</label>
           <textarea id="csvTextInput" placeholder="Mes,Producto,Ventas&#10;Enero,A,150&#10;Febrero,A,180" rows="6" style="width:100%"></textarea>
@@ -92,6 +94,7 @@
             <option value="min">Mínimo</option>
           </select>
         </div>
+
         <div class="form-group">
           <label for="chartTitle">Título del gráfico:</label>
           <input type="text" id="chartTitle" placeholder="Mi Gráfico de Datos">
@@ -115,11 +118,29 @@
         </div>
       </div>
 
-      <!-- Paso 4 & 5 omitted for brevity in page view (kept in scripts) -->
+      <!-- Paso 4: Cuestionario -->
+      <div class="section">
+        <h2>✅ Paso 4: Cuestionario del Módulo</h2>
+        <!-- preguntas... -->
+      </div>
+
+      <!-- Paso 5: Guardar y exportar -->
+      <div class="section" id="savedDataInfoSection">
+        <h2>💾 Paso 5: Guardar y Exportar</h2>
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="downloadAllResults()">Descargar Todos los Resultados JSON</button>
+          <button class="btn btn-secondary" onclick="clearSavedData()">Limpiar Datos Guardados</button>
+        </div>
+        <div id="savedDataInfo" class="card saved-card">
+          <div class="card-header">Información de Guardado</div>
+          <div class="card-body" id="savedDataContent">No hay datos guardados aún.</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- utils.js desde jsDelivr (apunta a tu repo/branch) -->
+  <!-- utils.js (expected) -->
   <script src="https://cdn.jsdelivr.net/gh/angra8410/all-my-learnings@main/DataViz-Storytelling/examples/utils.js"></script>
 
   <!-- FALLBACKS: parseCSV, showNotification, storage, CSV utils, safe group/aggregate -->
@@ -129,12 +150,12 @@
     if (typeof parseCSV !== 'function') {
       window.parseCSV = function(text) {
         if (!text) return [];
-        const sample = String(text).slice(0, 2000);
+        const sample = String(text).slice(0,2000);
         const counts = { ',': (sample.match(/,/g)||[]).length, ';': (sample.match(/;/g)||[]).length, '\t': (sample.match(/\t/g)||[]).length };
         let delim = ',';
         if (counts[';'] > counts[','] && counts[';'] >= counts['\t']) delim = ';';
         else if (counts['\t'] > counts[','] && counts['\t'] >= counts[';']) delim = '\t';
-        const lines = String(text).trim().split(/\r?\n/).filter(l => l.trim().length>0);
+        const lines = String(text).trim().split(/\r?\n/).filter(l=>l.trim().length>0);
         if (lines.length === 0) return [];
         const headers = lines.shift().split(delim).map(h=>h.trim());
         return lines.map(l=>{
@@ -150,28 +171,20 @@
     // showNotification fallback
     if (typeof showNotification !== 'function') {
       window.showNotification = function(message, type) {
-        console.log('[showNotification]', type || 'info', message);
+        console.log('[showNotification]', type||'info', message);
         try {
           const id = 'fallback-toast';
           let toast = document.getElementById(id);
           if (!toast) {
-            toast = document.createElement('div');
-            toast.id = id;
-            toast.style.position = 'fixed';
-            toast.style.right = '16px';
-            toast.style.top = '16px';
-            toast.style.zIndex = 99999;
-            toast.style.maxWidth = '320px';
+            toast = document.createElement('div'); toast.id = id;
+            toast.style.position = 'fixed'; toast.style.right = '16px'; toast.style.top = '16px';
+            toast.style.zIndex = 99999; toast.style.maxWidth = '320px';
             document.body.appendChild(toast);
           }
           const item = document.createElement('div');
           item.textContent = message;
-          item.style.margin = '6px';
-          item.style.padding = '8px 12px';
-          item.style.borderRadius = '6px';
-          item.style.color = '#fff';
-          item.style.fontSize = '13px';
-          item.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+          item.style.margin = '6px'; item.style.padding = '8px 12px'; item.style.borderRadius='6px';
+          item.style.color = '#fff'; item.style.fontSize='13px'; item.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
           if (type === 'success') item.style.background = '#28a745';
           else if (type === 'error') item.style.background = '#dc3545';
           else if (type === 'warning') { item.style.background = '#ffc107'; item.style.color = '#000'; }
@@ -245,8 +258,7 @@
     if (typeof window.__aggregate !== 'function') {
       window.__aggregate = function(items, xCol, yCol, aggType) {
         aggType = (aggType||'sum').toLowerCase();
-        const buckets = {};
-        if (!Array.isArray(items)) return {};
+        const buckets = {}; if (!Array.isArray(items)) return {};
         for (const row of items) {
           const x = row && Object.prototype.hasOwnProperty.call(row, xCol) ? row[xCol] : '__undefined__';
           const xv = (x === null || x === undefined) ? '' : String(x);
@@ -272,7 +284,7 @@
   })();
   </script>
 
-  <!-- Ensure Chart loader: will dynamically load Chart.js if not available -->
+  <!-- ensureChart: will dynamically load Chart.js if needed -->
   <script>
   function ensureChart(callback) {
     if (typeof Chart !== 'undefined') return callback();
@@ -281,20 +293,17 @@
       'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js',
       'https://unpkg.com/chart.js@4.4.0/dist/chart.umd.min.js'
     ];
-    let i=0;
+    let i = 0;
     function tryLoad() {
-      if (i>=urls.length) {
+      if (i >= urls.length) {
         const msg = 'No se pudo cargar Chart.js desde CDN. Comprueba Network o añade Chart.js localmente.';
         console.error('[ensureChart]', msg);
         if (typeof showNotification === 'function') showNotification(msg, 'error');
         return;
       }
-      const src = urls[i++];
-      console.debug('[ensureChart] intentando cargar', src);
-      const s = document.createElement('script');
-      s.src = src; s.async = true;
-      s.onload = function(){ console.debug('[ensureChart] cargado', src); setTimeout(()=>callback(),10); };
-      s.onerror = function(){ console.warn('[ensureChart] fallo cargando', src); s.remove(); tryLoad(); };
+      const s = document.createElement('script'); const src = urls[i++]; s.src = src; s.async = true;
+      s.onload = function(){ setTimeout(()=>callback(),10); };
+      s.onerror = function(){ s.remove(); tryLoad(); };
       document.head.appendChild(s);
     }
     tryLoad();
@@ -302,13 +311,13 @@
   </script>
 
   <script>
-    // State
+    // State variables
     let currentData = [];
     let currentChart = null;
     let processedData = [];
     const STORAGE_KEY = 'dataviz-module-01';
 
-    // Load / parse
+    // load/parsing/display functions (see earlier code - unchanged)
     function loadCSV(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
@@ -317,8 +326,7 @@
         const text = e.target.result;
         try { currentData = (typeof parseCSV === 'function') ? parseCSV(text) : []; }
         catch(err){ currentData = []; console.error('parseCSV error', err); }
-        displayData();
-        populateColumnSelects();
+        displayData(); populateColumnSelects();
         if (typeof showNotification === 'function') showNotification('CSV cargado correctamente', 'success');
       };
       reader.readAsText(file);
@@ -337,46 +345,47 @@
       const preview = document.getElementById('dataPreview');
       const table = document.getElementById('dataTable');
       const rowCount = document.getElementById('rowCount');
-      preview.classList.remove('hidden');
-      rowCount.textContent = currentData.length;
-      const headers = Object.keys(currentData[0]);
+      if (preview) preview.classList.remove('hidden');
+      if (rowCount) rowCount.textContent = currentData.length;
+      const headers = Object.keys(currentData[0] || {});
       let html = '<thead><tr>';
-      headers.forEach(h=> html += `<th>${h}</th>`);
+      headers.forEach(h => html += `<th>${h}</th>`);
       html += '</tr></thead><tbody>';
-      currentData.slice(0,10).forEach(row=>{
+      currentData.slice(0,10).forEach(row => {
         html += '<tr>';
-        headers.forEach(h=> html += `<td>${row[h]}</td>`);
+        headers.forEach(h => html += `<td>${row[h] !== undefined ? row[h] : ''}</td>`);
         html += '</tr>';
       });
-      if (currentData.length>10) html += `<tr><td colspan="${headers.length}" style="text-align:center;font-style:italic">... y ${currentData.length-10} filas más</td></tr>`;
+      if (currentData.length > 10) html += `<tr><td colspan="${headers.length}" style="text-align:center;font-style:italic">... y ${currentData.length-10} filas más</td></tr>`;
       html += '</tbody>';
-      table.innerHTML = html;
+      if (table) table.innerHTML = html;
     }
 
     function populateColumnSelects() {
       if (currentData.length === 0) return;
-      const headers = Object.keys(currentData[0]);
+      const headers = Object.keys(currentData[0] || {});
       const xAxis = document.getElementById('xAxis');
       const yAxis = document.getElementById('yAxis');
       const groupBy = document.getElementById('groupBy');
       [xAxis,yAxis,groupBy].forEach(select=>{
+        if (!select) return;
         const current = select.value;
         select.innerHTML = select.id === 'groupBy' ? '<option value="">Sin agrupación</option>' : '<option value="">Selecciona columna...</option>';
-        headers.forEach(h=>{
+        headers.forEach(h => {
           const o = document.createElement('option'); o.value = h; o.textContent = h; select.appendChild(o);
         });
         if (current) select.value = current;
       });
     }
 
-    // renderChart uses safe fallbacks: prefer repo functions, otherwise internal __aggregate/__groupBy
+    // renderChart (uses ensureChart if Chart missing)
     function renderChart() {
-      const xCol = document.getElementById('xAxis').value;
-      const yCol = document.getElementById('yAxis').value;
-      const chartType = document.getElementById('chartType').value;
-      const groupByCol = document.getElementById('groupBy').value;
-      const aggType = document.getElementById('aggregation').value;
-      const title = document.getElementById('chartTitle').value || 'Gráfico de Datos';
+      const xCol = document.getElementById('xAxis')?.value;
+      const yCol = document.getElementById('yAxis')?.value;
+      const chartType = document.getElementById('chartType')?.value || 'bar';
+      const groupByCol = document.getElementById('groupBy')?.value;
+      const aggType = document.getElementById('aggregation')?.value || 'sum';
+      const title = document.getElementById('chartTitle')?.value || 'Gráfico de Datos';
 
       if (!xCol || !yCol) { if (typeof showNotification === 'function') showNotification('Selecciona columnas para X e Y','error'); return; }
       if (currentData.length === 0) { if (typeof showNotification === 'function') showNotification('Primero carga un CSV','error'); return; }
@@ -384,9 +393,7 @@
       const groupByFn = (typeof window.groupBy === 'function') ? window.groupBy : (typeof window.__groupBy === 'function' ? window.__groupBy : null);
       const aggregateFn = (typeof window.aggregate === 'function') ? window.aggregate : (typeof window.__aggregate === 'function' ? window.__aggregate : null);
 
-      if (!aggregateFn) {
-        console.error('aggregate function not available'); if (typeof showNotification === 'function') showNotification('Función aggregate no disponible','error'); return;
-      }
+      if (!aggregateFn) { console.error('aggregate not available'); if (typeof showNotification === 'function') showNotification('Función aggregate no disponible','error'); return; }
 
       let chartData;
       if (groupByCol && groupByFn) {
@@ -399,12 +406,12 @@
         chartData = { labels: Object.keys(aggregateFn(currentData, xCol, yCol, aggType)), datasets: datasets };
       } else {
         const aggregated = aggregateFn(currentData, xCol, yCol, aggType);
-        processedData = Object.entries(aggregated).map(([k,v])=> ({ [xCol]: k, [yCol]: v }));
+        processedData = Object.entries(aggregated).map(([k,v]) => ({ [xCol]: k, [yCol]: v }));
         if (chartType === 'scatter') {
-          const points = processedData.map(r=>{
+          const points = processedData.map(r => {
             const xNum = Number(String(r[xCol]).replace(/[^0-9\.\-]+/g,'')); const yNum = Number(String(r[yCol]).replace(/[^0-9\.\-]+/g,'')) || 0;
             return { x: isNaN(xNum)?null:xNum, y: isNaN(yNum)?null:yNum };
-          }).filter(p=>p.x!==null && p.y!==null);
+          }).filter(p => p.x!==null && p.y!==null);
           if (points.length===0) { if (typeof showNotification === 'function') showNotification('Scatter requiere valores numéricos en X','error'); return; }
           chartData = { datasets: [{ label: yCol, data: points, backgroundColor:'rgba(102,126,234,0.8)', borderColor:'rgba(102,126,234,1)', borderWidth:2 }] };
         } else {
@@ -418,15 +425,10 @@
       const cfg = {
         type: chartType === 'scatter' ? 'scatter' : chartType,
         data: chartData,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { title:{ display:true, text:title, font:{ size:18 } }, legend:{ display:true } },
-          scales: chartType !== 'pie' && chartType !== 'doughnut' ? { y: { beginAtZero: true } } : {}
-        }
+        options: { responsive:true, maintainAspectRatio:false, plugins:{ title:{ display:true, text:title, font:{ size:18 } }, legend:{ display:true } }, scales: chartType !== 'pie' && chartType !== 'doughnut' ? { y:{ beginAtZero:true } } : {} }
       };
 
-      function createChartNow(){
+      function createChartNow() {
         try {
           currentChart = new Chart(ctx, cfg);
           if (typeof showNotification === 'function') showNotification('Gráfico generado correctamente','success');
@@ -440,30 +442,72 @@
       else ensureChart(createChartNow);
     }
 
-    function clearChart() { if (currentChart) { currentChart.destroy(); currentChart=null; if (typeof showNotification === 'function') showNotification('Gráfico limpiado','info'); } }
+    // downloads / utilities
+    function clearChart(){ if (currentChart) { currentChart.destroy(); currentChart=null; if (typeof showNotification==='function') showNotification('Gráfico limpiado','info'); } }
+    function downloadChart(){ if (!currentChart) { if (typeof showNotification==='function') showNotification('Primero genera un gráfico','error'); return; } const canvas=document.getElementById('myChart'); canvas.toBlob(blob=>{ const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`modulo-01-grafico-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.png`; a.click(); URL.revokeObjectURL(url); if (typeof showNotification==='function') showNotification('Gráfico descargado','success'); }); }
+    function downloadProcessedData(){ if (processedData.length===0 && currentData.length===0) { if (typeof showNotification==='function') showNotification('No hay datos para descargar','error'); return; } const dataToDownload = processedData.length>0 ? processedData : currentData; const csv = arrayToCSV(dataToDownload); downloadFile(csv, `modulo-01-datos-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`, 'text/csv'); if (typeof showNotification==='function') showNotification('Datos descargados','success'); }
 
-    function downloadChart() {
-      if (!currentChart) { if (typeof showNotification === 'function') showNotification('Primero genera un gráfico','error'); return; }
-      const canvas = document.getElementById('myChart');
-      canvas.toBlob(blob=>{
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = `modulo-01-grafico-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.png`;
-        a.click(); URL.revokeObjectURL(url);
-        if (typeof showNotification === 'function') showNotification('Gráfico descargado','success');
-      });
+    // storage & quiz helpers (defensive updateSavedDataInfo)
+    function updateSavedDataInfo() {
+      try {
+        let content = document.getElementById('savedDataContent');
+        // If the element doesn't exist, try to create a sensible place for it
+        if (!content) {
+          let container = document.getElementById('savedDataInfo');
+          if (!container) {
+            // append to end of content section
+            container = document.createElement('div');
+            container.id = 'savedDataInfo';
+            container.className = 'card saved-card';
+            const hdr = document.createElement('div');
+            hdr.className = 'card-header';
+            hdr.textContent = 'Información de Guardado';
+            const body = document.createElement('div');
+            body.className = 'card-body';
+            body.id = 'savedDataContent';
+            body.textContent = 'No hay datos guardados aún.';
+            container.appendChild(hdr);
+            container.appendChild(body);
+            const parent = document.getElementById('savedDataInfoSection') || document.querySelector('.content') || document.body;
+            parent.appendChild(container);
+            content = document.getElementById('savedDataContent');
+          } else {
+            // create inner content if container exists but inner does not
+            const body = document.createElement('div');
+            body.className = 'card-body';
+            body.id = 'savedDataContent';
+            body.textContent = 'No hay datos guardados aún.';
+            container.appendChild(body);
+            content = body;
+          }
+        }
+
+        const results = loadFromLocalStorage(STORAGE_KEY);
+        if (results) {
+          content.innerHTML = `<p><strong>Última evaluación:</strong> ${new Date(results.date).toLocaleString('es-ES')}</p><p><strong>Puntuación:</strong> ${results.score}%</p><p><strong>Módulo:</strong> ${results.module}</p>`;
+        } else {
+          content.textContent = 'No hay datos guardados aún.';
+        }
+      } catch (err) {
+        console.error('updateSavedDataInfo error', err);
+      }
     }
 
-    function downloadProcessedData() {
-      if (processedData.length===0 && currentData.length===0) { if (typeof showNotification === 'function') showNotification('No hay datos para descargar','error'); return; }
-      const dataToDownload = processedData.length>0 ? processedData : currentData;
-      const csv = arrayToCSV(dataToDownload);
-      downloadFile(csv, `modulo-01-datos-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`, 'text/csv');
-      if (typeof showNotification === 'function') showNotification('Datos descargados','success');
+    function saveResults(score, answers) {
+      const results = { date: new Date().toISOString(), score, answers, module: '01' };
+      try { saveToLocalStorage(STORAGE_KEY, results); } catch(e){ console.error('saveToLocalStorage failed', e); }
+      updateSavedDataInfo();
     }
 
-    // minimal quiz / storage helpers
-    function updateSavedDataInfo(){ const results = loadFromLocalStorage(STORAGE_KEY); const content = document.getElementById('savedDataContent'); if (results) content.innerHTML = `<p><strong>Última evaluación:</strong> ${new Date(results.date).toLocaleString('es-ES')}</p><p><strong>Puntuación:</strong> ${results.score}%</p><p><strong>Módulo:</strong> ${results.module}</p>`; else content.textContent = 'No hay datos guardados aún.'; }
+    function clearSavedData() {
+      if (confirm('¿Seguro que quieres borrar los datos guardados?')) {
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e){ console.error(e); }
+        updateSavedDataInfo();
+        if (typeof showNotification === 'function') showNotification('Datos borrados', 'info');
+      }
+    }
 
+    // init
     window.addEventListener('load', ()=>{
       console.log('Verificando helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
       if (typeof parseCSV !== 'function' || (typeof aggregate !== 'function' && typeof window.__aggregate !== 'function')) {
@@ -478,22 +522,16 @@
   <script>
   (function(){
     let fi = document.getElementById('fileInput');
-    if (!fi) {
-      fi = document.createElement('input'); fi.type='file'; fi.id='fileInput'; fi.accept='.csv,text/csv';
-      document.body.appendChild(fi);
-    }
+    if (!fi) { fi = document.createElement('input'); fi.type='file'; fi.id='fileInput'; fi.accept='.csv,text/csv'; document.body.appendChild(fi); }
     const drop = document.querySelector('.file-upload-area');
     if (drop) {
       if (!drop.querySelector('#fileInput')) drop.appendChild(fi);
       drop.addEventListener('dragover', e=>{ e.preventDefault(); drop.classList && drop.classList.add('dragover'); });
       drop.addEventListener('dragleave', e=>{ e.preventDefault(); drop.classList && drop.classList.remove('dragover'); });
       drop.addEventListener('drop', e=>{ e.preventDefault(); drop.classList && drop.classList.remove('dragover'); const files = e.dataTransfer && e.dataTransfer.files; if (files && files.length) handleFiles(files); });
-    } else {
-      fi.style.position='fixed'; fi.style.right='20px'; fi.style.top='80px';
-    }
-
+    } else { fi.style.position='fixed'; fi.style.right='20px'; fi.style.top='80px'; }
     function handleFiles(files){ if (!files || files.length===0) return; const file = files[0]; readFile(file); }
-    function autoParseCSV(text){ if (!text) return []; const sample = text.slice(0,2000); const counts = { ',': (sample.match(/,/g)||[]).length, ';': (sample.match(/;/g)||[]).length, '\t': (sample.match(/\t/g)||[]).length }; let delim=','; if (counts[';']>counts[','] && counts[';']>=counts['\t']) delim=';'; else if (counts['\t']>counts[','] && counts['\t']>=counts[';']) delim='\t'; const lines = String(text).trim().split(/\r?\n/).filter(l=>l.trim().length>0); if (lines.length===0) return []; const headers = lines.shift().split(delim).map(h=>h.trim()); return lines.map(l=>{ const cols=l.split(delim); const obj={}; for (let i=0;i<headers.length;i++) obj[headers[i]]=(cols[i]||'').trim(); return obj; }); }
+    function autoParseCSV(text){ if (!text) return []; const sample = text.slice(0,2000); const counts={ ',':(sample.match(/,/g)||[]).length, ';':(sample.match(/;/g)||[]).length, '\t':(sample.match(/\t/g)||[]).length }; let delim=','; if (counts[';']>counts[','] && counts[';']>=counts['\t']) delim=';'; else if (counts['\t']>counts[','] && counts['\t']>=counts[';']) delim='\t'; const lines=String(text).trim().split(/\r?\n/).filter(l=>l.trim().length>0); if (lines.length===0) return []; const headers=lines.shift().split(delim).map(h=>h.trim()); return lines.map(l=>{ const cols=l.split(delim); const obj={}; for (let i=0;i<headers.length;i++) obj[headers[i]]=(cols[i]||'').trim(); return obj; }); }
     function readFile(file){ if (!file) return; if (typeof FileReader==='undefined'){ console.error('[HOTFIX2] FileReader not supported'); return; } const r=new FileReader(); r.onload=function(e){ const text=e.target.result; const parseFn = (typeof parseCSV==='function') ? parseCSV : autoParseCSV; let data; try{ data = parseFn(text); }catch(err){ console.error('[HOTFIX2] parse error',err); if (typeof showNotification==='function') showNotification('Error parsing CSV','error'); return; } window.currentData = data; if (typeof displayData==='function'){ try{ displayData(); }catch(e){ console.error('[HOTFIX2] displayData error',e); } } if (typeof populateColumnSelects==='function'){ try{ populateColumnSelects(); }catch(e){ console.error('[HOTFIX2] populateColumnSelects error',e); } } if (typeof showNotification==='function') showNotification('CSV cargado correctamente','success'); }; r.onerror=function(err){ console.error('[HOTFIX2] FileReader error',err); if (typeof showNotification==='function') showNotification('Error leyendo archivo','error'); }; r.readAsText(file,'UTF-8'); }
     fi.addEventListener('change', e => handleFiles(e.target.files));
     window.__hotfix2 = { handleFiles, autoParseCSV };
