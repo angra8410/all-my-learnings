@@ -13,16 +13,26 @@
   <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
 
   <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
     .chart-container{ position: relative; height: 420px; margin-bottom: 12px; }
     .chart-canvas{ width:100% !important; height:100% !important; display:block; }
     .hidden{ display:none; }
-    #fallback-toast { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    #fallback-toast { font-family: inherit; }
     .file-upload-area.dragover { outline: 3px dashed rgba(102,126,234,0.6); background: rgba(102,126,234,0.03); }
     .saved-card { margin-top: 12px; padding: 8px; border: 1px solid #eee; border-radius: 6px; background: #fafafa; }
+    .quiz-question { margin-bottom: 14px; padding: 8px; border-radius: 6px; background:#fff; border:1px solid #eee; }
+    .quiz-option { margin:6px 0; }
+    .results { margin-top: 12px; padding: 12px; border-radius:6px; background:#f8f9fa; border:1px solid #e9ecef; }
+    .score { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .score.high { color: #198754; } .score.medium { color: #fd7e14; } .score.low { color: #dc3545; }
+    .btn { padding: 8px 14px; border-radius:6px; border: none; cursor:pointer; }
+    .btn-primary { background: #6f42c1; color: #fff; }
+    .btn-secondary { background: #6c757d; color: #fff; }
+    .btn-success { background: #198754; color: #fff; }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="max-width:1100px;margin:18px auto;">
     <div class="header">
       <h1>📊 Módulo 01: Introducción a Data Visualization</h1>
       <p>Ejercicio Interactivo - DataViz-Storytelling</p>
@@ -100,34 +110,87 @@
           <input type="text" id="chartTitle" placeholder="Mi Gráfico de Datos">
         </div>
 
-        <div class="btn-group">
+        <div class="btn-group" style="margin-top:8px;">
           <button class="btn btn-primary" onclick="renderChart()">Generar Gráfico</button>
           <button class="btn btn-secondary" onclick="clearChart()">Limpiar</button>
         </div>
       </div>
 
       <!-- Paso 3: Visualización -->
-      <div class="section">
+      <div class="section" style="margin-top:20px;">
         <h2>📊 Paso 3: Visualización</h2>
-        <div class="chart-container">
+        <div class="chart-container" style="background:#fff;border-radius:8px;padding:12px;border:1px solid #eee;">
           <canvas id="myChart" class="chart-canvas"></canvas>
         </div>
-        <div class="btn-group">
+        <div style="margin-top:12px;">
           <button class="btn btn-success" onclick="downloadChart()">Descargar Gráfico PNG</button>
           <button class="btn btn-secondary" onclick="downloadProcessedData()">Descargar Datos Procesados CSV</button>
         </div>
       </div>
 
       <!-- Paso 4: Cuestionario -->
-      <div class="section">
+      <div class="section" style="margin-top:24px;">
         <h2>✅ Paso 4: Cuestionario del Módulo</h2>
-        <!-- preguntas... -->
+
+        <form id="quizForm" style="margin-top:10px;">
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 1 de 4</strong></div>
+            <div class="question-text">¿Cuál es el propósito principal de la visualización de datos?</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="radio" name="q1" value="a"> Decorar informes</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q1" value="b"> Comunicar información de forma efectiva</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q1" value="c"> Ocultar datos complejos</label></div>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 2 de 4</strong></div>
+            <div class="question-text">¿Qué gráfico es más apropiado para mostrar la tendencia en el tiempo?</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="radio" name="q2" value="a"> Pie</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q2" value="b"> Linea</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q2" value="c"> Tabla</label></div>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 3 de 4</strong></div>
+            <div class="question-text">¿Cuál es una buena práctica para elegir colores en un gráfico?</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="radio" name="q3" value="a"> Usar colores aleatorios brillantes</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q3" value="b"> Usar paletas legibles y consistentes</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q3" value="c"> Usar colores difíciles de distinguir</label></div>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 4 de 4 (múltiple respuesta)</strong></div>
+            <div class="question-text">Selecciona características de una visualización efectiva:</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="a"> Claridad</label></div>
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="b"> Precisión</label></div>
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="c"> Diseño confuso</label></div>
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="d"> Relevancia</label></div>
+            </div>
+          </div>
+
+          <div style="margin-top:8px;">
+            <button type="button" class="btn btn-primary" onclick="evaluateQuiz()">Evaluar</button>
+            <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Reiniciar</button>
+          </div>
+        </form>
+
+        <div id="quizResults" class="results hidden">
+          <h3>Resultados del Cuestionario</h3>
+          <div class="score" id="quizScore">0%</div>
+          <p id="quizFeedback"></p>
+        </div>
       </div>
 
       <!-- Paso 5: Guardar y exportar -->
-      <div class="section" id="savedDataInfoSection">
+      <div class="section" id="savedDataInfoSection" style="margin-top:24px;">
         <h2>💾 Paso 5: Guardar y Exportar</h2>
-        <div class="btn-group">
+        <div class="btn-group" style="margin-bottom:8px;">
           <button class="btn btn-success" onclick="downloadAllResults()">Descargar Todos los Resultados JSON</button>
           <button class="btn btn-secondary" onclick="clearSavedData()">Limpiar Datos Guardados</button>
         </div>
@@ -447,38 +510,70 @@
     function downloadChart(){ if (!currentChart) { if (typeof showNotification==='function') showNotification('Primero genera un gráfico','error'); return; } const canvas=document.getElementById('myChart'); canvas.toBlob(blob=>{ const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`modulo-01-grafico-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.png`; a.click(); URL.revokeObjectURL(url); if (typeof showNotification==='function') showNotification('Gráfico descargado','success'); }); }
     function downloadProcessedData(){ if (processedData.length===0 && currentData.length===0) { if (typeof showNotification==='function') showNotification('No hay datos para descargar','error'); return; } const dataToDownload = processedData.length>0 ? processedData : currentData; const csv = arrayToCSV(dataToDownload); downloadFile(csv, `modulo-01-datos-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`, 'text/csv'); if (typeof showNotification==='function') showNotification('Datos descargados','success'); }
 
-    // storage & quiz helpers (defensive updateSavedDataInfo)
+    // quiz logic: correct answers and evaluation
+    const correctAnswers = { q1: 'b', q2: 'b', q3: 'b', q4: ['a','b','d'] };
+
+    function evaluateQuiz() {
+      let correct = 0; const total = Object.keys(correctAnswers).length;
+      const userAnswers = {};
+      // q1-q3 single choice
+      ['q1','q2','q3'].forEach(q => {
+        const checked = document.querySelector(`input[name="${q}"]:checked`);
+        userAnswers[q] = checked ? checked.value : null;
+        if (userAnswers[q] === correctAnswers[q]) correct++;
+      });
+      // q4 multiple
+      const boxes = Array.from(document.querySelectorAll('input[name="q4"]:checked')).map(i=>i.value).sort();
+      userAnswers.q4 = boxes;
+      const expected = correctAnswers.q4.slice().sort();
+      if (JSON.stringify(boxes) === JSON.stringify(expected)) correct++;
+
+      const score = Math.round((correct / total) * 100);
+      displayQuizResults(score);
+      saveResults(score, userAnswers);
+    }
+
+    function displayQuizResults(score) {
+      const resultsDiv = document.getElementById('quizResults');
+      const scoreDiv = document.getElementById('quizScore');
+      const feedbackDiv = document.getElementById('quizFeedback');
+      if (!resultsDiv || !scoreDiv || !feedbackDiv) return;
+      resultsDiv.classList.remove('hidden');
+      scoreDiv.textContent = `${score}%`;
+      scoreDiv.className = 'score';
+      if (score >= 70) { scoreDiv.classList.add('high'); feedbackDiv.textContent = '¡Excelente!'; }
+      else if (score >= 50) { scoreDiv.classList.add('medium'); feedbackDiv.textContent = 'Buen trabajo.'; }
+      else { scoreDiv.classList.add('low'); feedbackDiv.textContent = 'Revisa el material.'; }
+      if (typeof showNotification === 'function') showNotification(`Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
+    }
+
+    function resetQuiz() {
+      document.getElementById('quizForm').reset();
+      const resultsDiv = document.getElementById('quizResults');
+      if (resultsDiv) resultsDiv.classList.add('hidden');
+      if (typeof showNotification === 'function') showNotification('Cuestionario reiniciado', 'info');
+    }
+
+    // storage & quiz save functions
     function updateSavedDataInfo() {
       try {
         let content = document.getElementById('savedDataContent');
-        // If the element doesn't exist, try to create a sensible place for it
         if (!content) {
           let container = document.getElementById('savedDataInfo');
           if (!container) {
-            // append to end of content section
             container = document.createElement('div');
             container.id = 'savedDataInfo';
             container.className = 'card saved-card';
-            const hdr = document.createElement('div');
-            hdr.className = 'card-header';
-            hdr.textContent = 'Información de Guardado';
-            const body = document.createElement('div');
-            body.className = 'card-body';
-            body.id = 'savedDataContent';
+            const hdr = document.createElement('div'); hdr.className = 'card-header'; hdr.textContent = 'Información de Guardado';
+            const body = document.createElement('div'); body.className = 'card-body'; body.id = 'savedDataContent';
             body.textContent = 'No hay datos guardados aún.';
-            container.appendChild(hdr);
-            container.appendChild(body);
+            container.appendChild(hdr); container.appendChild(body);
             const parent = document.getElementById('savedDataInfoSection') || document.querySelector('.content') || document.body;
             parent.appendChild(container);
             content = document.getElementById('savedDataContent');
           } else {
-            // create inner content if container exists but inner does not
-            const body = document.createElement('div');
-            body.className = 'card-body';
-            body.id = 'savedDataContent';
-            body.textContent = 'No hay datos guardados aún.';
-            container.appendChild(body);
-            content = body;
+            const body = document.createElement('div'); body.className = 'card-body'; body.id = 'savedDataContent';
+            body.textContent = 'No hay datos guardados aún.'; container.appendChild(body); content = body;
           }
         }
 
