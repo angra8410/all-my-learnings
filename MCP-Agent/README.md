@@ -20,6 +20,29 @@ Este directorio contiene prompts especializados para el MCP Agent, diseñados pa
 - ❌ Canvas con tamaño 0x0 → ✅ Estilos forzados para tamaño visible
 - ❌ utils.js relativo falla en preview → ✅ CDN + fallback inline
 
+### 📄 modulo-01-fileinput-prompt.md
+
+**Objetivo:** Corregir de forma automática y segura los problemas que impiden la carga de archivos CSV en el Ejercicio 1 (módulo-01).
+
+**Qué hace:**
+- Asegura que el input `type="file"` funciona correctamente
+- Implementa drag & drop para cargar archivos CSV
+- Inyecta fallbacks para `parseCSV`, `aggregate`, `showNotification` si faltan
+- Añade logs de depuración para troubleshooting
+- Garantiza que la UI se activa tras seleccionar un archivo
+
+**Problemas que resuelve:**
+- ❌ Input file no responde al seleccionar archivo → ✅ Event listeners robustos + logs debug
+- ❌ Drag & drop no funciona → ✅ `preventDefault` en `dragover`/`drop` + área visual
+- ❌ `parseCSV` no existe y crashea → ✅ Fallback inline minimalista
+- ❌ Selects X/Y no se pueblan → ✅ `populateColumnSelects()` tras parseo exitoso
+- ❌ Preview no muestra datos → ✅ `displayData()` + logs de confirmación
+
+**Estilo:**
+- Conservador: cambios mínimos y reversibles
+- Técnico: logs `console.debug` en cada etapa
+- Verificable: produce patch/diff + comandos git/gh + JSON resumen
+
 ## Cómo Usar
 
 ### Prerrequisitos
@@ -29,6 +52,8 @@ Este directorio contiene prompts especializados para el MCP Agent, diseñados pa
 3. Tener permisos de escritura en los archivos HTML
 
 ### Ejecución Básica
+
+#### Usando htmlpreview-runner-prompt.md
 
 ```bash
 # Corregir un archivo específico
@@ -42,6 +67,17 @@ mcp-agent run MCP-Agent/prompts/htmlpreview-runner-prompt.md \
 # Corregir todos los HTML de un módulo usando glob pattern
 mcp-agent run MCP-Agent/prompts/htmlpreview-runner-prompt.md \
   --input '{"files": ["DataViz-Storytelling/**/*.html"], "repository": "angra8410/all-my-learnings", "branch": "main"}'
+```
+
+#### Usando modulo-01-fileinput-prompt.md
+
+```bash
+# Corregir el ejercicio de módulo-01 para arreglar file input y CSV loading
+mcp-agent run MCP-Agent/prompts/modulo-01-fileinput-prompt.md \
+  --input '{"file": "DataViz-Storytelling/modulo-01/modulo-01-ejercicio.html", "repository": "angra8410/all-my-learnings", "branch": "main"}'
+
+# El prompt generará un branch, commits y PR automáticamente
+# Salida esperada: JSON con modified_files, branch, commits, pr, diagnostics
 ```
 
 ### Estructura de Entrada
