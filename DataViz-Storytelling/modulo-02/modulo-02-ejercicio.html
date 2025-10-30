@@ -1,540 +1,679 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principios de Visualización - DataViz-Storytelling</title>
-    <link rel="stylesheet" href="../examples/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Principios de Visualización - DataViz-Storytelling</title>
+
+  <!-- styles -->
+  <link rel="stylesheet" href="../examples/styles.css">
+
+  <!-- Chart & Plotly CDN (primary; ensureChart will try alternatives if needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.26.0/plotly.min.js"></script>
+
+  <style>
+    body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .chart-container{ position: relative; height: 420px; margin-bottom: 12px; background:#fff; border-radius:8px; padding:12px; border:1px solid #eee; }
+    .chart-canvas{ width:100% !important; height:100% !important; display:block; }
+    .hidden{ display:none; }
+    #fallback-toast{ font-family: inherit; }
+    .file-upload-area.dragover { outline: 3px dashed rgba(102,126,234,0.6); background: rgba(102,126,234,0.03); }
+    .saved-card{ margin-top:12px; padding:8px; border:1px solid #eee; border-radius:6px; background:#fafafa; }
+    .quiz-question{ margin-bottom:14px; padding:8px; border-radius:6px; background:#fff; border:1px solid #eee; }
+    .quiz-option{ margin:6px 0; }
+    .results{ margin-top:12px; padding:12px; border-radius:6px; background:#f8f9fa; border:1px solid #e9ecef; }
+    .score{ font-size:28px; font-weight:700; margin-bottom:6px; }
+    .score.high{ color:#198754; } .score.medium{ color:#fd7e14; } .score.low{ color:#dc3545; }
+    .btn{ padding:8px 14px; border-radius:6px; border:none; cursor:pointer; }
+    .btn-primary{ background:#6f42c1; color:#fff; }
+    .btn-secondary{ background:#6c757d; color:#fff; }
+    .btn-success{ background:#198754; color:#fff; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📊 Módulo 02: Principios de Visualización</h1>
-            <p>Ejercicio Interactivo - DataViz-Storytelling</p>
-        </div>
-
-        <div class="content">
-            <div class="alert alert-info">
-                <strong>Instrucciones:</strong> Este ejercicio te permite practicar visualización de datos directamente en el navegador.
-                Carga un CSV, configura el gráfico, responde el cuestionario y descarga tus resultados.
-            </div>
-
-            <!-- Section 1: Data Loading -->
-            <div class="section">
-                <h2>📁 Paso 1: Cargar Datos</h2>
-                <p>Selecciona un archivo CSV o pega tus datos manualmente.</p>
-                
-                <div class="form-group">
-                    <label>Cargar archivo CSV:</label>
-                    <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
-                        <input type="file" id="fileInput" accept=".csv" onchange="loadCSV(event)">
-                        <p>📂 Click aquí para seleccionar un archivo CSV</p>
-                        <p style="font-size: 0.9em; opacity: 0.7;">O usa los archivos de ejemplo en /examples/</p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>O pega datos CSV manualmente:</label>
-                    <textarea id="csvTextInput" placeholder="Mes,Producto,Ventas&#10;Enero,A,150&#10;Febrero,A,180"></textarea>
-                    <button class="btn btn-secondary" onclick="parseManualCSV()">Cargar datos pegados</button>
-                </div>
-
-                <div id="dataPreview" class="hidden">
-                    <h3>Vista previa de datos:</h3>
-                    <div style="overflow-x: auto;">
-                        <table class="data-table" id="dataTable"></table>
-                    </div>
-                    <p><strong>Filas cargadas:</strong> <span id="rowCount">0</span></p>
-                </div>
-            </div>
-
-            <!-- Section 2: Chart Configuration -->
-            <div class="section">
-                <h2>⚙️ Paso 2: Configurar Gráfico</h2>
-                
-                <div class="form-group">
-                    <label for="chartType">Tipo de gráfico:</label>
-                    <select id="chartType">
-                        <option value="bar">Barras</option>
-                        <option value="line">Líneas</option>
-                        <option value="scatter">Dispersión (Scatter)</option>
-                        <option value="pie">Circular (Pie)</option>
-                        <option value="doughnut">Dona (Doughnut)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="xAxis">Eje X (etiquetas):</label>
-                    <select id="xAxis">
-                        <option value="">Selecciona columna...</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="yAxis">Eje Y (valores):</label>
-                    <select id="yAxis">
-                        <option value="">Selecciona columna...</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="groupBy">Agrupar por (opcional):</label>
-                    <select id="groupBy">
-                        <option value="">Sin agrupación</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="aggregation">Operación de agregación:</label>
-                    <select id="aggregation">
-                        <option value="sum">Suma</option>
-                        <option value="avg">Promedio</option>
-                        <option value="count">Conteo</option>
-                        <option value="max">Máximo</option>
-                        <option value="min">Mínimo</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="chartTitle">Título del gráfico:</label>
-                    <input type="text" id="chartTitle" placeholder="Mi Gráfico de Datos">
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="renderChart()">Generar Gráfico</button>
-                    <button class="btn btn-secondary" onclick="clearChart()">Limpiar</button>
-                </div>
-            </div>
-
-            <!-- Section 3: Chart Display -->
-            <div class="section">
-                <h2>📊 Paso 3: Visualización</h2>
-                <div class="chart-container">
-                    <canvas id="myChart" class="chart-canvas"></canvas>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-success" onclick="downloadChart()">Descargar Gráfico PNG</button>
-                    <button class="btn btn-secondary" onclick="downloadProcessedData()">Descargar Datos Procesados CSV</button>
-                </div>
-            </div>
-
-            <!-- Section 4: Quiz -->
-            <div class="section">
-                <h2>✅ Paso 4: Cuestionario del Módulo</h2>
-                <p>Responde las siguientes preguntas sobre los conceptos del módulo:</p>
-
-                <form id="quizForm">
-                    
-                    <div class="quiz-question">
-                        <div class="question-number">Pregunta 1 de 4</div>
-                        <div class="question-text">¿Qué es la jerarquía visual?</div>
-                        <div class="quiz-options">
-                            <div class="quiz-option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">El orden de importancia en el diseño</label></div>
-                            <div class="quiz-option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">El tamaño de los gráficos</label></div>
-                            <div class="quiz-option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">La cantidad de colores usados</label></div>
-                        </div>
-                    </div>
-                    <div class="quiz-question">
-                        <div class="question-number">Pregunta 2 de 4</div>
-                        <div class="question-text">¿Cuántos colores principales se recomienda usar en una visualización?</div>
-                        <div class="quiz-options">
-                            <div class="quiz-option"><input type="radio" name="q2" value="a" id="q2a"><label for="q2a">2-4 colores</label></div>
-                            <div class="quiz-option"><input type="radio" name="q2" value="b" id="q2b"><label for="q2b">10-15 colores</label></div>
-                            <div class="quiz-option"><input type="radio" name="q2" value="c" id="q2c"><label for="q2c">Cuantos más mejor</label></div>
-                        </div>
-                    </div>
-                    <div class="quiz-question">
-                        <div class="question-number">Pregunta 3 of 4</div>
-                        <div class="question-text">¿Qué principio ayuda a que los elementos se vean organizados?</div>
-                        <div class="quiz-options">
-                            <div class="quiz-option"><input type="radio" name="q3" value="a" id="q3a"><label for="q3a">Alineación</label></div>
-                            <div class="quiz-option"><input type="radio" name="q3" value="b" id="q3b"><label for="q3b">Animación</label></div>
-                            <div class="quiz-option"><input type="radio" name="q3" value="c" id="q3c"><label for="q3c">Tamaño grande</label></div>
-                        </div>
-                    </div>
-                    <div class="quiz-question">
-                        <div class="question-number">Pregunta 4 de 4</div>
-                        <div class="question-text">¿Qué técnicas mejoran la percepción visual? (Selecciona todas)</div>
-                        <div class="quiz-options">
-                            <div class="quiz-option"><input type="checkbox" name="q4" value="a" id="q4a"><label for="q4a">Contraste adecuado</label></div>
-                            <div class="quiz-option"><input type="checkbox" name="q4" value="b" id="q4b"><label for="q4b">Proximidad de elementos relacionados</label></div>
-                            <div class="quiz-option"><input type="checkbox" name="q4" value="c" id="q4c"><label for="q4c">Uso excesivo de sombras</label></div>
-                            <div class="quiz-option"><input type="checkbox" name="q4" value="d" id="q4d"><label for="q4d">Espacio en blanco</label></div>
-                        </div>
-                    </div>
-                    
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary" onclick="evaluateQuiz()">Evaluar</button>
-                        <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Reiniciar</button>
-                    </div>
-                </form>
-
-                <div id="quizResults" class="results hidden">
-                    <h3>Resultados del Cuestionario</h3>
-                    <div class="score" id="quizScore">0%</div>
-                    <p id="quizFeedback"></p>
-                </div>
-            </div>
-
-            <!-- Section 5: Save & Export -->
-            <div class="section">
-                <h2>💾 Paso 5: Guardar y Exportar</h2>
-                <p>Tus resultados se guardan automáticamente en localStorage. También puedes descargarlos:</p>
-                
-                <div class="btn-group">
-                    <button class="btn btn-success" onclick="downloadAllResults()">Descargar Todos los Resultados JSON</button>
-                    <button class="btn btn-secondary" onclick="clearSavedData()">Limpiar Datos Guardados</button>
-                </div>
-
-                <div id="savedDataInfo" class="card">
-                    <div class="card-header">Información de Guardado</div>
-                    <div class="card-body" id="savedDataContent">
-                        No hay datos guardados aún.
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container" style="max-width:1100px;margin:18px auto;">
+    <div class="header">
+      <h1>📊 Módulo 02: Principios de Visualización</h1>
+      <p>Ejercicio Interactivo - DataViz-Storytelling</p>
     </div>
 
-    <script src="../examples/utils.js"></script>
-    <script>
-        let currentData = [];
-        let currentChart = null;
-        let processedData = [];
-        const STORAGE_KEY = 'dataviz-module-02';
+    <div class="content">
+      <div class="alert alert-info">
+        <strong>Instrucciones:</strong> Este ejercicio te permite practicar visualización de datos directamente en el navegador.
+        Carga un CSV, configura el gráfico, responde el cuestionario y descarga tus resultados.
+      </div>
 
-        // Load CSV from file
-        function loadCSV(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+      <!-- Paso 1: Cargar datos -->
+      <div class="section">
+        <h2>📁 Paso 1: Cargar Datos</h2>
+        <p>Selecciona un archivo CSV o pega tus datos manualmente.</p>
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const text = e.target.result;
-                currentData = parseCSV(text);
-                displayData();
-                populateColumnSelects();
-                showNotification('CSV cargado correctamente', 'success');
-            };
-            reader.readAsText(file);
-        }
+        <div class="form-group">
+          <label>Cargar archivo CSV:</label>
+          <div class="file-upload-area" onclick="document.getElementById('fileInput').click()"
+               style="border:2px dashed #9aa;padding:24px;text-align:center;cursor:pointer;">
+            <input type="file" id="fileInput" accept=".csv" onchange="loadCSV(event)">
+            <p>📂 Click aquí para seleccionar un archivo CSV</p>
+            <p style="font-size:0.9em;opacity:0.7;">O usa los archivos de ejemplo en /examples/</p>
+          </div>
+        </div>
 
-        // Parse manual CSV input
-        function parseManualCSV() {
-            const text = document.getElementById('csvTextInput').value.trim();
-            if (!text) {
-                showNotification('Por favor ingresa datos CSV', 'error');
-                return;
-            }
+        <div class="form-group">
+          <label>O pega datos CSV manualmente:</label>
+          <textarea id="csvTextInput" placeholder="Mes,Producto,Ventas&#10;Enero,A,150&#10;Febrero,A,180" rows="6" style="width:100%"></textarea>
+          <button class="btn btn-secondary" onclick="parseManualCSV()">Cargar datos pegados</button>
+        </div>
 
-            currentData = parseCSV(text);
-            displayData();
-            populateColumnSelects();
-            showNotification('Datos cargados correctamente', 'success');
-        }
+        <div id="dataPreview" class="hidden">
+          <h3>Vista previa de datos:</h3>
+          <div style="overflow-x:auto;">
+            <table class="data-table" id="dataTable"></table>
+          </div>
+          <p><strong>Filas cargadas:</strong> <span id="rowCount">0</span></p>
+        </div>
+      </div>
 
-        // Display data in table
-        function displayData() {
-            if (currentData.length === 0) return;
+      <!-- Paso 2: Configurar gráfico -->
+      <div class="section">
+        <h2>⚙️ Paso 2: Configurar Gráfico</h2>
 
-            const preview = document.getElementById('dataPreview');
-            const table = document.getElementById('dataTable');
-            const rowCount = document.getElementById('rowCount');
+        <div class="form-group">
+          <label for="chartType">Tipo de gráfico:</label>
+          <select id="chartType">
+            <option value="bar">Barras</option>
+            <option value="line">Líneas</option>
+            <option value="scatter">Dispersión (Scatter)</option>
+            <option value="pie">Circular (Pie)</option>
+            <option value="doughnut">Dona (Doughnut)</option>
+          </select>
+        </div>
 
-            preview.classList.remove('hidden');
-            rowCount.textContent = currentData.length;
+        <div class="form-group">
+          <label for="xAxis">Eje X (etiquetas):</label>
+          <select id="xAxis"><option value="">Selecciona columna...</option></select>
+        </div>
 
-            const headers = Object.keys(currentData[0]);
-            let html = '<thead><tr>';
-            headers.forEach(h => html += `<th>${h}</th>`);
-            html += '</tr></thead><tbody>';
+        <div class="form-group">
+          <label for="yAxis">Eje Y (valores):</label>
+          <select id="yAxis"><option value="">Selecciona columna...</option></select>
+        </div>
 
-            currentData.slice(0, 10).forEach(row => {
-                html += '<tr>';
-                headers.forEach(h => html += `<td>${row[h]}</td>`);
-                html += '</tr>';
-            });
+        <div class="form-group">
+          <label for="groupBy">Agrupar por (opcional):</label>
+          <select id="groupBy"><option value="">Sin agrupación</option></select>
+        </div>
 
-            if (currentData.length > 10) {
-                html += `<tr><td colspan="${headers.length}" style="text-align: center; font-style: italic;">... y ${currentData.length - 10} filas más</td></tr>`;
-            }
+        <div class="form-group">
+          <label for="aggregation">Operación de agregación:</label>
+          <select id="aggregation">
+            <option value="sum">Suma</option><option value="avg">Promedio</option>
+            <option value="count">Conteo</option><option value="max">Máximo</option>
+            <option value="min">Mínimo</option>
+          </select>
+        </div>
 
-            html += '</tbody>';
-            table.innerHTML = html;
-        }
+        <div class="form-group">
+          <label for="chartTitle">Título del gráfico:</label>
+          <input type="text" id="chartTitle" placeholder="Mi Gráfico de Datos">
+        </div>
 
-        // Populate column selects
-        function populateColumnSelects() {
-            if (currentData.length === 0) return;
+        <div class="btn-group" style="margin-top:8px;">
+          <button class="btn btn-primary" onclick="renderChart()">Generar Gráfico</button>
+          <button class="btn btn-secondary" onclick="clearChart()">Limpiar</button>
+        </div>
+      </div>
 
-            const headers = Object.keys(currentData[0]);
-            const xAxis = document.getElementById('xAxis');
-            const yAxis = document.getElementById('yAxis');
-            const groupBy = document.getElementById('groupBy');
+      <!-- Paso 3: Visualización -->
+      <div class="section" style="margin-top:20px;">
+        <h2>📊 Paso 3: Visualización</h2>
+        <div class="chart-container">
+          <canvas id="myChart" class="chart-canvas"></canvas>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="btn btn-success" onclick="downloadChart()">Descargar Gráfico PNG</button>
+          <button class="btn btn-secondary" onclick="downloadProcessedData()">Descargar Datos Procesados CSV</button>
+        </div>
+      </div>
 
-            [xAxis, yAxis, groupBy].forEach(select => {
-                const current = select.value;
-                select.innerHTML = select.id === 'groupBy' ? '<option value="">Sin agrupación</option>' : '<option value="">Selecciona columna...</option>';
-                headers.forEach(h => {
-                    const option = document.createElement('option');
-                    option.value = h;
-                    option.textContent = h;
-                    select.appendChild(option);
-                });
-                if (current) select.value = current;
-            });
-        }
+      <!-- Paso 4: Cuestionario -->
+      <div class="section" style="margin-top:24px;">
+        <h2>✅ Paso 4: Cuestionario del Módulo</h2>
+        <p>Responde las siguientes preguntas sobre los conceptos del módulo:</p>
 
-        // Render chart
-        function renderChart() {
-            const xCol = document.getElementById('xAxis').value;
-            const yCol = document.getElementById('yAxis').value;
-            const chartType = document.getElementById('chartType').value;
-            const groupByCol = document.getElementById('groupBy').value;
-            const aggType = document.getElementById('aggregation').value;
-            const title = document.getElementById('chartTitle').value || 'Gráfico de Datos';
+        <form id="quizForm" style="margin-top:10px;">
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 1 de 4</strong></div>
+            <div class="question-text">¿Qué es la jerarquía visual?</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="radio" name="q1" value="a"> El orden de importancia en el diseño</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q1" value="b"> El tamaño de los gráficos</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q1" value="c"> La cantidad de colores usados</label></div>
+            </div>
+          </div>
 
-            if (!xCol || !yCol) {
-                showNotification('Selecciona columnas para X e Y', 'error');
-                return;
-            }
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 2 de 4</strong></div>
+            <div class="question-text">¿Cuántos colores principales se recomienda usar en una visualización?</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="radio" name="q2" value="a"> 2-4 colores</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q2" value="b"> 10-15 colores</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q2" value="c"> Cuantos más mejor</label></div>
+            </div>
+          </div>
 
-            if (currentData.length === 0) {
-                showNotification('Primero carga un CSV', 'error');
-                return;
-            }
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 3 de 4</strong></div>
+            <div class="question-text">¿Qué principio ayuda a que los elementos se vean organizados?</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="radio" name="q3" value="a"> Alineación</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q3" value="b"> Animación</label></div>
+              <div class="quiz-option"><label><input type="radio" name="q3" value="c"> Tamaño grande</label></div>
+            </div>
+          </div>
 
-            // Process data
-            let chartData;
-            if (groupByCol) {
-                const grouped = groupBy(currentData, groupByCol);
-                const datasets = [];
-                
-                for (const [group, items] of Object.entries(grouped)) {
-                    const aggregated = aggregate(items, xCol, yCol, aggType);
-                    datasets.push({
-                        label: group,
-                        data: Object.values(aggregated),
-                        backgroundColor: `hsla(${Math.random() * 360}, 70%, 60%, 0.8)`,
-                        borderColor: `hsla(${Math.random() * 360}, 70%, 50%, 1)`,
-                        borderWidth: 2
-                    });
-                }
-                
-                chartData = {
-                    labels: Object.keys(aggregate(currentData, xCol, yCol, aggType)),
-                    datasets: datasets
-                };
-            } else {
-                const aggregated = aggregate(currentData, xCol, yCol, aggType);
-                processedData = Object.entries(aggregated).map(([k, v]) => ({ [xCol]: k, [yCol]: v }));
-                
-                chartData = {
-                    labels: Object.keys(aggregated),
-                    datasets: [{
-                        label: yCol,
-                        data: Object.values(aggregated),
-                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
-                        borderColor: 'rgba(102, 126, 234, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            }
+          <div class="quiz-question">
+            <div class="question-number"><strong>Pregunta 4 de 4</strong></div>
+            <div class="question-text">¿Qué técnicas mejoran la percepción visual? (Selecciona todas)</div>
+            <div class="quiz-options">
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="a"> Contraste adecuado</label></div>
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="b"> Proximidad de elementos relacionados</label></div>
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="c"> Uso excesivo de sombras</label></div>
+              <div class="quiz-option"><label><input type="checkbox" name="q4" value="d"> Espacio en blanco</label></div>
+            </div>
+          </div>
 
-            // Clear previous chart
-            if (currentChart) {
-                currentChart.destroy();
-            }
+          <div style="margin-top:8px;">
+            <button type="button" class="btn btn-primary" onclick="evaluateQuiz()">Evaluar</button>
+            <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Reiniciar</button>
+          </div>
+        </form>
 
-            // Create new chart
-            const ctx = document.getElementById('myChart').getContext('2d');
-            currentChart = new Chart(ctx, {
-                type: chartType,
-                data: chartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: title,
-                            font: { size: 18 }
-                        },
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: chartType !== 'pie' && chartType !== 'doughnut' ? {
-                        y: { beginAtZero: true }
-                    } : {}
-                }
-            });
+        <div id="quizResults" class="results hidden">
+          <h3>Resultados del Cuestionario</h3>
+          <div class="score" id="quizScore">0%</div>
+          <p id="quizFeedback"></p>
+        </div>
+      </div>
 
-            showNotification('Gráfico generado correctamente', 'success');
-        }
+      <!-- Paso 5: Guardar y exportar -->
+      <div class="section" id="savedDataInfoSection" style="margin-top:24px;">
+        <h2>💾 Paso 5: Guardar y Exportar</h2>
+        <p>Tus resultados se guardan automáticamente en localStorage. También puedes descargarlos:</p>
 
-        // Clear chart
-        function clearChart() {
-            if (currentChart) {
-                currentChart.destroy();
-                currentChart = null;
-                showNotification('Gráfico limpiado', 'info');
-            }
-        }
+        <div class="btn-group" style="margin-bottom:8px;">
+          <button class="btn btn-success" onclick="downloadAllResults()">Descargar Todos los Resultados JSON</button>
+          <button class="btn btn-secondary" onclick="clearSavedData()">Limpiar Datos Guardados</button>
+        </div>
 
-        // Download chart as PNG
-        function downloadChart() {
-            if (!currentChart) {
-                showNotification('Primero genera un gráfico', 'error');
-                return;
-            }
+        <div id="savedDataInfo" class="card saved-card">
+          <div class="card-header">Información de Guardado</div>
+          <div class="card-body" id="savedDataContent">No hay datos guardados aún.</div>
+        </div>
+      </div>
 
-            const canvas = document.getElementById('myChart');
-            canvas.toBlob(blob => {
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `modulo-02-grafico-${formatDate()}.png`;
-                link.click();
-                URL.revokeObjectURL(url);
-                showNotification('Gráfico descargado', 'success');
-            });
-        }
+    </div>
+  </div>
 
-        // Download processed data
-        function downloadProcessedData() {
-            if (processedData.length === 0 && currentData.length === 0) {
-                showNotification('No hay datos para descargar', 'error');
-                return;
-            }
+  <!-- utils.js (expected) -->
+  <script src="../examples/utils.js"></script>
 
-            const dataToDownload = processedData.length > 0 ? processedData : currentData;
-            const csv = arrayToCSV(dataToDownload);
-            downloadFile(csv, `modulo-02-datos-${formatDate()}.csv`, 'text/csv');
-            showNotification('Datos descargados', 'success');
-        }
-
-        // Quiz evaluation
-        const correctAnswers = { q1: 'a', q2: 'a', q3: 'a', q4: ['a', 'b', 'd'] };
-
-        function evaluateQuiz() {
-            let correct = 0;
-            const total = Object.keys(correctAnswers).length;
-            const userAnswers = {};
-
-            for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
-                const inputs = document.querySelectorAll(`input[name="${question}"]`);
-                
-                if (Array.isArray(correctAnswer)) {
-                    userAnswers[question] = Array.from(inputs)
-                        .filter(i => i.checked)
-                        .map(i => i.value)
-                        .sort();
-                    if (JSON.stringify(userAnswers[question]) === JSON.stringify(correctAnswer.sort())) {
-                        correct++;
-                    }
-                } else {
-                    const checked = Array.from(inputs).find(i => i.checked);
-                    userAnswers[question] = checked ? checked.value : null;
-                    if (userAnswers[question] === correctAnswer) {
-                        correct++;
-                    }
-                }
-            }
-
-            const score = Math.round((correct / total) * 100);
-            displayQuizResults(score);
-            saveResults(score, userAnswers);
-        }
-
-        function displayQuizResults(score) {
-            const resultsDiv = document.getElementById('quizResults');
-            const scoreDiv = document.getElementById('quizScore');
-            const feedbackDiv = document.getElementById('quizFeedback');
-
-            resultsDiv.classList.remove('hidden');
-            scoreDiv.textContent = `${score}%`;
-            scoreDiv.className = 'score';
-
-            if (score >= 70) {
-                scoreDiv.classList.add('high');
-                resultsDiv.classList.remove('error');
-                feedbackDiv.textContent = '¡Excelente! Has comprendido bien los conceptos del módulo.';
-            } else if (score >= 50) {
-                scoreDiv.classList.add('medium');
-                resultsDiv.classList.remove('error');
-                feedbackDiv.textContent = 'Buen trabajo. Repasa algunos conceptos para mejorar.';
-            } else {
-                scoreDiv.classList.add('low');
-                resultsDiv.classList.add('error');
-                feedbackDiv.textContent = 'Te recomendamos revisar el material del módulo.';
-            }
-
-            showNotification(`Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
-        }
-
-        function resetQuiz() {
-            document.getElementById('quizForm').reset();
-            document.getElementById('quizResults').classList.add('hidden');
-            showNotification('Cuestionario reiniciado', 'info');
-        }
-
-        function saveResults(score, answers) {
-            const results = {
-                date: new Date().toISOString(),
-                score: score,
-                answers: answers,
-                module: '02'
-            };
-
-            saveToLocalStorage(STORAGE_KEY, results);
-            updateSavedDataInfo();
-        }
-
-        function downloadAllResults() {
-            const results = loadFromLocalStorage(STORAGE_KEY);
-            if (!results) {
-                showNotification('No hay resultados guardados', 'error');
-                return;
-            }
-
-            downloadFile(
-                JSON.stringify(results, null, 2),
-                `modulo-02-resultados-${formatDate()}.json`,
-                'application/json'
-            );
-            showNotification('Resultados descargados', 'success');
-        }
-
-        function clearSavedData() {
-            if (confirm('¿Seguro que quieres borrar los datos guardados?')) {
-                localStorage.removeItem(STORAGE_KEY);
-                updateSavedDataInfo();
-                showNotification('Datos borrados', 'info');
-            }
-        }
-
-        function updateSavedDataInfo() {
-            const results = loadFromLocalStorage(STORAGE_KEY);
-            const content = document.getElementById('savedDataContent');
-
-            if (results) {
-                content.innerHTML = `
-                    <p><strong>Última evaluación:</strong> ${new Date(results.date).toLocaleString('es-ES')}</p>
-                    <p><strong>Puntuación:</strong> ${results.score}%</p>
-                    <p><strong>Módulo:</strong> ${results.module}</p>
-                `;
-            } else {
-                content.textContent = 'No hay datos guardados aún.';
-            }
-        }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            updateSavedDataInfo();
+  <!-- FALLBACKS + helpers (parseCSV, showNotification, storage, arrayToCSV/downloadFile, __groupBy/__aggregate) -->
+  <script>
+  (function(){
+    // parseCSV fallback
+    if (typeof parseCSV !== 'function') {
+      window.parseCSV = function(text) {
+        if (!text) return [];
+        const sample = String(text).slice(0,2000);
+        const counts = { ',': (sample.match(/,/g)||[]).length, ';': (sample.match(/;/g)||[]).length, '\t': (sample.match(/\t/g)||[]).length };
+        let delim = ',';
+        if (counts[';'] > counts[','] && counts[';'] >= counts['\t']) delim = ';';
+        else if (counts['\t'] > counts[','] && counts['\t'] >= counts[';']) delim = '\t';
+        const lines = String(text).trim().split(/\r?\n/).filter(l=>l.trim().length>0);
+        if (lines.length === 0) return [];
+        const headers = lines.shift().split(delim).map(h=>h.trim());
+        return lines.map(l=>{
+          const cols = l.split(delim);
+          const obj = {};
+          for (let i=0;i<headers.length;i++) obj[headers[i]] = (cols[i]||'').trim();
+          return obj;
         });
-    </script>
+      };
+      console.info('[fallbacks] parseCSV fallback installed');
+    }
+
+    // showNotification fallback (simple toast)
+    if (typeof showNotification !== 'function') {
+      window.showNotification = function(message, type) {
+        console.log('[showNotification]', type||'info', message);
+        try {
+          const id = 'fallback-toast';
+          let toast = document.getElementById(id);
+          if (!toast) {
+            toast = document.createElement('div'); toast.id = id;
+            toast.style.position = 'fixed'; toast.style.right = '16px'; toast.style.top = '16px';
+            toast.style.zIndex = 99999; toast.style.maxWidth = '320px';
+            document.body.appendChild(toast);
+          }
+          const item = document.createElement('div');
+          item.textContent = message;
+          item.style.margin = '6px'; item.style.padding = '8px 12px'; item.style.borderRadius='6px';
+          item.style.color = '#fff'; item.style.fontSize='13px'; item.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+          if (type === 'success') item.style.background = '#28a745';
+          else if (type === 'error') item.style.background = '#dc3545';
+          else if (type === 'warning') { item.style.background = '#ffc107'; item.style.color = '#000'; }
+          else item.style.background = '#17a2b8';
+          toast.appendChild(item);
+          setTimeout(()=>{ try{ item.remove(); }catch(e){} }, 4000);
+        } catch(e){}
+      };
+      console.info('[fallbacks] showNotification fallback installed');
+    }
+
+    // LocalStorage wrappers
+    if (typeof loadFromLocalStorage !== 'function') {
+      window.loadFromLocalStorage = function(key) {
+        try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e) { return null; }
+      };
+      console.info('[fallbacks] loadFromLocalStorage fallback installed');
+    }
+    if (typeof saveToLocalStorage !== 'function') {
+      window.saveToLocalStorage = function(key, value) {
+        try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch(e) { return false; }
+      };
+      console.info('[fallbacks] saveToLocalStorage fallback installed');
+    }
+
+    // arrayToCSV & downloadFile
+    if (typeof arrayToCSV !== 'function') {
+      window.arrayToCSV = function(arr) {
+        if (!Array.isArray(arr) || arr.length===0) return '';
+        const headers = Object.keys(arr[0]);
+        const lines = [headers.join(',')];
+        arr.forEach(row=>{
+          const cols = headers.map(h=>{
+            let v = row[h] === null || row[h] === undefined ? '' : String(row[h]);
+            if (v.includes('"')) v = v.replace(/"/g,'""');
+            if (/[,"\n]/.test(v)) v = `"${v}"`;
+            return v;
+          });
+          lines.push(cols.join(','));
+        });
+        return lines.join('\r\n');
+      };
+      console.info('[fallbacks] arrayToCSV fallback installed');
+    }
+    if (typeof downloadFile !== 'function') {
+      window.downloadFile = function(content, filename, mime='text/plain') {
+        try {
+          const blob = new Blob([content], { type: mime });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href = url; a.download = filename || 'download';
+          document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        } catch(e){ console.error('[fallbacks] downloadFile error', e); }
+      };
+      console.info('[fallbacks] downloadFile fallback installed');
+    }
+
+    // safe groupBy/aggregate fallbacks assigned to internal names to avoid collisions with DOM ids
+    if (typeof window.__groupBy !== 'function') {
+      window.__groupBy = function(arr, key) {
+        const result = {}; if (!Array.isArray(arr)) return result;
+        for (const item of arr) {
+          const k = (item && Object.prototype.hasOwnProperty.call(item, key)) ? item[key] : '__undefined__';
+          const sk = (k === null || k === undefined) ? '__null__' : String(k);
+          if (!result[sk]) result[sk] = [];
+          result[sk].push(item);
+        }
+        console.info('[fallbacks] __groupBy fallback installed');
+        return result;
+      };
+    }
+    if (typeof window.__aggregate !== 'function') {
+      window.__aggregate = function(items, xCol, yCol, aggType) {
+        aggType = (aggType||'sum').toLowerCase();
+        const buckets = {}; if (!Array.isArray(items)) return {};
+        for (const row of items) {
+          const x = row && Object.prototype.hasOwnProperty.call(row, xCol) ? row[xCol] : '__undefined__';
+          const xv = (x === null || x === undefined) ? '' : String(x);
+          let y = row && Object.prototype.hasOwnProperty.call(row, yCol) ? row[yCol] : null;
+          const yNum = (y===null||y===undefined||y==='') ? NaN : Number(String(y).replace(/[^0-9\.\-eE]/g,''));
+          if (!buckets[xv]) buckets[xv] = { nums: [], raw: [] };
+          if (!isNaN(yNum)) buckets[xv].nums.push(yNum);
+          buckets[xv].raw.push(y);
+        }
+        const out = {};
+        for (const [k, v] of Object.entries(buckets)) {
+          const nums = v.nums;
+          if (aggType === 'count') out[k] = v.raw.length;
+          else if (aggType === 'avg') out[k] = nums.length ? nums.reduce((a,b)=>a+b,0)/nums.length : 0;
+          else if (aggType === 'max') out[k] = nums.length ? Math.max(...nums) : 0;
+          else if (aggType === 'min') out[k] = nums.length ? Math.min(...nums) : 0;
+          else out[k] = nums.length ? nums.reduce((a,b)=>a+b,0) : 0;
+        }
+        console.info('[fallbacks] __aggregate fallback installed (aggType=' + aggType + ')');
+        return out;
+      };
+    }
+  })();
+  </script>
+
+  <!-- ensureChart: dynamic loader for Chart.js (tries multiple CDNs) -->
+  <script>
+  function ensureChart(callback) {
+    if (typeof Chart !== 'undefined') return callback();
+    const urls = [
+      'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
+      'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js',
+      'https://unpkg.com/chart.js@4.4.0/dist/chart.umd.min.js'
+    ];
+    let i = 0;
+    function tryLoad() {
+      if (i >= urls.length) {
+        const msg = 'No se pudo cargar Chart.js desde CDN. Comprueba Network o añade Chart.js localmente.';
+        console.error('[ensureChart]', msg);
+        if (typeof showNotification === 'function') showNotification(msg, 'error');
+        return;
+      }
+      const src = urls[i++];
+      console.debug('[ensureChart] intentando cargar', src);
+      const s = document.createElement('script');
+      s.src = src; s.async = true;
+      s.onload = function(){ setTimeout(()=>callback(), 10); };
+      s.onerror = function(){ console.warn('[ensureChart] fallo cargando', src); s.remove(); tryLoad(); };
+      document.head.appendChild(s);
+    }
+    tryLoad();
+  }
+  </script>
+
+  <!-- Main logic: charts, quiz, storage (STORAGE_KEY specific to module 02) -->
+  <script>
+    // State variables
+    let currentData = [];
+    let currentChart = null;
+    let processedData = [];
+    const STORAGE_KEY = 'dataviz-module-02';
+
+    // Load CSV from file
+    function loadCSV(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        try { currentData = (typeof parseCSV === 'function') ? parseCSV(text) : []; }
+        catch(err){ currentData = []; console.error('parseCSV error', err); }
+        displayData(); populateColumnSelects();
+        if (typeof showNotification === 'function') showNotification('CSV cargado correctamente', 'success');
+      };
+      reader.readAsText(file);
+    }
+
+    // Parse manual CSV input
+    function parseManualCSV() {
+      const text = document.getElementById('csvTextInput').value.trim();
+      if (!text) { if (typeof showNotification === 'function') showNotification('Por favor ingresa datos CSV','error'); return; }
+      try { currentData = (typeof parseCSV === 'function') ? parseCSV(text) : []; }
+      catch(err){ currentData = []; console.error('parseCSV error', err); }
+      displayData(); populateColumnSelects();
+      if (typeof showNotification === 'function') showNotification('Datos cargados correctamente','success');
+    }
+
+    // Display data in table
+    function displayData() {
+      if (currentData.length === 0) return;
+      const preview = document.getElementById('dataPreview');
+      const table = document.getElementById('dataTable');
+      const rowCount = document.getElementById('rowCount');
+      if (preview) preview.classList.remove('hidden');
+      if (rowCount) rowCount.textContent = currentData.length;
+      const headers = Object.keys(currentData[0] || {});
+      let html = '<thead><tr>';
+      headers.forEach(h => html += `<th>${h}</th>`);
+      html += '</tr></thead><tbody>';
+      currentData.slice(0,10).forEach(row => {
+        html += '<tr>';
+        headers.forEach(h => html += `<td>${row[h] !== undefined ? row[h] : ''}</td>`);
+        html += '</tr>';
+      });
+      if (currentData.length > 10) html += `<tr><td colspan="${headers.length}" style="text-align:center;font-style:italic">... y ${currentData.length-10} filas más</td></tr>`;
+      html += '</tbody>';
+      if (table) table.innerHTML = html;
+    }
+
+    // Populate column selects
+    function populateColumnSelects() {
+      if (currentData.length === 0) return;
+      const headers = Object.keys(currentData[0] || {});
+      const xAxis = document.getElementById('xAxis');
+      const yAxis = document.getElementById('yAxis');
+      const groupBy = document.getElementById('groupBy');
+      [xAxis,yAxis,groupBy].forEach(select=>{
+        if (!select) return;
+        const current = select.value;
+        select.innerHTML = select.id === 'groupBy' ? '<option value="">Sin agrupación</option>' : '<option value="">Selecciona columna...</option>';
+        headers.forEach(h => { const o = document.createElement('option'); o.value = h; o.textContent = h; select.appendChild(o); });
+        if (current) select.value = current;
+      });
+    }
+
+    // Render chart (uses ensureChart if needed)
+    function renderChart() {
+      const xCol = document.getElementById('xAxis')?.value;
+      const yCol = document.getElementById('yAxis')?.value;
+      const chartType = document.getElementById('chartType')?.value || 'bar';
+      const groupByCol = document.getElementById('groupBy')?.value;
+      const aggType = document.getElementById('aggregation')?.value || 'sum';
+      const title = document.getElementById('chartTitle')?.value || 'Gráfico de Datos';
+
+      if (!xCol || !yCol) { if (typeof showNotification === 'function') showNotification('Selecciona columnas para X e Y','error'); return; }
+      if (currentData.length === 0) { if (typeof showNotification === 'function') showNotification('Primero carga un CSV','error'); return; }
+
+      const groupByFn = (typeof window.groupBy === 'function') ? window.groupBy : (typeof window.__groupBy === 'function' ? window.__groupBy : null);
+      const aggregateFn = (typeof window.aggregate === 'function') ? window.aggregate : (typeof window.__aggregate === 'function' ? window.__aggregate : null);
+
+      if (!aggregateFn) { console.error('aggregate not available'); if (typeof showNotification === 'function') showNotification('Función aggregate no disponible','error'); return; }
+
+      let chartData;
+      if (groupByCol && groupByFn) {
+        const grouped = groupByFn(currentData, groupByCol);
+        const datasets = [];
+        for (const [group, items] of Object.entries(grouped)) {
+          const aggregated = aggregateFn(items, xCol, yCol, aggType);
+          datasets.push({ label: group, data: Object.values(aggregated), backgroundColor:`hsla(${Math.random()*360},70%,60%,0.8)`, borderColor:`hsla(${Math.random()*360},70%,50%,1)`, borderWidth:2 });
+        }
+        chartData = { labels: Object.keys(aggregateFn(currentData, xCol, yCol, aggType)), datasets: datasets };
+      } else {
+        const aggregated = aggregateFn(currentData, xCol, yCol, aggType);
+        processedData = Object.entries(aggregated).map(([k,v]) => ({ [xCol]: k, [yCol]: v }));
+        if (chartType === 'scatter') {
+          const points = processedData.map(r => {
+            const xNum = Number(String(r[xCol]).replace(/[^0-9\.\-]+/g,'')); const yNum = Number(String(r[yCol]).replace(/[^0-9\.\-]+/g,'')) || 0;
+            return { x: isNaN(xNum)?null:xNum, y: isNaN(yNum)?null:yNum };
+          }).filter(p => p.x!==null && p.y!==null);
+          if (points.length===0) { if (typeof showNotification === 'function') showNotification('Scatter requiere valores numéricos en X','error'); return; }
+          chartData = { datasets: [{ label: yCol, data: points, backgroundColor:'rgba(102,126,234,0.8)', borderColor:'rgba(102,126,234,1)', borderWidth:2 }] };
+        } else {
+          chartData = { labels: Object.keys(aggregated), datasets: [{ label: yCol, data: Object.values(aggregated), backgroundColor:'rgba(102,126,234,0.8)', borderColor:'rgba(102,126,234,1)', borderWidth:2 }] };
+        }
+      }
+
+      if (currentChart) { currentChart.destroy(); currentChart = null; }
+
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const cfg = { type: chartType === 'scatter' ? 'scatter' : chartType, data: chartData, options: { responsive:true, maintainAspectRatio:false, plugins:{ title:{ display:true, text:title, font:{ size:18 } }, legend:{ display:true } }, scales: chartType !== 'pie' && chartType !== 'doughnut' ? { y:{ beginAtZero:true } } : {} } };
+
+      function createChartNow() {
+        try {
+          currentChart = new Chart(ctx, cfg);
+          if (typeof showNotification === 'function') showNotification('Gráfico generado correctamente','success');
+        } catch(err) {
+          console.error('Error creando chart (después de carga):', err);
+          if (typeof showNotification === 'function') showNotification('Error al generar el gráfico (ver consola)','error');
+        }
+      }
+
+      if (typeof Chart !== 'undefined') createChartNow();
+      else ensureChart(createChartNow);
+    }
+
+    // Clear chart
+    function clearChart(){ if (currentChart) { currentChart.destroy(); currentChart=null; if (typeof showNotification==='function') showNotification('Gráfico limpiado','info'); } }
+
+    // Download chart PNG
+    function downloadChart(){ if (!currentChart) { if (typeof showNotification==='function') showNotification('Primero genera un gráfico','error'); return; } const canvas=document.getElementById('myChart'); canvas.toBlob(blob=>{ const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`modulo-02-grafico-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.png`; a.click(); URL.revokeObjectURL(url); if (typeof showNotification==='function') showNotification('Gráfico descargado','success'); }); }
+
+    // Download processed data CSV
+    function downloadProcessedData(){ if (processedData.length===0 && currentData.length===0) { if (typeof showNotification==='function') showNotification('No hay datos para descargar','error'); return; } const dataToDownload = processedData.length>0 ? processedData : currentData; const csv = arrayToCSV(dataToDownload); downloadFile(csv, `modulo-02-datos-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`, 'text/csv'); if (typeof showNotification==='function') showNotification('Datos descargados','success'); }
+
+    // Quiz logic
+    const correctAnswers = { q1: 'a', q2: 'a', q3: 'a', q4: ['a','b','d'] };
+
+    function evaluateQuiz() {
+      let correct = 0; const total = Object.keys(correctAnswers).length; const userAnswers = {};
+      ['q1','q2','q3'].forEach(q => {
+        const checked = document.querySelector(`input[name="${q}"]:checked`);
+        userAnswers[q] = checked ? checked.value : null;
+        if (userAnswers[q] === correctAnswers[q]) correct++;
+      });
+      const boxes = Array.from(document.querySelectorAll('input[name="q4"]:checked')).map(i=>i.value).sort();
+      userAnswers.q4 = boxes; const expected = correctAnswers.q4.slice().sort(); if (JSON.stringify(boxes) === JSON.stringify(expected)) correct++;
+      const score = Math.round((correct / total) * 100);
+      displayQuizResults(score); saveResults(score, userAnswers);
+    }
+
+    function displayQuizResults(score) {
+      const resultsDiv = document.getElementById('quizResults'); const scoreDiv = document.getElementById('quizScore'); const feedbackDiv = document.getElementById('quizFeedback');
+      if (!resultsDiv || !scoreDiv || !feedbackDiv) return;
+      resultsDiv.classList.remove('hidden'); scoreDiv.textContent = `${score}%`; scoreDiv.className = 'score';
+      if (score >= 70) { scoreDiv.classList.add('high'); feedbackDiv.textContent = '¡Excelente! Has comprendido bien los conceptos del módulo.'; }
+      else if (score >= 50) { scoreDiv.classList.add('medium'); feedbackDiv.textContent = 'Buen trabajo. Repasa algunos conceptos para mejorar.'; }
+      else { scoreDiv.classList.add('low'); feedbackDiv.textContent = 'Te recomendamos revisar el material del módulo.'; }
+      if (typeof showNotification === 'function') showNotification(`Puntuación: ${score}%`, score >= 70 ? 'success' : 'info');
+    }
+
+    function resetQuiz() { document.getElementById('quizForm').reset(); const resultsDiv = document.getElementById('quizResults'); if (resultsDiv) resultsDiv.classList.add('hidden'); if (typeof showNotification === 'function') showNotification('Cuestionario reiniciado','info'); }
+
+    // Storage: save as array (append), downloadAllResults handles array
+    function saveResults(score, answers) {
+      const entry = { date: new Date().toISOString(), score, answers, module: '02' };
+      try {
+        const existing = loadFromLocalStorage(STORAGE_KEY);
+        let arr = [];
+        if (Array.isArray(existing)) arr = existing;
+        else if (existing && typeof existing === 'object') arr = [existing];
+        arr.push(entry);
+        saveToLocalStorage(STORAGE_KEY, arr);
+      } catch (e) { console.error('saveToLocalStorage failed', e); }
+      updateSavedDataInfo();
+    }
+
+    function downloadAllResults() {
+      const results = loadFromLocalStorage(STORAGE_KEY);
+      if (!results) { if (typeof showNotification === 'function') showNotification('No hay resultados guardados','error'); return; }
+      const payload = Array.isArray(results) ? results : [results];
+      try { downloadFile(JSON.stringify(payload, null, 2), `modulo-02-resultados-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`, 'application/json'); if (typeof showNotification === 'function') showNotification('Resultados descargados','success'); }
+      catch(e){ console.error('downloadAllResults error', e); if (typeof showNotification === 'function') showNotification('Error descargando resultados','error'); }
+    }
+
+    function clearSavedData() { if (confirm('¿Seguro que quieres borrar los datos guardados?')) { try { localStorage.removeItem(STORAGE_KEY); } catch(e){ console.error(e); } updateSavedDataInfo(); if (typeof showNotification === 'function') showNotification('Datos borrados','info'); } }
+
+    // updateSavedDataInfo (defensive)
+    function updateSavedDataInfo() {
+      try {
+        let content = document.getElementById('savedDataContent');
+        if (!content) {
+          let container = document.getElementById('savedDataInfo');
+          if (!container) {
+            container = document.createElement('div'); container.id = 'savedDataInfo'; container.className = 'card saved-card';
+            const hdr = document.createElement('div'); hdr.className = 'card-header'; hdr.textContent = 'Información de Guardado';
+            const body = document.createElement('div'); body.className = 'card-body'; body.id = 'savedDataContent'; body.textContent = 'No hay datos guardados aún.';
+            container.appendChild(hdr); container.appendChild(body);
+            const parent = document.getElementById('savedDataInfoSection') || document.querySelector('.content') || document.body;
+            parent.appendChild(container);
+            content = document.getElementById('savedDataContent');
+          } else {
+            const body = document.createElement('div'); body.className = 'card-body'; body.id = 'savedDataContent'; body.textContent = 'No hay datos guardados aún.'; container.appendChild(body); content = body;
+          }
+        }
+
+        const results = loadFromLocalStorage(STORAGE_KEY);
+        if (Array.isArray(results) && results.length > 0) {
+          const last = results[results.length - 1];
+          content.innerHTML = `<p><strong>Última evaluación:</strong> ${new Date(last.date).toLocaleString('es-ES')}</p><p><strong>Puntuación:</strong> ${last.score}%</p><p><strong>Módulo:</strong> ${last.module}</p><p><small>${results.length} resultados guardados</small></p>`;
+        } else if (results && typeof results === 'object') {
+          content.innerHTML = `<p><strong>Última evaluación:</strong> ${new Date(results.date).toLocaleString('es-ES')}</p><p><strong>Puntuación:</strong> ${results.score}%</p><p><strong>Módulo:</strong> ${results.module}</p>`;
+        } else {
+          content.textContent = 'No hay datos guardados aún.';
+        }
+      } catch (err) {
+        console.error('updateSavedDataInfo error', err);
+      }
+    }
+
+    // Init
+    window.addEventListener('load', ()=>{
+      console.log('Módulo 02 inicializado. Helpers:', typeof parseCSV, typeof aggregate, typeof showNotification);
+      if (typeof parseCSV !== 'function' || (typeof aggregate !== 'function' && typeof window.__aggregate !== 'function')) {
+        if (typeof showNotification === 'function') showNotification('Advertencia: helpers no cargados (utils.js). Comprueba la consola y la red.','error');
+        else console.warn('Advertencia: helpers no cargados (utils.js). Comprueba la consola y la red.');
+      }
+      updateSavedDataInfo();
+    });
+  </script>
+
+  <!-- HOTFIX2: robust file input + drag&drop + delimiter-tolerant CSV parser (no auto-open) -->
+  <script>
+  (function(){
+    let fi = document.getElementById('fileInput');
+    if (!fi) { fi = document.createElement('input'); fi.type='file'; fi.id='fileInput'; fi.accept='.csv,text/csv'; document.body.appendChild(fi); }
+    const drop = document.querySelector('.file-upload-area');
+    if (drop) {
+      if (!drop.querySelector('#fileInput')) drop.appendChild(fi);
+      drop.addEventListener('dragover', e=>{ e.preventDefault(); drop.classList && drop.classList.add('dragover'); });
+      drop.addEventListener('dragleave', e=>{ e.preventDefault(); drop.classList && drop.classList.remove('dragover'); });
+      drop.addEventListener('drop', e=>{ e.preventDefault(); drop.classList && drop.classList.remove('dragover'); const files = e.dataTransfer && e.dataTransfer.files; if (files && files.length) handleFiles(files); });
+    } else { fi.style.position='fixed'; fi.style.right='20px'; fi.style.top='80px'; }
+
+    function handleFiles(files){ if (!files || files.length===0) return; const file = files[0]; readFile(file); }
+
+    function autoParseCSV(text){
+      if (!text) return [];
+      const sample = text.slice(0,2000);
+      const counts = { ',': (sample.match(/,/g)||[]).length, ';': (sample.match(/;/g)||[]).length, '\t': (sample.match(/\t/g)||[]).length };
+      let delim = ',';
+      if (counts[';'] > counts[','] && counts[';'] >= counts['\t']) delim = ';';
+      else if (counts['\t'] > counts[','] && counts['\t'] >= counts[';']) delim = '\t';
+      const lines = String(text).trim().split(/\r?\n/).filter(l=>l.trim().length>0);
+      if (lines.length===0) return [];
+      const headers = lines.shift().split(delim).map(h=>h.trim());
+      return lines.map(l=>{ const cols = l.split(delim); const obj={}; for (let i=0;i<headers.length;i++) obj[headers[i]] = (cols[i]||'').trim(); return obj; });
+    }
+
+    function readFile(file){
+      if (!file) return;
+      if (typeof FileReader === 'undefined') { console.error('[HOTFIX2] FileReader not supported'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e){
+        const text = e.target.result;
+        const parser = (typeof parseCSV === 'function') ? parseCSV : autoParseCSV;
+        let data;
+        try { data = parser(text); } catch(err){ console.error('[HOTFIX2] parse error', err); if (typeof showNotification==='function') showNotification('Error parsing CSV','error'); return; }
+        window.currentData = data;
+        if (typeof displayData === 'function') { try{ displayData(); } catch(e){ console.error('[HOTFIX2] displayData error', e); } }
+        if (typeof populateColumnSelects === 'function') { try{ populateColumnSelects(); } catch(e){ console.error('[HOTFIX2] populateColumnSelects error', e); } }
+        if (typeof showNotification === 'function') showNotification('CSV cargado correctamente','success');
+      };
+      reader.onerror = function(err){ console.error('[HOTFIX2] FileReader error', err); if (typeof showNotification === 'function') showNotification('Error leyendo archivo','error'); };
+      reader.readAsText(file, 'UTF-8');
+    }
+
+    fi.addEventListener('change', e => handleFiles(e.target.files));
+    window.__hotfix2 = { handleFiles, autoParseCSV };
+  })();
+  </script>
+
 </body>
 </html>
