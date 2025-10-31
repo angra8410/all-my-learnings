@@ -370,6 +370,50 @@
             margin-bottom: 8px;
         }
 
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .section-title h2 {
+            color: #667eea;
+            margin: 0;
+        }
+
+        .muted {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .small {
+            font-size: 0.85em;
+        }
+
+        .secondary {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
@@ -484,6 +528,10 @@
 
                 <div class="lesson-grid" id="lessonsList">
                     <!-- Lessons will be populated by JavaScript -->
+                </div>
+
+                <div id="interactiveArea" style="margin-top: 30px;">
+                    <!-- Interactive lesson content will be rendered here -->
                 </div>
             </div>
 
@@ -843,6 +891,178 @@
             q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'b',
             q6: 'd', q7: 'b', q8: 'b', q9: 'b', q10: 'b'
         };
+
+        // COURSE object - organized lessons by topic/module
+        const COURSE = {
+            'Fundamentals': {
+                title: 'Power Platform Fundamentals',
+                quiz: lessons.filter(l => l.topic === 'Fundamentals').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Architecture': {
+                title: 'Solution Architecture',
+                quiz: lessons.filter(l => l.topic === 'Architecture').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Dataverse': {
+                title: 'Microsoft Dataverse',
+                quiz: lessons.filter(l => l.topic === 'Dataverse').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Canvas Apps': {
+                title: 'Canvas Applications',
+                quiz: lessons.filter(l => l.topic === 'Canvas Apps').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Model-Driven': {
+                title: 'Model-Driven Apps',
+                quiz: lessons.filter(l => l.topic === 'Model-Driven').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Automation': {
+                title: 'Power Automate',
+                quiz: lessons.filter(l => l.topic === 'Automation').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Integration': {
+                title: 'Integrations',
+                quiz: lessons.filter(l => l.topic === 'Integration').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Custom Dev': {
+                title: 'Custom Development',
+                quiz: lessons.filter(l => l.topic === 'Custom Dev').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Security': {
+                title: 'Security',
+                quiz: lessons.filter(l => l.topic === 'Security').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            },
+            'Admin': {
+                title: 'Administration',
+                quiz: lessons.filter(l => l.topic === 'Admin').map(l => ({
+                    id: l.id.toString(),
+                    question: l.title,
+                    explanation: `Learn about ${l.title}`
+                }))
+            }
+        };
+
+        // Utility function aliases
+        function showToast(message, type = 'info') {
+            showNotification(message, type);
+        }
+
+        function renderProgress() {
+            updateStats();
+            loadProgress();
+        }
+
+        // --- Lessons list + click handlers (fix) ---
+        function renderLessonsList(moduleKey) {
+          const mod = COURSE[moduleKey];
+          if (!mod || !Array.isArray(mod.quiz)) return;
+          const area = document.getElementById('interactiveArea');
+          area.innerHTML = '';
+          const card = document.createElement('div'); card.className = 'card';
+          card.innerHTML = `<div class="section-title"><h2>Course Lessons — ${mod.title}</h2></div>
+                            <div class="muted">Click a lesson to open it. Marked lessons are saved as completed.</div>
+                            <div id="lessonsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:12px"></div>
+                            <div id="lessonView" style="margin-top:16px"></div>`;
+          area.appendChild(card);
+
+          const grid = card.querySelector('#lessonsGrid');
+          mod.quiz.forEach((q, idx) => {
+            const lessonId = q.id;
+            const lessonTitle = q.question.length > 60 ? q.question.slice(0,60) + '...' : q.question;
+            const item = document.createElement('div');
+            item.className = 'lesson-card';
+            item.style = 'border:1px solid #e6e9ef;padding:12px;border-radius:8px;background:#fff;cursor:pointer;box-shadow:0 4px 10px rgba(2,6,23,0.03)';
+            item.dataset.lessonId = lessonId;
+            item.dataset.moduleKey = moduleKey;
+            item.innerHTML = `<div style="font-weight:700;color:#3b82f6">Lesson ${idx+1}</div>
+                              <div style="margin-top:6px">${lessonTitle}</div>
+                              <div class="small muted" style="margin-top:8px">Topic: ${moduleKey}</div>`;
+            grid.appendChild(item);
+          });
+        }
+
+        // Delegated click handler for lesson cards (works even if cards added later)
+        document.addEventListener('click', function (e) {
+          const card = e.target.closest && e.target.closest('.lesson-card');
+          if (card) {
+            const lessonId = card.dataset.lessonId;
+            const moduleKey = card.dataset.moduleKey;
+            if (lessonId && moduleKey) {
+              try {
+                showLesson(lessonId, moduleKey);
+                card.style.background = '#ecfdf5';
+                card.style.borderColor = '#10b981';
+                const key = 'pl400-lesson-completed';
+                const map = JSON.parse(localStorage.getItem(key) || '{}');
+                map[moduleKey] = map[moduleKey] || [];
+                if (!map[moduleKey].includes(lessonId)) map[moduleKey].push(lessonId);
+                localStorage.setItem(key, JSON.stringify(map));
+                renderProgress();
+              } catch (err) {
+                console.error('showLesson error', err);
+                showToast('Error al abrir la lección (ver consola)', 'error');
+              }
+            }
+          }
+        });
+
+        // showLesson: render lesson content in #lessonView
+        function showLesson(lessonId, moduleKey) {
+          const mod = COURSE[moduleKey];
+          if (!mod) { showToast('Módulo no encontrado', 'error'); return; }
+          const q = (mod.quiz || []).find(x => x.id === lessonId);
+          const view = document.getElementById('lessonView') || (() => {
+            const node = document.createElement('div');
+            node.id = 'lessonView';
+            document.getElementById('interactiveArea').appendChild(node);
+            return node;
+          })();
+
+          view.innerHTML = `<div class="card"><div class="section-title"><h2>Lección: ${q ? (q.question) : lessonId}</h2></div>
+            <div style="margin-bottom:8px">${q && q.explanation ? `` : '<div class="muted">Contenido de la lección aquí.</div>'}</div>
+            <div style="margin-top:12px"><button id="backToLessons" class="secondary">Volver a lecciones</button></div></div>`;
+
+          const back = view.querySelector('#backToLessons');
+          if (back) back.addEventListener('click', ()=> {
+            renderLessonsList(moduleKey);
+            const g = document.getElementById('lessonsGrid');
+            if (g) g.scrollIntoView({behavior:'smooth'});
+          });
+        }
 
         // Initialize the course
         function init() {
