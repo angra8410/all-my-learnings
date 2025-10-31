@@ -1,0 +1,171 @@
+{
+  "courseCode": "PL-400",
+  "title": "Microsoft Power Platform Developer",
+  "fullTitle": "PL-400: Microsoft Power Platform Developer - Interactive Course",
+  "description": "Comprehensive interactive course for the Microsoft Power Platform Developer certification. Learn to design, develop, secure, and extend Power Platform solutions including Dataverse, canvas apps, model-driven apps, Power Automate, and custom development.",
+  "version": "1.0",
+  "lastUpdated": "2025-10-31",
+  "language": "en",
+  "certification": {
+    "provider": "Microsoft",
+    "certificationName": "Microsoft Certified: Power Platform Developer Associate",
+    "examCode": "PL-400",
+    "examUrl": "https://learn.microsoft.com/en-us/certifications/exams/pl-400"
+  },
+  "courseDetails": {
+    "estimatedDuration": {
+      "hours": 50,
+      "description": "40-60 hours including hands-on practice"
+    },
+    "difficultyLevel": "Intermediate to Advanced",
+    "format": "Interactive HTML-based course",
+    "totalLessons": 24,
+    "totalQuizQuestions": 10
+  },
+  "prerequisites": [
+    "Basic understanding of Power Platform",
+    "Experience with Microsoft 365",
+    "Basic programming knowledge (helpful but not required)",
+    "Familiarity with business applications"
+  ],
+  "learningObjectives": [
+    "Create technical designs for Power Platform solutions",
+    "Configure Microsoft Dataverse including data model, forms, views, and business rules",
+    "Create and configure Power Apps including canvas and model-driven apps",
+    "Configure business process automation using Power Automate",
+    "Extend the platform with custom development using Power Apps Component Framework (PCF)",
+    "Develop and register plugins for Dataverse",
+    "Create custom APIs and connectors",
+    "Integrate Power Platform with Azure services and third-party APIs",
+    "Implement security roles and manage environments",
+    "Apply Application Lifecycle Management (ALM) practices"
+  ],
+  "topics": [
+    {
+      "name": "Power Platform Fundamentals",
+      "lessons": [1, 2],
+      "description": "Overview of Power Platform and solution architecture principles"
+    },
+    {
+      "name": "Microsoft Dataverse",
+      "lessons": [3, 4, 5, 6],
+      "description": "Data modeling, tables, columns, relationships, and business logic"
+    },
+    {
+      "name": "Canvas Apps",
+      "lessons": [7, 8, 9],
+      "description": "Building responsive canvas applications with Power Fx formulas"
+    },
+    {
+      "name": "Model-Driven Apps",
+      "lessons": [10, 11, 12, 13],
+      "description": "Creating forms, views, business process flows, and dashboards"
+    },
+    {
+      "name": "Power Automate",
+      "lessons": [14, 15],
+      "description": "Cloud flows, desktop flows, and automation scenarios"
+    },
+    {
+      "name": "Integrations",
+      "lessons": [16, 17],
+      "description": "Custom connectors and Azure integration patterns"
+    },
+    {
+      "name": "Custom Development",
+      "lessons": [18, 19, 20],
+      "description": "PCF components, plugins, and custom APIs"
+    },
+    {
+      "name": "Security & Administration",
+      "lessons": [21, 22, 23, 24],
+      "description": "Security roles, environment management, ALM, and deployment"
+    }
+  ],
+  "features": [
+    "24 interactive lessons covering all PL-400 exam topics",
+    "10-question knowledge assessment quiz",
+    "Automatic progress tracking with localStorage",
+    "Export functionality (JSON and CSV formats)",
+    "Responsive design for all devices",
+    "No installation required - runs in web browser",
+    "Offline capable after initial load",
+    "Real-time progress visualization",
+    "Activity timeline tracking"
+  ],
+  "technicalDetails": {
+    "fileType": "Single-page HTML application",
+    "dependencies": "None (pure HTML, CSS, JavaScript)",
+    "browserCompatibility": [
+      "Chrome (recommended)",
+      "Edge (recommended)",
+      "Firefox",
+      "Safari (with minor limitations)"
+    ],
+    "storage": "Browser localStorage",
+    "requiresInternet": false,
+    "requiresInstallation": false
+  },
+  "files": [
+    {
+      "filename": "index.html",
+      "description": "Main interactive course portal with lessons, quizzes, and progress tracking",
+      "type": "HTML"
+    },
+    {
+      "filename": "README.md",
+      "description": "Course documentation, usage instructions, and learning guide",
+      "type": "Markdown"
+    },
+    {
+      "filename": "COURSE-META.json",
+      "description": "Course metadata and structural information",
+      "type": "JSON"
+    }
+  ],
+  "relatedResources": [
+    {
+      "name": "Microsoft Learn PL-400",
+      "url": "https://learn.microsoft.com/en-us/certifications/exams/pl-400",
+      "type": "Official Learning Path"
+    },
+    {
+      "name": "Power Platform Documentation",
+      "url": "https://learn.microsoft.com/en-us/power-platform/",
+      "type": "Documentation"
+    },
+    {
+      "name": "Power Apps Developer Documentation",
+      "url": "https://learn.microsoft.com/en-us/power-apps/developer/",
+      "type": "Documentation"
+    },
+    {
+      "name": "Dataverse Developer Guide",
+      "url": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/",
+      "type": "Documentation"
+    },
+    {
+      "name": "Power Platform Community",
+      "url": "https://powerusers.microsoft.com/",
+      "type": "Community Forum"
+    }
+  ],
+  "author": {
+    "repository": "angra8410/all-my-learnings",
+    "course": "Courses/PL-400-interactive-course"
+  },
+  "tags": [
+    "power-platform",
+    "pl-400",
+    "microsoft-certification",
+    "power-apps",
+    "dataverse",
+    "power-automate",
+    "canvas-apps",
+    "model-driven-apps",
+    "pcf",
+    "plugins",
+    "interactive-course",
+    "certification-prep"
+  ]
+}
