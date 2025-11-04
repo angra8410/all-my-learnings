@@ -893,7 +893,7 @@
         };
 
         // COURSE object - organized lessons by topic/module
-        const COURSE = {
+        const COURSE_PL400 = {
             'Fundamentals': {
                 title: 'Power Platform Fundamentals',
                 quiz: lessons.filter(l => l.topic === 'Fundamentals').map(l => ({
@@ -976,6 +976,12 @@
             }
         };
 
+        // Local Storage Keys
+        const STORAGE_KEYS = {
+            completed: 'pl400-completed',
+            results: 'pl400-results'
+        };
+
         // Utility function aliases
         function showToast(message, type = 'info') {
             showNotification(message, type);
@@ -988,7 +994,7 @@
 
         // --- Lessons list + click handlers (fix) ---
         function renderLessonsList(moduleKey) {
-          const mod = COURSE[moduleKey];
+          const mod = COURSE_PL400[moduleKey];
           if (!mod || !Array.isArray(mod.quiz)) return;
           const area = document.getElementById('interactiveArea');
           area.innerHTML = '';
@@ -1042,7 +1048,7 @@
 
         // showLesson: render lesson content in #lessonView
         function showLesson(lessonId, moduleKey) {
-          const mod = COURSE[moduleKey];
+          const mod = COURSE_PL400[moduleKey];
           if (!mod) { showToast('Módulo no encontrado', 'error'); return; }
           const q = (mod.quiz || []).find(x => x.id === lessonId);
           const view = document.getElementById('lessonView') || (() => {
@@ -1093,7 +1099,7 @@
         // Load lessons
         function loadLessons() {
             const lessonsContainer = document.getElementById('lessonsList');
-            const completedLessons = JSON.parse(localStorage.getItem('pl400-completed-lessons') || '[]');
+            const completedLessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.completed) || '[]');
             
             lessonsContainer.innerHTML = '';
             
@@ -1118,7 +1124,7 @@
 
         // Toggle lesson completion
         function toggleLesson(lessonId) {
-            let completedLessons = JSON.parse(localStorage.getItem('pl400-completed-lessons') || '[]');
+            let completedLessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.completed) || '[]');
             
             if (completedLessons.includes(lessonId)) {
                 completedLessons = completedLessons.filter(id => id !== lessonId);
@@ -1128,7 +1134,7 @@
                 showNotification('Lesson completed! 🎉', 'success');
             }
             
-            localStorage.setItem('pl400-completed-lessons', JSON.stringify(completedLessons));
+            localStorage.setItem(STORAGE_KEYS.completed, JSON.stringify(completedLessons));
             saveActivity('Lesson', `Lesson ${lessonId} ${completedLessons.includes(lessonId) ? 'completed' : 'uncompleted'}`);
             
             loadLessons();
@@ -1137,8 +1143,8 @@
 
         // Update statistics
         function updateStats() {
-            const completedLessons = JSON.parse(localStorage.getItem('pl400-completed-lessons') || '[]');
-            const quizResults = JSON.parse(localStorage.getItem('pl400-quiz-results') || '[]');
+            const completedLessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.completed) || '[]');
+            const quizResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.results) || '[]');
             
             const completed = completedLessons.length;
             const total = lessons.length;
@@ -1211,9 +1217,9 @@
                 answers: userAnswers
             };
             
-            const quizResults = JSON.parse(localStorage.getItem('pl400-quiz-results') || '[]');
+            const quizResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.results) || '[]');
             quizResults.push(result);
-            localStorage.setItem('pl400-quiz-results', JSON.stringify(quizResults));
+            localStorage.setItem(STORAGE_KEYS.results, JSON.stringify(quizResults));
             
             saveActivity('Quiz', `Score: ${score}%`);
             updateStats();
@@ -1236,8 +1242,8 @@
 
         // Load progress tab data
         function loadProgress() {
-            const completedLessons = JSON.parse(localStorage.getItem('pl400-completed-lessons') || '[]');
-            const quizResults = JSON.parse(localStorage.getItem('pl400-quiz-results') || '[]');
+            const completedLessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.completed) || '[]');
+            const quizResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.results) || '[]');
             const activities = JSON.parse(localStorage.getItem('pl400-activities') || '[]');
             
             document.getElementById('progressLessons').textContent = `${completedLessons.length}/${lessons.length}`;
@@ -1284,8 +1290,8 @@
         // Export as JSON
         function exportJSON() {
             const data = {
-                completedLessons: JSON.parse(localStorage.getItem('pl400-completed-lessons') || '[]'),
-                quizResults: JSON.parse(localStorage.getItem('pl400-quiz-results') || '[]'),
+                completedLessons: JSON.parse(localStorage.getItem(STORAGE_KEYS.completed) || '[]'),
+                quizResults: JSON.parse(localStorage.getItem(STORAGE_KEYS.results) || '[]'),
                 activities: JSON.parse(localStorage.getItem('pl400-activities') || '[]'),
                 exportDate: new Date().toISOString()
             };
@@ -1303,8 +1309,8 @@
 
         // Export as CSV
         function exportCSV() {
-            const completedLessons = JSON.parse(localStorage.getItem('pl400-completed-lessons') || '[]');
-            const quizResults = JSON.parse(localStorage.getItem('pl400-quiz-results') || '[]');
+            const completedLessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.completed) || '[]');
+            const quizResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.results) || '[]');
             
             let csv = 'Type,Date,Details\n';
             
@@ -1331,8 +1337,8 @@
         // Clear all data
         function clearAllData() {
             if (confirm('Are you sure you want to delete all your progress data? This cannot be undone!')) {
-                localStorage.removeItem('pl400-completed-lessons');
-                localStorage.removeItem('pl400-quiz-results');
+                localStorage.removeItem(STORAGE_KEYS.completed);
+                localStorage.removeItem(STORAGE_KEYS.results);
                 localStorage.removeItem('pl400-activities');
                 
                 loadLessons();
