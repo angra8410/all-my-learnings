@@ -1,1128 +1,277 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PL-300: Microsoft Power BI Data Analyst - Curso Interactivo</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f7b731 0%, #f79f1f 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #f7b731 0%, #f79f1f 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .nav-tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
-            overflow-x: auto;
-        }
-
-        .nav-tab {
-            padding: 15px 25px;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 1em;
-            font-weight: 500;
-            color: #666;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .nav-tab:hover {
-            background: #e9ecef;
-            color: #333;
-        }
-
-        .nav-tab.active {
-            background: white;
-            color: #f7b731;
-            border-bottom: 3px solid #f7b731;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .tab-pane {
-            display: none;
-        }
-
-        .tab-pane.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #f7b731 0%, #f79f1f 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(247, 183, 49, 0.3);
-        }
-
-        .stat-card .label {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
-
-        .stat-card .value {
-            font-size: 2.5em;
-            font-weight: bold;
-        }
-
-        .module-section {
-            margin-bottom: 40px;
-        }
-
-        .module-header {
-            background: linear-gradient(135deg, #f7b731 0%, #f79f1f 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            font-weight: bold;
-        }
-
-        .lesson-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .lesson-card {
-            background: #f8f9fa;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .lesson-card:hover {
-            border-color: #f7b731;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(247, 183, 49, 0.2);
-        }
-
-        .lesson-card.completed {
-            border-color: #28a745;
-            background: #d4edda;
-        }
-
-        .lesson-card h3 {
-            color: #f7b731;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .lesson-card .status {
-            font-size: 1.5em;
-        }
-
-        .lesson-card p {
-            color: #666;
-            font-size: 0.95em;
-        }
-
-        .quiz-question {
-            background: #f8f9fa;
-            border-left: 4px solid #f7b731;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        .question-number {
-            font-weight: bold;
-            color: #f7b731;
-            margin-bottom: 10px;
-        }
-
-        .question-text {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .quiz-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: white;
-            border: 2px solid #dee2e6;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .quiz-option:hover {
-            border-color: #f7b731;
-            background: #fff9e6;
-        }
-
-        .quiz-option input[type="radio"] {
-            cursor: pointer;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #f7b731 0%, #f79f1f 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(247, 183, 49, 0.3);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .progress-bar-container {
-            background: #e9ecef;
-            border-radius: 10px;
-            height: 30px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: linear-gradient(135deg, #f7b731 0%, #f79f1f 100%);
-            height: 100%;
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .quiz-result {
-            background: #d4edda;
-            border: 2px solid #28a745;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .quiz-result h2 {
-            color: #28a745;
-            margin-bottom: 15px;
-        }
-
-        .quiz-result .score {
-            font-size: 3em;
-            font-weight: bold;
-            color: #28a745;
-            margin: 20px 0;
-        }
-
-        .activity-timeline {
-            margin-top: 30px;
-        }
-
-        .activity-item {
-            border-left: 3px solid #f7b731;
-            padding-left: 20px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .activity-item::before {
-            content: '●';
-            position: absolute;
-            left: -8px;
-            color: #f7b731;
-            font-size: 1.2em;
-        }
-
-        .activity-item .time {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .export-section {
-            margin-top: 30px;
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .section-title {
-            color: #f7b731;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #f7b731;
-            padding-bottom: 10px;
-        }
-
-        .objectives-list {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 20px 0;
-        }
-
-        .objectives-list ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .objectives-list li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .objectives-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #28a745;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        .lab-card {
-            background: #fff;
-            border: 2px solid #f7b731;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .lab-card h3 {
-            color: #f7b731;
-            margin-bottom: 15px;
-        }
-
-        .lab-steps {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        .lab-steps ol {
-            margin-left: 20px;
-        }
-
-        .lab-steps li {
-            margin: 8px 0;
-        }
-
-        .dataset-info {
-            background: #e7f3ff;
-            border-left: 4px solid #0066cc;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-
-        .dataset-info code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .lesson-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PL-300: Microsoft Power BI Data Analyst — Curso interactivo</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#ffffff;--accent:#0f172a;--primary:#f59e0b;--muted:#6b7280;--success:#16a34a;--danger:#dc2626}
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg);margin:0;color:#111}
+    .wrap{max-width:1100px;margin:18px auto;padding:18px}
+    header{background:linear-gradient(90deg,var(--primary),#f97316);color:#fff;padding:22px;border-radius:10px}
+    header h1{margin:0;font-size:24px}
+    nav{display:flex;gap:12px;margin-top:12px}
+    nav button{background:transparent;border:0;padding:8px 10px;border-radius:8px;color:#fff;cursor:pointer}
+    main{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    .card{background:var(--card);border-radius:10px;padding:16px;box-shadow:0 6px 18px rgba(11,12,20,0.05)}
+    .muted{color:var(--muted);font-size:13px}
+    .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+    .lesson-card{border:1px solid #e6e9ef;padding:12px;border-radius:8px;background:#fff;cursor:pointer}
+    .lesson-card.completed{background:#ecfdf5;border-color:#10b981}
+    .section-title{display:flex;align-items:center;justify-content:space-between}
+    .options{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    label.option{display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;cursor:pointer;border:1px solid transparent}
+    label.option.correct{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.18)}
+    label.option.wrong{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.12)}
+    button.primary{background:var(--primary);color:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer}
+    .score{font-size:22px;font-weight:700;margin-top:8px}
+    .toc button{display:block;width:100%;text-align:left;background:#eef2ff;border:1px solid #e0e7ff;padding:10px;border-radius:8px;color:#3730a3}
+    pre{background:#0b1220;color:#d1e9ff;padding:12px;border-radius:6px;overflow:auto}
+    .small{font-size:13px;color:var(--muted)}
+    .hint{background:#f8fafc;border-left:4px solid #c7d2fe;padding:10px;margin-top:8px;border-radius:4px}
+    /* minimal responsive */
+    @media (max-width:900px){ main{grid-template-columns:1fr} aside{order:2} }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>PL-300: Microsoft Power BI Data Analyst</h1>
-            <p>Curso Interactivo Completo</p>
+  <div class="wrap">
+    <header>
+      <div style="display:flex;align-items:center;gap:14px">
+        <!-- inline SVG icon to avoid external image 404 -->
+        <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="8" fill="#F59E0B"></rect><path d="M12 30h6V18h-6v12zm10 0h6V14h-6v16zm10 0h6V22h-6v8z" fill="#fff"></path></svg>
+        <div>
+          <h1>PL-300: Microsoft Power BI Data Analyst — Curso interactivo (0 → Hero)</h1>
+          <div style="opacity:.95">Lecciones, labs y quizzes. Usa el dataset de ejemplo para practicar.</div>
+        </div>
+      </div>
+      <nav>
+        <button id="tabOverview">Resumen</button>
+        <button id="tabLessons">Lecciones</button>
+        <button id="tabLab">Laboratorios</button>
+        <button id="tabQuiz">Cuestionario</button>
+        <button id="tabProgress">Progreso</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="contentArea">
+        <div class="card" id="overviewCard">
+          <div class="section-title"><h2>Course Overview</h2></div>
+          <p class="muted">Este curso sigue la guía oficial del examen PL-300: Prepare, Model, Visualize, Manage. Usa el CSV de ejemplo en data/sales_sample.csv para los labs.</p>
+          <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+            <div style="flex:1" class="card small">
+              <div style="font-weight:700;font-size:18px">Total Lessons</div><div class="muted" id="totalLessons">—</div>
+            </div>
+            <div style="flex:1" class="card small">
+              <div style="font-weight:700;font-size:18px">Completed</div><div class="muted" id="completedLessons">0</div>
+            </div>
+            <div style="flex:1" class="card small">
+              <div style="font-weight:700;font-size:18px">Quiz Score</div><div class="muted" id="lastScore">-</div>
+            </div>
+            <div style="flex:1" class="card small">
+              <div style="font-weight:700;font-size:18px">Progress</div><div class="muted" id="progressPct">0%</div>
+            </div>
+          </div>
         </div>
 
-        <div class="nav-tabs">
-            <button class="nav-tab active" data-tab="overview">�� Resumen</button>
-            <button class="nav-tab" data-tab="lessons">📖 Lecciones</button>
-            <button class="nav-tab" data-tab="labs">🧪 Laboratorios</button>
-            <button class="nav-tab" data-tab="quiz">❓ Cuestionario</button>
-            <button class="nav-tab" data-tab="progress">📊 Progreso</button>
+        <div id="lessonsArea" style="margin-top:18px" class="card">
+          <h2>Lecciones del Curso</h2>
+          <div id="lessonsGrid" class="grid-cards" style="margin-top:8px"></div>
         </div>
 
-        <div class="content">
-            <!-- Overview Tab -->
-            <div id="overview" class="tab-pane active">
-                <h2 class="section-title">Resumen del Curso</h2>
-                
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="label">Lecciones Completadas</div>
-                        <div class="value" id="completedCount">0/28</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Puntuación del Cuestionario</div>
-                        <div class="value" id="quizScore">-</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Progreso Total</div>
-                        <div class="value" id="totalProgress">0%</div>
-                    </div>
-                </div>
+        <!-- lesson detail container injected or used by JS -->
+        <div id="lessonDetail" style="margin-top:18px"></div>
+      </section>
 
-                <div class="objectives-list">
-                    <h3>Objetivos de Aprendizaje</h3>
-                    <ul>
-                        <li>Preparar datos para análisis mediante Power Query</li>
-                        <li>Crear modelos de datos con relaciones y medidas DAX</li>
-                        <li>Diseñar visualizaciones efectivas e informes interactivos</li>
-                        <li>Crear dashboards y reportes compartibles</li>
-                        <li>Implementar seguridad a nivel de fila (RLS)</li>
-                        <li>Administrar áreas de trabajo y conjuntos de datos</li>
-                        <li>Optimizar el rendimiento de modelos y consultas</li>
-                        <li>Implementar buenas prácticas de diseño y gobernanza</li>
-                    </ul>
-                </div>
-
-                <div class="objectives-list">
-                    <h3>Estructura del Curso</h3>
-                    <ul>
-                        <li><strong>Módulo 1:</strong> Preparar los Datos (7 lecciones)</li>
-                        <li><strong>Módulo 2:</strong> Modelar los Datos (7 lecciones)</li>
-                        <li><strong>Módulo 3:</strong> Visualizar y Analizar los Datos (7 lecciones)</li>
-                        <li><strong>Módulo 4:</strong> Implementar y Administrar (7 lecciones)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Lessons Tab -->
-            <div id="lessons" class="tab-pane">
-                <h2 class="section-title">Lecciones del Curso</h2>
-                
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="lessonProgress" style="width: 0%">0%</div>
-                </div>
-
-                <div id="lessonsContainer"></div>
-            </div>
-
-            <!-- Labs Tab -->
-            <div id="labs" class="tab-pane">
-                <h2 class="section-title">Laboratorios Prácticos</h2>
-
-                <div class="dataset-info">
-                    <h3>📁 Conjunto de Datos Incluido</h3>
-                    <p>Este curso incluye un conjunto de datos de muestra: <code>data/sales_sample.csv</code></p>
-                    <p><strong>Columnas:</strong> OrderID, OrderDate, Customer, Product, Category, Quantity, UnitPrice, TotalPrice</p>
-                    <p><strong>Filas:</strong> 10 registros de ventas de ejemplo</p>
-                </div>
-
-                <div class="lab-card">
-                    <h3>🧪 Lab 1: Importar y Transformar Datos</h3>
-                    <p><strong>Duración estimada:</strong> 30 minutos</p>
-                    <p><strong>Objetivo:</strong> Aprender a importar datos desde CSV y realizar transformaciones básicas en Power Query.</p>
-                    <div class="lab-steps">
-                        <h4>Pasos:</h4>
-                        <ol>
-                            <li>Abre Power BI Desktop</li>
-                            <li>Selecciona "Obtener datos" → "Texto/CSV"</li>
-                            <li>Navega a <code>data/sales_sample.csv</code> y cárgalo</li>
-                            <li>En el Editor de Power Query:
-                                <ul>
-                                    <li>Cambia el tipo de datos de OrderDate a Fecha</li>
-                                    <li>Verifica que Quantity sea Número Entero</li>
-                                    <li>Verifica que UnitPrice y TotalPrice sean Número Decimal</li>
-                                </ul>
-                            </li>
-                            <li>Agrega una columna calculada: Month = MONTH(OrderDate)</li>
-                            <li>Aplica los cambios y cierra el Editor de Power Query</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="lab-card">
-                    <h3>🧪 Lab 2: Crear Medidas DAX</h3>
-                    <p><strong>Duración estimada:</strong> 45 minutos</p>
-                    <p><strong>Objetivo:</strong> Crear medidas DAX para análisis de ventas.</p>
-                    <div class="lab-steps">
-                        <h4>Medidas a Crear:</h4>
-                        <ol>
-                            <li><strong>Total Ventas:</strong> <code>Total Ventas = SUM(Sales[TotalPrice])</code></li>
-                            <li><strong>Total Cantidad:</strong> <code>Total Cantidad = SUM(Sales[Quantity])</code></li>
-                            <li><strong>Promedio Precio:</strong> <code>Precio Promedio = AVERAGE(Sales[UnitPrice])</code></li>
-                            <li><strong>Conteo Pedidos:</strong> <code>Conteo Pedidos = COUNTROWS(Sales)</code></li>
-                            <li><strong>Ticket Promedio:</strong> <code>Ticket Promedio = [Total Ventas] / [Conteo Pedidos]</code></li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="lab-card">
-                    <h3>🧪 Lab 3: Diseñar Dashboard de Ventas</h3>
-                    <p><strong>Duración estimada:</strong> 60 minutos</p>
-                    <p><strong>Objetivo:</strong> Crear un dashboard interactivo con visualizaciones clave.</p>
-                    <div class="lab-steps">
-                        <h4>Visualizaciones a Crear:</h4>
-                        <ol>
-                            <li><strong>Tarjeta:</strong> Total Ventas</li>
-                            <li><strong>Tarjeta:</strong> Total Cantidad</li>
-                            <li><strong>Gráfico de Barras:</strong> Ventas por Categoría</li>
-                            <li><strong>Gráfico de Líneas:</strong> Ventas por Fecha</li>
-                            <li><strong>Tabla:</strong> Top 5 Productos por Ventas</li>
-                            <li><strong>Segmentador:</strong> Por Cliente</li>
-                            <li><strong>Segmentador:</strong> Por Categoría</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="lab-card">
-                    <h3>🧪 Lab 4: Publicar y Compartir</h3>
-                    <p><strong>Duración estimada:</strong> 30 minutos</p>
-                    <p><strong>Objetivo:</strong> Publicar el informe en Power BI Service y configurar compartición.</p>
-                    <div class="lab-steps">
-                        <h4>Pasos:</h4>
-                        <ol>
-                            <li>Guarda tu archivo .pbix localmente</li>
-                            <li>Haz clic en "Publicar" en la cinta de opciones</li>
-                            <li>Selecciona un área de trabajo destino</li>
-                            <li>Abre Power BI Service en el navegador</li>
-                            <li>Configura la actualización de datos (si aplica)</li>
-                            <li>Crea un dashboard anclando visualizaciones</li>
-                            <li>Comparte el dashboard con usuarios específicos</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quiz Tab -->
-            <div id="quiz" class="tab-pane">
-                <h2 class="section-title">Cuestionario de Evaluación</h2>
-                <form id="quizForm">
-                    <div id="quizQuestions"></div>
-                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Enviar Respuestas</button>
-                </form>
-                <div id="quizResult" style="display: none;"></div>
-            </div>
-
-            <!-- Progress Tab -->
-            <div id="progress" class="tab-pane">
-                <h2 class="section-title">Tu Progreso</h2>
-                
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="label">Lecciones Completadas</div>
-                        <div class="value" id="progressCompletedCount">0/28</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Mejor Puntuación</div>
-                        <div class="value" id="progressBestScore">-</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Intentos de Cuestionario</div>
-                        <div class="value" id="progressQuizAttempts">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Progreso Global</div>
-                        <div class="value" id="progressOverall">0%</div>
-                    </div>
-                </div>
-
-                <div class="activity-timeline">
-                    <h3>Actividad Reciente</h3>
-                    <div id="activityLog"></div>
-                </div>
-
-                <div class="export-section">
-                    <h3>Exportar Progreso</h3>
-                    <div class="export-buttons">
-                        <button class="btn btn-primary" onclick="exportAsJSON()">📥 Exportar como JSON</button>
-                        <button class="btn btn-primary" onclick="exportAsCSV()">📥 Exportar como CSV</button>
-                        <button class="btn btn-danger" onclick="clearProgress()">🗑️ Limpiar Todo el Progreso</button>
-                    </div>
-                </div>
-            </div>
+      <aside>
+        <div class="card">
+          <div class="section-title"><h3>TOC & Acciones</h3></div>
+          <div style="margin-top:8px">
+            <button id="exportBtn" class="primary">Exportar progreso</button>
+            <button id="importBtn" style="margin-left:8px">Importar progreso</button>
+            <div class="small" style="margin-top:8px">Dataset de ejemplo: <a id="csvLink" href="#" target="_blank">sales_sample.csv</a></div>
+          </div>
         </div>
-    </div>
+      </aside>
+    </main>
+  </div>
 
-    <script>
-        // Course Data Object
-        const COURSE = {
-            modules: [
-                {
-                    id: 1,
-                    name: 'Preparar los Datos',
-                    lessons: [
-                        { id: 1, title: 'Obtener Datos de Archivos y Excel', description: 'Aprende a conectarte a diferentes fuentes de datos planos' },
-                        { id: 2, title: 'Conectar a Bases de Datos SQL', description: 'Conexión a SQL Server y otras bases de datos relacionales' },
-                        { id: 3, title: 'Transformar Datos con Power Query', description: 'Uso del Editor de Power Query para transformaciones' },
-                        { id: 4, title: 'Limpiar y Dar Forma a los Datos', description: 'Técnicas de limpieza y preparación de datos' },
-                        { id: 5, title: 'Combinar y Anexar Consultas', description: 'Merge y Append para unir datos de múltiples fuentes' },
-                        { id: 6, title: 'Parámetros y Consultas Dinámicas', description: 'Crear consultas reutilizables con parámetros' },
-                        { id: 7, title: 'Optimizar Rendimiento de Consultas', description: 'Mejores prácticas para consultas eficientes' }
-                    ]
-                },
-                {
-                    id: 2,
-                    name: 'Modelar los Datos',
-                    lessons: [
-                        { id: 8, title: 'Diseñar un Modelo de Datos', description: 'Principios de diseño de modelos estrella y copo de nieve' },
-                        { id: 9, title: 'Crear Relaciones entre Tablas', description: 'Configurar relaciones uno a muchos y muchos a muchos' },
-                        { id: 10, title: 'Cardinalidad y Direcciones de Filtro', description: 'Entender y configurar relaciones bidireccionales' },
-                        { id: 11, title: 'Crear Columnas Calculadas', description: 'Usar DAX para columnas calculadas' },
-                        { id: 12, title: 'Medidas DAX Básicas', description: 'Funciones de agregación: SUM, AVERAGE, COUNT, MIN, MAX' },
-                        { id: 13, title: 'DAX Avanzado y Time Intelligence', description: 'Cálculos de período, YTD, MTD, comparaciones' },
-                        { id: 14, title: 'Optimizar Modelos para Rendimiento', description: 'Reducir tamaño de modelo y mejorar velocidad de consultas' }
-                    ]
-                },
-                {
-                    id: 3,
-                    name: 'Visualizar y Analizar los Datos',
-                    lessons: [
-                        { id: 15, title: 'Seleccionar Visualizaciones Apropiadas', description: 'Elegir el tipo correcto de gráfico para tus datos' },
-                        { id: 16, title: 'Formatear y Configurar Visualizaciones', description: 'Personalizar colores, etiquetas y estilos' },
-                        { id: 17, title: 'Usar Visualizaciones Personalizadas', description: 'Importar visuales desde AppSource' },
-                        { id: 18, title: 'Crear y Formatear Informes', description: 'Diseño de páginas de informe efectivas' },
-                        { id: 19, title: 'Diseño para Dispositivos Móviles', description: 'Optimizar informes para teléfonos y tablets' },
-                        { id: 20, title: 'Implementar Dashboards', description: 'Crear dashboards con visualizaciones clave' },
-                        { id: 21, title: 'Crear Informes Paginados', description: 'Informes con formato de impresión usando Power BI Report Builder' }
-                    ]
-                },
-                {
-                    id: 4,
-                    name: 'Implementar y Administrar',
-                    lessons: [
-                        { id: 22, title: 'Crear y Administrar Áreas de Trabajo', description: 'Configurar workspaces en Power BI Service' },
-                        { id: 23, title: 'Publicar y Compartir Informes', description: 'Publicar contenido y configurar permisos' },
-                        { id: 24, title: 'Configurar Actualización de Datos', description: 'Programar actualizaciones automáticas de conjuntos de datos' },
-                        { id: 25, title: 'Implementar Seguridad a Nivel de Fila', description: 'Configurar RLS para filtrado de datos por usuario' },
-                        { id: 26, title: 'Configurar Aplicaciones de Power BI', description: 'Crear y distribuir aplicaciones a usuarios' },
-                        { id: 27, title: 'Monitorear Uso y Rendimiento', description: 'Usar métricas de uso y optimizar rendimiento' },
-                        { id: 28, title: 'Solucionar Problemas y Optimizar', description: 'Diagnóstico y resolución de problemas comunes' }
-                    ]
-                }
-            ],
-            quiz: [
-                {
-                    id: 1,
-                    question: '¿Cuál es la herramienta principal para transformar datos en Power BI?',
-                    options: ['DAX Studio', 'Power Query', 'Excel', 'SQL Server'],
-                    correct: 1
-                },
-                {
-                    id: 2,
-                    question: '¿Qué lenguaje se usa para crear medidas calculadas en Power BI?',
-                    options: ['SQL', 'M', 'DAX', 'Python'],
-                    correct: 2
-                },
-                {
-                    id: 3,
-                    question: '¿Cuál es el tipo de relación más común en un modelo de datos?',
-                    options: ['Muchos a muchos', 'Uno a uno', 'Uno a muchos', 'Ninguna relación'],
-                    correct: 2
-                },
-                {
-                    id: 4,
-                    question: '¿Qué función DAX se usa para sumar valores?',
-                    options: ['SUM()', 'TOTAL()', 'ADD()', 'SUMX()'],
-                    correct: 0
-                },
-                {
-                    id: 5,
-                    question: '¿Cuál es el propósito de RLS (Row-Level Security)?',
-                    options: ['Mejorar rendimiento', 'Filtrar datos por usuario', 'Crear relaciones', 'Optimizar consultas'],
-                    correct: 1
-                },
-                {
-                    id: 6,
-                    question: '¿Qué es un modelo de datos estrella?',
-                    options: ['Un tipo de visualización', 'Un esquema con tabla de hechos central y tablas de dimensiones', 'Una medida DAX', 'Un tipo de relación'],
-                    correct: 1
-                },
-                {
-                    id: 7,
-                    question: '¿Dónde se publican los informes de Power BI Desktop?',
-                    options: ['SharePoint', 'OneDrive', 'Power BI Service', 'Azure'],
-                    correct: 2
-                },
-                {
-                    id: 8,
-                    question: '¿Qué tipo de actualización permite actualizar datos automáticamente?',
-                    options: ['Actualización manual', 'Actualización programada', 'Actualización en vivo', 'Actualización incremental'],
-                    correct: 1
-                },
-                {
-                    id: 9,
-                    question: '¿Cuál es la diferencia entre columna calculada y medida?',
-                    options: ['No hay diferencia', 'Columna calculada se calcula por fila, medida se agrega', 'Medida es más rápida', 'Columna calculada usa SQL'],
-                    correct: 1
-                },
-                {
-                    id: 10,
-                    question: '¿Qué visualización es mejor para mostrar tendencias en el tiempo?',
-                    options: ['Gráfico circular', 'Tabla', 'Gráfico de líneas', 'Tarjeta'],
-                    correct: 2
-                }
-            ]
-        };
+  <script>
+/*
+  Defensive, self-contained script:
+  - avoids external images/styles
+  - ensures DOM nodes exist
+  - uses RAW GitHub URL fallback for the CSV only if the file is not present relative
+*/
 
-        // Local Storage Keys
-        const STORAGE_KEYS = {
-            completed: 'pl300-completed',
-            results: 'pl300-results'
-        };
+(function(){
+  // COURSE data (minimal example). In your repo this can be larger; here we ensure structure.
+  const COURSE = {
+    id: "pl300",
+    title: "PL-300: Microsoft Power BI Data Analyst",
+    modules: [
+      { id: "m1", title: "Preparar los Datos", lessons: [
+        { id: "m1-l1", title: "Obtener Datos desde Archivos y Excel", content: "<p>Aprende a conectar a archivos planos y Excel...</p>" },
+        { id: "m1-l2", title: "Conectar a Bases de Datos SQL", content: "<p>Conectar a SQL Server y otras fuentes...</p>" },
+        { id: "m1-l3", title: "Transformar Datos con Power Query", content: "<p>Usar Power Query para transformaciones...</p>" }
+      ]},
+      { id: "m2", title: "Modelar los Datos", lessons: [
+        { id: "m2-l1", title: "Modelado Relacional y Normalización", content: "<p>Diseñar modelos y relaciones...</p>" },
+        { id: "m2-l2", title: "DAX Básico", content: "<p>Funciones básicas de DAX...</p>" }
+      ]},
+      { id: "m3", title: "Visualizar & Analizar", lessons: [
+        { id: "m3-l1", title: "Crear Informes", content: "<p>Diseño de reportes y mejores prácticas...</p>" }
+      ]},
+      { id: "m4", title: "Administrar & Asegurar", lessons: [
+        { id: "m4-l1", title: "Workspaces y RLS", content: "<p>Seguridad y roles en Power BI...</p>" }
+      ]}
+    ]
+  };
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            renderLessons();
-            renderQuiz();
-            updateStats();
-            updateProgressTab();
-            setupTabNavigation();
-        });
+  // storage keys
+  const STORAGE_KEY_PROGRESS = 'pl300-completed';
+  const STORAGE_KEY_RESULTS = 'pl300-results';
 
-        // Tab Navigation
-        function setupTabNavigation() {
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const targetTab = this.getAttribute('data-tab');
-                    
-                    // Update active tab
-                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update active pane
-                    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-                    document.getElementById(targetTab).classList.add('active');
-                    
-                    // Update progress tab when switching to it
-                    if (targetTab === 'progress') {
-                        updateProgressTab();
-                    }
-                });
-            });
-        }
+  // helper: ensure nodes exist
+  function ensureNode(selector, tag='div', attrs={}) {
+    let el = document.querySelector(selector);
+    if (!el) {
+      el = document.createElement(tag);
+      if (selector.startsWith('#')) el.id = selector.slice(1);
+      document.querySelector('main')?.appendChild(el) || document.body.appendChild(el);
+      for (const k in attrs) el.setAttribute(k, attrs[k]);
+    }
+    return el;
+  }
 
-        // Render Lessons
-        function renderLessons() {
-            const container = document.getElementById('lessonsContainer');
-            container.innerHTML = '';
-            
-            const completed = getCompleted();
-            
-            COURSE.modules.forEach(module => {
-                const moduleSection = document.createElement('div');
-                moduleSection.className = 'module-section';
-                
-                const moduleHeader = document.createElement('div');
-                moduleHeader.className = 'module-header';
-                moduleHeader.textContent = `Módulo ${module.id}: ${module.name}`;
-                moduleSection.appendChild(moduleHeader);
-                
-                const lessonGrid = document.createElement('div');
-                lessonGrid.className = 'lesson-grid';
-                
-                module.lessons.forEach(lesson => {
-                    const card = document.createElement('div');
-                    card.className = 'lesson-card';
-                    if (completed.includes(lesson.id)) {
-                        card.classList.add('completed');
-                    }
-                    
-                    card.innerHTML = `
-                        <h3>
-                            <span class="status">${completed.includes(lesson.id) ? '✅' : '📘'}</span>
-                            Lección ${lesson.id}
-                        </h3>
-                        <h4>${lesson.title}</h4>
-                        <p>${lesson.description}</p>
-                    `;
-                    
-                    card.addEventListener('click', () => toggleLesson(lesson.id));
-                    lessonGrid.appendChild(card);
-                });
-                
-                moduleSection.appendChild(lessonGrid);
-                container.appendChild(moduleSection);
-            });
-        }
+  const lessonsGrid = ensureNode('#lessonsGrid');
+  const lessonDetail = ensureNode('#lessonDetail');
+  const csvLinkEl = document.getElementById('csvLink');
 
-        // Toggle Lesson Completion
-        function toggleLesson(lessonId) {
-            const completed = getCompleted();
-            const index = completed.indexOf(lessonId);
-            
-            if (index === -1) {
-                completed.push(lessonId);
-                logActivity(`Lección ${lessonId} completada`);
-            } else {
-                completed.splice(index, 1);
-                logActivity(`Lección ${lessonId} marcada como incompleta`);
-            }
-            
-            saveCompleted(completed);
-            renderLessons();
-            updateStats();
-        }
+  // CSV link resolution: prefer relative path data/sales_sample.csv, fallback to raw github (when preview rewriting breaks)
+  function resolveCsvUrl() {
+    const relative = 'data/sales_sample.csv';
+    // try to fetch relative (best-effort); if 404, use raw.githubusercontent fallback using repo info (owner/repo/main)
+    const rawFallback = (function(){
+      // replace OWNER/REPO with your repo if needed; this fallback is safe and will try to load if hosted on github
+      return 'https://raw.githubusercontent.com/angra8410/all-my-learnings/main/Courses/PL-300-interactive-course/data/sales_sample.csv';
+    })();
+    return fetch(relative, { method: 'HEAD' }).then(res => {
+      if (res.ok) return relative;
+      return rawFallback;
+    }).catch(()=> rawFallback);
+  }
 
-        // Render Quiz
-        function renderQuiz() {
-            const container = document.getElementById('quizQuestions');
-            container.innerHTML = '';
-            
-            COURSE.quiz.forEach(question => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'quiz-question';
-                
-                let optionsHTML = '';
-                question.options.forEach((option, index) => {
-                    optionsHTML += `
-                        <label class="quiz-option">
-                            <input type="radio" name="q${question.id}" value="${index}" required>
-                            <span>${option}</span>
-                        </label>
-                    `;
-                });
-                
-                questionDiv.innerHTML = `
-                    <div class="question-number">Pregunta ${question.id} de ${COURSE.quiz.length}</div>
-                    <div class="question-text">${question.question}</div>
-                    <div class="quiz-options">
-                        ${optionsHTML}
-                    </div>
-                `;
-                
-                container.appendChild(questionDiv);
-            });
-            
-            document.getElementById('quizForm').addEventListener('submit', submitQuiz);
-        }
+  resolveCsvUrl().then(url => {
+    csvLinkEl.href = url;
+    csvLinkEl.textContent = url.split('/').pop();
+  });
 
-        // Submit Quiz
-        function submitQuiz(e) {
-            e.preventDefault();
-            
-            let correct = 0;
-            const answers = [];
-            
-            COURSE.quiz.forEach(question => {
-                const selected = document.querySelector(`input[name="q${question.id}"]:checked`);
-                if (selected) {
-                    const answer = parseInt(selected.value);
-                    answers.push(answer);
-                    if (answer === question.correct) {
-                        correct++;
-                    }
-                }
-            });
-            
-            const score = Math.round((correct / COURSE.quiz.length) * 100);
-            
-            // Save result
-            const results = getResults();
-            results.push({
-                score: score,
-                correct: correct,
-                total: COURSE.quiz.length,
-                answers: answers,
-                timestamp: new Date().toISOString()
-            });
-            saveResults(results);
-            
-            // Log activity
-            logActivity(`Cuestionario completado: ${score}%`);
-            
-            // Show result
-            const resultDiv = document.getElementById('quizResult');
-            resultDiv.innerHTML = `
-                <div class="quiz-result">
-                    <h2>¡Cuestionario Completado!</h2>
-                    <div class="score">${score}%</div>
-                    <p>Respondiste correctamente ${correct} de ${COURSE.quiz.length} preguntas.</p>
-                    <button class="btn btn-primary" onclick="retakeQuiz()">Tomar de Nuevo</button>
-                </div>
-            `;
-            resultDiv.style.display = 'block';
-            document.getElementById('quizForm').style.display = 'none';
-            
-            updateStats();
-        }
+  // render lessons grid
+  function renderLessons() {
+    lessonsGrid.innerHTML = '';
+    let total = 0;
+    COURSE.modules.forEach(mod => {
+      const header = document.createElement('div');
+      header.style.gridColumn = '1 / -1';
+      header.innerHTML = `<div style="background:${getComputedStyle(document.documentElement).getPropertyValue('--primary')};color:#fff;padding:12px;border-radius:8px;margin-bottom:8px;font-weight:700">${mod.title}</div>`;
+      lessonsGrid.appendChild(header);
+      mod.lessons.forEach(lesson => {
+        total++;
+        const card = document.createElement('div');
+        card.className = 'lesson-card';
+        card.dataset.lessonId = lesson.id;
+        card.innerHTML = `<h4 style="margin:0 0 6px 0">${lesson.title}</h4><div class="muted">${truncatePlainText(lesson.content || '', 80)}</div>`;
+        card.addEventListener('click', ()=> openLesson(lesson));
+        lessonsGrid.appendChild(card);
+      });
+    });
+    document.getElementById('totalLessons').textContent = String(total);
+    updateCompletedUI();
+  }
 
-        // Retake Quiz
-        function retakeQuiz() {
-            document.getElementById('quizForm').reset();
-            document.getElementById('quizForm').style.display = 'block';
-            document.getElementById('quizResult').style.display = 'none';
-        }
+  function truncatePlainText(html, len=80) {
+    const t = (new DOMParser()).parseFromString(html, 'text/html').body.textContent || '';
+    return t.length > len ? t.slice(0,len-1)+'…' : t;
+  }
 
-        // Update Stats
-        function updateStats() {
-            const completed = getCompleted();
-            const results = getResults();
-            const totalLessons = COURSE.modules.reduce((sum, m) => sum + m.lessons.length, 0);
-            
-            const completedCount = completed.length;
-            const progress = Math.round((completedCount / totalLessons) * 100);
-            
-            let bestScore = '-';
-            if (results.length > 0) {
-                bestScore = Math.max(...results.map(r => r.score)) + '%';
-            }
-            
-            // Update overview stats
-            document.getElementById('completedCount').textContent = `${completedCount}/${totalLessons}`;
-            document.getElementById('quizScore').textContent = bestScore;
-            document.getElementById('totalProgress').textContent = progress + '%';
-            
-            // Update progress bar
-            const progressBar = document.getElementById('lessonProgress');
-            if (progressBar) {
-                progressBar.style.width = progress + '%';
-                progressBar.textContent = progress + '%';
-            }
-        }
+  // open a lesson and show detail
+  function openLesson(lesson) {
+    // create detail view if missing
+    if (!document.getElementById('lessonView')) {
+      const lv = document.createElement('div');
+      lv.id = 'lessonView';
+      lv.className = 'card';
+      document.getElementById('lessonDetail').appendChild(lv);
+    }
+    const lv = document.getElementById('lessonView');
+    lv.innerHTML = `<div class="section-title"><h3>${lesson.title}</h3><button id="markDone" class="primary">Marcar completada</button></div><div style="margin-top:12px">${lesson.content}</div>`;
+    document.getElementById('markDone').addEventListener('click', ()=> {
+      markCompleted(lesson.id);
+      updateCompletedUI();
+    });
+  }
 
-        // Update Progress Tab
-        function updateProgressTab() {
-            const completed = getCompleted();
-            const results = getResults();
-            const totalLessons = COURSE.modules.reduce((sum, m) => sum + m.lessons.length, 0);
-            
-            const completedCount = completed.length;
-            const progress = Math.round((completedCount / totalLessons) * 100);
-            
-            let bestScore = '-';
-            if (results.length > 0) {
-                bestScore = Math.max(...results.map(r => r.score)) + '%';
-            }
-            
-            document.getElementById('progressCompletedCount').textContent = `${completedCount}/${totalLessons}`;
-            document.getElementById('progressBestScore').textContent = bestScore;
-            document.getElementById('progressQuizAttempts').textContent = results.length;
-            document.getElementById('progressOverall').textContent = progress + '%';
-            
-            // Update activity log
-            updateActivityLog();
-        }
+  // completed management
+  function markCompleted(lessonId) {
+    const done = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY_PROGRESS)||'[]'));
+    done.add(lessonId);
+    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(Array.from(done)));
+  }
 
-        // Update Activity Log
-        function updateActivityLog() {
-            const activity = getActivity();
-            const container = document.getElementById('activityLog');
-            container.innerHTML = '';
-            
-            if (activity.length === 0) {
-                container.innerHTML = '<p>No hay actividad registrada aún.</p>';
-                return;
-            }
-            
-            activity.slice(-10).reverse().forEach(item => {
-                const activityItem = document.createElement('div');
-                activityItem.className = 'activity-item';
-                
-                const date = new Date(item.timestamp);
-                const timeStr = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES');
-                
-                activityItem.innerHTML = `
-                    <strong>${item.action}</strong>
-                    <div class="time">${timeStr}</div>
-                `;
-                container.appendChild(activityItem);
-            });
-        }
+  function updateCompletedUI() {
+    const done = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY_PROGRESS)||'[]'));
+    document.querySelectorAll('.lesson-card').forEach(card => {
+      if (done.has(card.dataset.lessonId)) card.classList.add('completed');
+      else card.classList.remove('completed');
+    });
+    document.getElementById('completedLessons').textContent = String(done.size);
+    const total = Number(document.getElementById('totalLessons').textContent) || 0;
+    const pct = total ? Math.round(done.size/total*100) : 0;
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
 
-        // Export as JSON
-        function exportAsJSON() {
-            const data = {
-                completed: getCompleted(),
-                results: getResults(),
-                activity: getActivity(),
-                exportDate: new Date().toISOString()
-            };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `pl300-progress-${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            logActivity('Progreso exportado como JSON');
-        }
+  // export/import progress
+  document.getElementById('exportBtn').addEventListener('click', ()=> {
+    const data = {
+      progress: JSON.parse(localStorage.getItem(STORAGE_KEY_PROGRESS)||'[]'),
+      results: JSON.parse(localStorage.getItem(STORAGE_KEY_RESULTS)||'{}')
+    };
+    const blob = new Blob([JSON.stringify(data,null,2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'pl300-progress.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
 
-        // Export as CSV
-        function exportAsCSV() {
-            const completed = getCompleted();
-            const results = getResults();
-            
-            let csv = 'Tipo,Valor,Fecha\n';
-            
-            completed.forEach(lessonId => {
-                csv += `Lección Completada,${lessonId},\n`;
-            });
-            
-            results.forEach(result => {
-                csv += `Cuestionario,${result.score}%,${new Date(result.timestamp).toLocaleDateString('es-ES')}\n`;
-            });
-            
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `pl300-progress-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            logActivity('Progreso exportado como CSV');
-        }
+  document.getElementById('importBtn').addEventListener('click', ()=> {
+    const input = document.createElement('input'); input.type='file'; input.accept='application/json';
+    input.addEventListener('change', (e)=> {
+      const f = e.target.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const obj = JSON.parse(reader.result);
+          if (obj.progress) localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(obj.progress));
+          if (obj.results) localStorage.setItem(STORAGE_KEY_RESULTS, JSON.stringify(obj.results));
+          updateCompletedUI();
+          alert('Progreso importado');
+        } catch(err){ alert('Import error: '+err.message) }
+      };
+      reader.readAsText(f);
+    });
+    input.click();
+  });
 
-        // Clear Progress
-        function clearProgress() {
-            if (confirm('¿Estás seguro de que deseas eliminar todo tu progreso? Esta acción no se puede deshacer.')) {
-                localStorage.removeItem(STORAGE_KEYS.completed);
-                localStorage.removeItem(STORAGE_KEYS.results);
-                localStorage.removeItem('pl300-activity');
-                
-                renderLessons();
-                updateStats();
-                updateProgressTab();
-                
-                alert('Todo el progreso ha sido eliminado.');
-            }
-        }
+  // init
+  renderLessons();
 
-        // Local Storage Helpers
-        function getCompleted() {
-            const data = localStorage.getItem(STORAGE_KEYS.completed);
-            return data ? JSON.parse(data) : [];
-        }
+  // expose for debugging
+  window.COURSE = COURSE;
+  window.openLesson = openLesson;
+  window.markCompleted = markCompleted;
 
-        function saveCompleted(completed) {
-            localStorage.setItem(STORAGE_KEYS.completed, JSON.stringify(completed));
-        }
-
-        function getResults() {
-            const data = localStorage.getItem(STORAGE_KEYS.results);
-            return data ? JSON.parse(data) : [];
-        }
-
-        function saveResults(results) {
-            localStorage.setItem(STORAGE_KEYS.results, JSON.stringify(results));
-        }
-
-        function getActivity() {
-            const data = localStorage.getItem('pl300-activity');
-            return data ? JSON.parse(data) : [];
-        }
-
-        function logActivity(action) {
-            const activity = getActivity();
-            activity.push({
-                action: action,
-                timestamp: new Date().toISOString()
-            });
-            localStorage.setItem('pl300-activity', JSON.stringify(activity));
-        }
-    </script>
+})();
+  </script>
 </body>
 </html>
