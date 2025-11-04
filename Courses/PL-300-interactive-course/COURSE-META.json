@@ -1,0 +1,157 @@
+{
+  "courseCode": "PL-300",
+  "title": "Microsoft Power BI Data Analyst",
+  "fullTitle": "PL-300: Microsoft Power BI Data Analyst - Curso Interactivo",
+  "description": "Curso interactivo completo para la certificación Microsoft Power BI Data Analyst. Aprende a preparar datos, crear modelos, visualizaciones y administrar recursos de Power BI.",
+  "version": "1.0",
+  "lastUpdated": "2025-11-03",
+  "language": "es",
+  "certification": {
+    "provider": "Microsoft",
+    "certificationName": "Microsoft Certified: Power BI Data Analyst Associate",
+    "examCode": "PL-300",
+    "examUrl": "https://learn.microsoft.com/es-es/certifications/exams/pl-300"
+  },
+  "courseDetails": {
+    "estimatedDuration": {
+      "hours": 45,
+      "description": "40-50 horas incluyendo práctica práctica"
+    },
+    "difficultyLevel": "Intermedio",
+    "format": "Curso interactivo basado en HTML",
+    "totalLessons": 28,
+    "totalModules": 4,
+    "totalQuizQuestions": 10,
+    "includesLabs": true,
+    "includesDataset": true
+  },
+  "prerequisites": [
+    "Conocimientos básicos de análisis de datos",
+    "Familiaridad con Microsoft Excel",
+    "Comprensión de conceptos de bases de datos relacionales",
+    "Experiencia básica con visualización de datos"
+  ],
+  "learningObjectives": [
+    "Preparar datos para análisis mediante Power Query",
+    "Crear modelos de datos con relaciones y medidas DAX",
+    "Diseñar visualizaciones efectivas e informes interactivos",
+    "Crear dashboards y reportes compartibles",
+    "Implementar seguridad a nivel de fila (RLS)",
+    "Administrar áreas de trabajo y conjuntos de datos",
+    "Optimizar el rendimiento de modelos y consultas",
+    "Implementar buenas prácticas de diseño y gobernanza"
+  ],
+  "modules": [
+    {
+      "number": 1,
+      "name": "Preparar los Datos",
+      "lessons": [1, 2, 3, 4, 5, 6, 7],
+      "description": "Obtener, limpiar, transformar y cargar datos desde diversas fuentes"
+    },
+    {
+      "number": 2,
+      "name": "Modelar los Datos",
+      "lessons": [8, 9, 10, 11, 12, 13, 14],
+      "description": "Crear modelos de datos, relaciones, medidas DAX y cálculos"
+    },
+    {
+      "number": 3,
+      "name": "Visualizar y Analizar los Datos",
+      "lessons": [15, 16, 17, 18, 19, 20, 21],
+      "description": "Diseñar visualizaciones, informes interactivos y dashboards"
+    },
+    {
+      "number": 4,
+      "name": "Implementar y Administrar",
+      "lessons": [22, 23, 24, 25, 26, 27, 28],
+      "description": "Implementar soluciones, administrar recursos y aplicar seguridad"
+    }
+  ],
+  "features": [
+    "28 lecciones interactivas cubriendo todos los temas del examen PL-300",
+    "10 preguntas de evaluación de conocimientos",
+    "Ejercicios de laboratorio prácticos",
+    "Conjunto de datos de muestra incluido (sales_sample.csv)",
+    "Seguimiento automático de progreso con localStorage",
+    "Funcionalidad de exportación/importación (JSON y CSV)",
+    "Diseño responsive para todos los dispositivos",
+    "No requiere instalación - funciona en navegador web",
+    "Contenido completamente en español",
+    "Visualización de progreso en tiempo real",
+    "Línea de tiempo de actividades"
+  ],
+  "technicalDetails": {
+    "fileType": "Aplicación HTML de página única",
+    "dependencies": "Ninguna (HTML, CSS, JavaScript puro)",
+    "browserCompatibility": [
+      "Chrome (recomendado)",
+      "Edge (recomendado)",
+      "Firefox",
+      "Safari (con limitaciones menores)"
+    ],
+    "storage": "localStorage del navegador",
+    "requiresInternet": false,
+    "requiresInstallation": false
+  },
+  "files": [
+    {
+      "filename": "index.html",
+      "description": "Portal principal del curso interactivo con lecciones, cuestionarios y seguimiento de progreso",
+      "type": "HTML"
+    },
+    {
+      "filename": "README.md",
+      "description": "Documentación del curso, instrucciones de uso y guía de aprendizaje",
+      "type": "Markdown"
+    },
+    {
+      "filename": "COURSE-META.json",
+      "description": "Metadatos e información estructural del curso",
+      "type": "JSON"
+    },
+    {
+      "filename": "data/sales_sample.csv",
+      "description": "Conjunto de datos de muestra para laboratorios prácticos",
+      "type": "CSV"
+    }
+  ],
+  "relatedResources": [
+    {
+      "name": "Microsoft Learn PL-300",
+      "url": "https://learn.microsoft.com/es-es/certifications/exams/pl-300",
+      "type": "Ruta de Aprendizaje Oficial"
+    },
+    {
+      "name": "Documentación de Power BI",
+      "url": "https://learn.microsoft.com/es-es/power-bi/",
+      "type": "Documentación"
+    },
+    {
+      "name": "Referencia DAX",
+      "url": "https://learn.microsoft.com/es-es/dax/",
+      "type": "Documentación"
+    },
+    {
+      "name": "Comunidad de Power BI",
+      "url": "https://community.powerbi.com/",
+      "type": "Foro de la Comunidad"
+    }
+  ],
+  "author": {
+    "repository": "angra8410/all-my-learnings",
+    "course": "Courses/PL-300-interactive-course"
+  },
+  "tags": [
+    "power-bi",
+    "pl-300",
+    "microsoft-certification",
+    "data-analyst",
+    "dax",
+    "power-query",
+    "data-modeling",
+    "data-visualization",
+    "interactive-course",
+    "certification-prep",
+    "español"
+  ]
+}
