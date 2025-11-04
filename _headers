@@ -2,15 +2,11 @@
 # https://docs.netlify.com/routing/headers/
 
 # CSV files - set proper Content-Type
-/*.csv
-  Content-Type: text/csv; charset=utf-8
-
-# Data directory CSV files
-/*/data/*.csv
-  Content-Type: text/csv; charset=utf-8
-
-# Courses data CSV files
+# Most specific pattern covers all course data files
 /Courses/*/data/*.csv
+  Content-Type: text/csv; charset=utf-8
+
+/*.csv
   Content-Type: text/csv; charset=utf-8
 
 # Security headers for all pages
@@ -26,7 +22,7 @@
 
 # Cache control for static assets
 /*.css
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400
 
 /*.js
   Cache-Control: public, max-age=31536000, immutable
