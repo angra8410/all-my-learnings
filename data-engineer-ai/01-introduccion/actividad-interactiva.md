@@ -10,7 +10,7 @@ B) Diseñar y mantener sistemas que recolectan, almacenan y procesan datos
 C) Hacer análisis estadístico y visualizaciones  
 D) Gestionar bases de datos únicamente
 
-**Tu respuesta**: ___
+**Tu respuesta**: B
 
 ---
 
@@ -22,7 +22,7 @@ B) Extract, Transform, Load
 C) Evaluate, Train, Learn  
 D) Export, Transfer, Link
 
-**Tu respuesta**: ___
+**Tu respuesta**: B
 
 ---
 
@@ -34,7 +34,7 @@ B) Data Warehouse almacena datos estructurados con esquema definido, Data Lake a
 C) Data Lake es solo para big data, Data Warehouse para datos pequeños  
 D) No hay diferencia real, son términos intercambiables
 
-**Tu respuesta**: ___
+**Tu respuesta**: B
 
 ---
 
@@ -46,7 +46,7 @@ B) Procesa datos continuamente a medida que llegan
 C) Es más barato que procesamiento batch  
 D) Solo funciona con Apache Spark
 
-**Tu respuesta**: ___
+**Tu respuesta**: B
 
 ---
 
@@ -58,7 +58,7 @@ B) SQL
 C) Adobe Photoshop  
 D) Pandas
 
-**Tu respuesta**: ___
+**Tu respuesta**: C
 
 ---
 
@@ -70,7 +70,7 @@ B) Una combinación de Data Lake y Data Warehouse
 C) Un tipo de base de datos NoSQL  
 D) Una versión antigua de Data Lake
 
-**Tu respuesta**: ___
+**Tu respuesta**: B
 
 ---
 
@@ -82,7 +82,7 @@ B) 40%
 C) 60%  
 D) 80%
 
-**Tu respuesta**: ___
+**Tu respuesta**: D
 
 ---
 
@@ -94,7 +94,7 @@ B) Orquestar y programar workflows de datos
 C) Almacenar datos  
 D) Crear visualizaciones
 
-**Tu respuesta**: ___
+**Tu respuesta**: B
 
 ---
 
@@ -102,21 +102,21 @@ D) Crear visualizaciones
 
 Marca V (Verdadero) o F (Falso) para cada afirmación:
 
-1. **Un Data Engineer y un Data Scientist hacen exactamente el mismo trabajo.** ___
+1. **Un Data Engineer y un Data Scientist hacen exactamente el mismo trabajo.** F
 
-2. **SQL es un lenguaje esencial para Data Engineers.** ___
+2. **SQL es un lenguaje esencial para Data Engineers.** V
 
-3. **Los Data Engineers solo trabajan con datos estructurados.** ___
+3. **Los Data Engineers solo trabajan con datos estructurados.** F
 
-4. **Los sistemas de IA modernos pueden funcionar sin Data Engineers.** ___
+4. **Los sistemas de IA modernos pueden funcionar sin Data Engineers.** F
 
-5. **Procesamiento batch es siempre mejor que streaming.** ___
+5. **Procesamiento batch es siempre mejor que streaming.** F
 
-6. **Python es el lenguaje más usado en Data Engineering.** ___
+6. **Python es el lenguaje más usado en Data Engineering.** V
 
-7. **Data quality es responsabilidad únicamente del equipo de QA.** ___
+7. **Data quality es responsabilidad únicamente del equipo de QA.** F
 
-8. **Los pipelines de datos necesitan ser monitoreados continuamente.** ___
+8. **Los pipelines de datos necesitan ser monitoreados continuamente.** V
 
 ---
 
@@ -139,7 +139,7 @@ D) Almacenamiento de datos raw en cualquier formato
 E) Extract, Transform, Load
 
 **Tus respuestas:**
-1 → ___ | 2 → ___ | 3 → ___ | 4 → ___ | 5 → ___
+1 → D | 2 → A | 3 → E | 4 → B | 5 → C
 
 ---
 
