@@ -1,6 +1,70 @@
-# Retroalimentación — Módulo 05
+# 📋 Retroalimentación — Orquestación con Airflow
 
-Criterios:
-- DAGs correctos y manejan errores (50%)
-- Uso de buenas prácticas (30%)
-- Documentación (20%)
+## 🎯 Criterios de Evaluación
+
+### 1. Comprensión de Conceptos (40%)
+
+**Puntuación:** _____ / 40 pts
+
+**Conceptos clave comprendidos:**
+1. Diseñar y construir DAGs complejos
+2. Usar operators (Python, Bash, SQL)
+3. Implementar dependencias y branching
+
+### 2. Ejercicios Prácticos (35%)
+
+**Ejercicios completados:** _____ / 9
+**Puntuación:** _____ / 35 pts
+
+### 3. Calidad del Código/Implementación (15%)
+
+- Código limpio y documentado
+- Sigue best practices
+- Manejo de errores apropiado
+
+**Puntuación:** _____ / 15 pts
+
+### 4. Documentación (10%)
+
+- Progreso actualizado
+- Decisiones documentadas
+- Aprendizajes registrados
+
+**Puntuación:** _____ / 10 pts
+
+---
+
+## 📊 Puntuación Total
+
+**Total:** _____ / 100 pts
+
+### Calificación
+
+- **90-100**: 🌟 Excelente
+- **75-89**: ✅ Aprobado
+- **60-74**: ⚠️ Suficiente
+- **0-59**: ❌ Necesita refuerzo
+
+**Tu calificación:** ___________________
+
+## 💡 Reflexión
+
+**Lo más desafiante:**
+```
+_______________________________________________
+```
+
+**Lo más útil aprendido:**
+```
+_______________________________________________
+```
+
+**Aplicación práctica:**
+```
+_______________________________________________
+```
+
+---
+
+**Fecha de evaluación:** ___________________  
+**Listo para siguiente módulo:** [ ] Sí [ ] No

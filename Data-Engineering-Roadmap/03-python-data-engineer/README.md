@@ -1,20 +1,65 @@
-# Módulo 03 — Python para Data Engineering
+# 🐍 Módulo — Python para Data Engineering
 
-Objetivos:
-- Usar Python para ingestión, transformación y scripting de pipelines.
-- Familiarizarse con librerías: pandas, sqlalchemy, requests, airflow operators básicos.
+## 🎯 Objetivos de Aprendizaje
 
-Contenido:
-1. Repaso de Python: estructuras, funciones, manejo de archivos
-2. pandas para ETL: lectura, limpieza, transformaciones
-3. Conexión a BD con SQLAlchemy
-4. Requests y consumo de APIs
-5. Buenas prácticas: logging, manejo de excepciones, virtualenv/venv
-6. Introducción a testing con pytest (unit tests simples)
+Al completar este módulo serás capaz de:
 
-Actividades prácticas:
-- Script de ingestión desde CSV y API, normalización y carga a DB.
-- Tests unitarios para funciones de transformación.
-- Ejercicio: pipeline simple que lee, transforma y escribe.
+1. **Desarrollar scripts ETL robustos en Python**
+2. **Interactuar con bases de datos usando SQLAlchemy y psycopg2**
+3. **Procesar datos con pandas de manera eficiente**
+4. **Consumir APIs REST y manejar respuestas JSON**
+5. **Implementar logging y manejo de errores profesional**
+6. **Gestionar entornos virtuales y dependencias**
 
-Duración estimada: 10-14 horas
+## 📚 Contenido Teórico
+
+### Temas Principales
+
+1. Setup de entornos virtuales (venv, conda)
+2. Conexión a bases de datos (SQLAlchemy, psycopg2)
+3. Pandas para transformaciones (read_sql, to_sql)
+4. Requests para consumo de APIs
+5. Logging estructurado
+6. Testing con pytest
+7. Scheduling con schedule o APScheduler
+
+
+## 🏋️ Actividades Prácticas
+
+Ver `actividad-interactiva.md` para 8 ejercicios detallados que cubren todos los conceptos de este módulo.
+
+## 📝 Entregables
+
+Al finalizar este módulo deberías tener:
+
+1. ✅ Ejercicios prácticos completados y documentados
+2. ✅ Scripts/código funcional y probado
+3. ✅ Comprensión sólida de todos los conceptos clave
+4. ✅ Proyectos de ejemplo funcionando
+
+## 🎯 Criterios de Éxito
+
+- [ ] Completados todos los ejercicios de `actividad-interactiva.md`
+- [ ] Código funciona sin errores
+- [ ] Comprendes cuándo y cómo aplicar cada concepto
+- [ ] Puedes explicar decisiones técnicas
+- [ ] Has documentado tu aprendizaje en `progreso.md`
+
+## 📚 Recursos Adicionales
+
+Ver archivo `recursos.md` para:
+- Documentación oficial
+- Tutoriales y cursos
+- Herramientas y librerías
+- Comunidades y foros
+- Datasets de práctica
+
+## ⏭️ Siguiente Paso
+
+Una vez completado este módulo, continúa con el siguiente módulo según el plan de estudio.
+
+---
+
+**💡 Consejo**: Este módulo es fundamental para tu formación como Data Engineer. Dedica el tiempo necesario para dominar cada concepto.
+
+**⏱️ Duración estimada**: 10-12 horas

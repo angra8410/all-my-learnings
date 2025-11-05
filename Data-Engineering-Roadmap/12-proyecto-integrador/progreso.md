@@ -1,6 +1,52 @@
-# Progreso — Módulo 12
+# 📊 Progreso — Proyecto Integrador
 
-- [ ] Definir alcance y fuentes
-- [ ] Implementar ingestión y almacenamiento raw
-- [ ] Implementar transformaciones y DAGs
-- [ ] Ejecutar tests y CI/CD
+## ✅ Checklist de Actividades
+
+### 📚 Contenido Teórico
+- [ ] Leer README completo del módulo
+- [ ] Comprender: Arquitectura de solución completa
+- [ ] Comprender: Ingesta desde múltiples fuentes
+- [ ] Comprender: Transformaciones con dbt
+- [ ] Comprender: Orquestación con Airflow
+- [ ] Comprender: Data warehouse en Snowflake/BigQuery
+
+### 🏋️ Ejercicios Prácticos
+- [ ] **Ejercicio 1**: Completado y verificado
+- [ ] **Ejercicio 2**: Completado y verificado
+- [ ] **Ejercicio 3**: Completado y verificado
+- [ ] **Ejercicio 4**: Completado y verificado
+- [ ] **Ejercicio 5**: Completado y verificado
+
+### 📝 Documentación
+- [ ] Scripts/código guardados
+- [ ] Decisiones documentadas
+- [ ] Problemas y soluciones registrados
+- [ ] Commits realizados en repositorio
+
+### 🎯 Validación Final
+- [ ] Todos los ejercicios funcionan correctamente
+- [ ] Comprendidos todos los conceptos clave
+- [ ] Listo para siguiente módulo
+
+## 📊 Mi Plan Personal
+
+**Fecha de inicio:** ___________________
+**Horas estimadas:** 15-20 horas
+**Horas reales:** _____ horas
+**Fecha de finalización:** ___________________
+
+## 💡 Aprendizajes Clave
+
+**Conceptos dominados:**
+1. _______________________________________________
+2. _______________________________________________
+3. _______________________________________________
+
+**Áreas a reforzar:**
+1. _______________________________________________
+2. _______________________________________________
+
+---
+
+**Última actualización:** ___________________  
+**Porcentaje completado:** _____% 
