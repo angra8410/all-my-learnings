@@ -1,18 +1,65 @@
-# Módulo 04 — Transformaciones con dbt
+# 🎨 Módulo — Transformaciones con dbt
 
-Objetivos:
-- Entender el flujo de trabajo con dbt (models, snapshots, tests).
-- Implementar transformaciones versionadas y reproducibles.
+## 🎯 Objetivos de Aprendizaje
 
-Contenido:
-1. ¿Qué es dbt? conceptos y arquitectura
-2. Estructura de un proyecto dbt
-3. Models, seeds, snapshots, macros
-4. Tests en dbt y documentación (docs)
-5. Integración con warehouse (ej. Snowflake / Postgres)
-6. Promoción: dev → staging → production
+Al completar este módulo serás capaz de:
 
-Actividades prácticas:
-- Crear proyecto dbt con models para limpiar y moldear raw → staging → marts.
-- Añadir tests personalizados y documentación (dbt docs).
-- CI: ejecutar dbt run y dbt test en local / pipeline.
+1. **Crear y gestionar proyectos dbt**
+2. **Escribir models (views, tables, incremental)**
+3. **Implementar tests de calidad de datos**
+4. **Generar documentación automática**
+5. **Usar macros y packages**
+6. **Implementar snapshots para SCD Type 2**
+
+## 📚 Contenido Teórico
+
+### Temas Principales
+
+1. Arquitectura de dbt (models, sources, seeds)
+2. Materializations (view, table, incremental, ephemeral)
+3. Testing (unique, not_null, relationships, accepted_values)
+4. Documentation (docs blocks, descriptions)
+5. Macros y Jinja templating
+6. Snapshots para slowly changing dimensions
+7. dbt Cloud vs dbt Core
+
+
+## 🏋️ Actividades Prácticas
+
+Ver `actividad-interactiva.md` para 8 ejercicios detallados que cubren todos los conceptos de este módulo.
+
+## 📝 Entregables
+
+Al finalizar este módulo deberías tener:
+
+1. ✅ Ejercicios prácticos completados y documentados
+2. ✅ Scripts/código funcional y probado
+3. ✅ Comprensión sólida de todos los conceptos clave
+4. ✅ Proyectos de ejemplo funcionando
+
+## 🎯 Criterios de Éxito
+
+- [ ] Completados todos los ejercicios de `actividad-interactiva.md`
+- [ ] Código funciona sin errores
+- [ ] Comprendes cuándo y cómo aplicar cada concepto
+- [ ] Puedes explicar decisiones técnicas
+- [ ] Has documentado tu aprendizaje en `progreso.md`
+
+## 📚 Recursos Adicionales
+
+Ver archivo `recursos.md` para:
+- Documentación oficial
+- Tutoriales y cursos
+- Herramientas y librerías
+- Comunidades y foros
+- Datasets de práctica
+
+## ⏭️ Siguiente Paso
+
+Una vez completado este módulo, continúa con el siguiente módulo según el plan de estudio.
+
+---
+
+**💡 Consejo**: Este módulo es fundamental para tu formación como Data Engineer. Dedica el tiempo necesario para dominar cada concepto.
+
+**⏱️ Duración estimada**: 10-12 horas

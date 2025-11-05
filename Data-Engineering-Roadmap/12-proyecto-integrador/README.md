@@ -1,26 +1,68 @@
-# Módulo 12 — Proyecto integrador (End-to-End)
+# 🚀 Módulo — Proyecto Integrador
 
-Objetivos:
-- Construir y entregar un pipeline end-to-end en la nube con orquestación, transformaciones y un data mart listo para análisis.
+## 🎯 Objetivos de Aprendizaje
 
-Requerimientos del proyecto:
-- Ingesta desde 2 fuentes (API + CSV)
-- Almacenamiento raw en S3/GCS
-- Transformaciones versionadas con dbt (raw → staging → marts)
-- Orquestación con Airflow (DAGs reproducibles)
-- Warehouse (Snowflake o equivalente) con esquema dimensional
-- Tests automatizados y CI/CD que ejecute tests y despliegue
+Al completar este módulo serás capaz de:
 
-Entregables:
-1. Código fuente en carpeta del repo (scripts, dbt project, DAGs)
-2. Documentación: README del proyecto, instrucciones de despliegue
-3. Demo: notebook o dashboard que consulte el data mart
-4. Informe de evaluación y checklist de progreso
+1. **Diseñar pipeline end-to-end completo**
+2. **Integrar todas las tecnologías del curso**
+3. **Desplegar en entorno cloud**
+4. **Implementar monitoring y alerting**
+5. **Documentar arquitectura y decisiones**
+6. **Presentar proyecto completo**
 
-Evaluación:
-- Correcta ejecución de pipeline (40%)
-- Calidad del modelado y tests (30%)
-- Documentación y reproducibilidad (20%)
-- Observabilidad y manejo de errores (10%)
+## 📚 Contenido Teórico
 
-Duración estimada: 2-3 semanas (proyecto final)
+### Temas Principales
+
+1. Arquitectura de solución completa
+2. Ingesta desde múltiples fuentes
+3. Transformaciones con dbt
+4. Orquestación con Airflow
+5. Data warehouse en Snowflake/BigQuery
+6. Testing y validaciones
+7. Deployment y CI/CD
+8. Monitoring y observabilidad
+9. Documentación técnica
+10. Presentación de proyecto
+
+
+## 🏋️ Actividades Prácticas
+
+Ver `actividad-interactiva.md` para 5 ejercicios detallados que cubren todos los conceptos de este módulo.
+
+## 📝 Entregables
+
+Al finalizar este módulo deberías tener:
+
+1. ✅ Ejercicios prácticos completados y documentados
+2. ✅ Scripts/código funcional y probado
+3. ✅ Comprensión sólida de todos los conceptos clave
+4. ✅ Proyectos de ejemplo funcionando
+
+## 🎯 Criterios de Éxito
+
+- [ ] Completados todos los ejercicios de `actividad-interactiva.md`
+- [ ] Código funciona sin errores
+- [ ] Comprendes cuándo y cómo aplicar cada concepto
+- [ ] Puedes explicar decisiones técnicas
+- [ ] Has documentado tu aprendizaje en `progreso.md`
+
+## 📚 Recursos Adicionales
+
+Ver archivo `recursos.md` para:
+- Documentación oficial
+- Tutoriales y cursos
+- Herramientas y librerías
+- Comunidades y foros
+- Datasets de práctica
+
+## ⏭️ Siguiente Paso
+
+Una vez completado este módulo, continúa con el siguiente módulo según el plan de estudio.
+
+---
+
+**💡 Consejo**: Este módulo es fundamental para tu formación como Data Engineer. Dedica el tiempo necesario para dominar cada concepto.
+
+**⏱️ Duración estimada**: 15-20 horas

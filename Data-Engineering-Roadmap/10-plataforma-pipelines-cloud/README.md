@@ -1,14 +1,66 @@
-# Módulo 10 — Plataforma & Pipelines en la Nube (AWS/Azure/GCP)
+# ☁️ Módulo — Pipelines en Cloud
 
-Objetivos:
-- Desplegar un pipeline end-to-end en una de las nubes (ejemplos: AWS/GCP/Azure).
+## 🎯 Objetivos de Aprendizaje
 
-Contenido:
-1. Opciones de infra: managed services vs self-managed
-2. Componentes: storage (S3/GCS), compute (EC2/GKE), managed warehouses
-3. Despliegue de infra con IaC (Terraform / ARM / Deployment Manager)
-4. CI/CD: GitHub Actions / Azure Pipelines / Cloud Build
-5. Seguridad: gestión de secretos, roles y permisos
+Al completar este módulo serás capaz de:
 
-Actividades prácticas:
-- Desplegar una tubería simple: data ingest → landing storage → dbt → warehouse (ej. S3 + Snowflake).
+1. **Desplegar pipelines en AWS/Azure/GCP**
+2. **Usar servicios managed de ETL**
+3. **Implementar CI/CD para datos**
+4. **Gestionar infraestructura como código (Terraform)**
+5. **Optimizar costos cloud**
+6. **Implementar seguridad y compliance**
+
+## 📚 Contenido Teórico
+
+### Temas Principales
+
+1. AWS: S3, Glue, Lambda, Redshift, Step Functions
+2. Azure: Data Factory, Synapse, Blob Storage
+3. GCP: BigQuery, Dataflow, Cloud Composer
+4. Terraform para IaC
+5. GitHub Actions / GitLab CI para pipelines
+6. Secrets management (AWS Secrets Manager, Azure Key Vault)
+7. Cost optimization strategies
+8. Security best practices
+
+
+## 🏋️ Actividades Prácticas
+
+Ver `actividad-interactiva.md` para 8 ejercicios detallados que cubren todos los conceptos de este módulo.
+
+## 📝 Entregables
+
+Al finalizar este módulo deberías tener:
+
+1. ✅ Ejercicios prácticos completados y documentados
+2. ✅ Scripts/código funcional y probado
+3. ✅ Comprensión sólida de todos los conceptos clave
+4. ✅ Proyectos de ejemplo funcionando
+
+## 🎯 Criterios de Éxito
+
+- [ ] Completados todos los ejercicios de `actividad-interactiva.md`
+- [ ] Código funciona sin errores
+- [ ] Comprendes cuándo y cómo aplicar cada concepto
+- [ ] Puedes explicar decisiones técnicas
+- [ ] Has documentado tu aprendizaje en `progreso.md`
+
+## 📚 Recursos Adicionales
+
+Ver archivo `recursos.md` para:
+- Documentación oficial
+- Tutoriales y cursos
+- Herramientas y librerías
+- Comunidades y foros
+- Datasets de práctica
+
+## ⏭️ Siguiente Paso
+
+Una vez completado este módulo, continúa con el siguiente módulo según el plan de estudio.
+
+---
+
+**💡 Consejo**: Este módulo es fundamental para tu formación como Data Engineer. Dedica el tiempo necesario para dominar cada concepto.
+
+**⏱️ Duración estimada**: 12-15 horas
