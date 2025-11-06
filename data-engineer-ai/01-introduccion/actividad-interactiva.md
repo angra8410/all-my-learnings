@@ -157,18 +157,21 @@ def extract():
         'nombre': ['Ana', 'Luis', 'María'],
         'edad': [25, 30, 28]
     }
-    df = ___________(data)  # Completa aquí
+    df = pd.DataFrame(data)  # Completa aquí
     return df
 
 def transform(df):
     """Agrega una columna calculada"""
-    df['edad_en_5_años'] = df['edad'] + ___  # Completa aquí
+    df['edad_en_5_años'] = df['edad'] + 5  # Completa aquí
     return df
 
 def load(df):
     """Guarda los datos"""
-    df.to_csv('_________.csv', index=False)  # Completa el nombre
+    df.to_csv(Filename= index=False)  # Completa el nombre
     print("Datos guardados")
+
+if __name__ == "__main__":
+    print("🚀 Iniciando pipeline ETL...")
 
 # Ejecutar pipeline
 raw_data = extract()
@@ -184,15 +187,15 @@ Completa la validación de datos:
 ```python
 def validate_email(email: str) -> bool:
     """Valida que un email sea válido"""
-    return '___' in email and '.' in email  # Completa aquí
+    return '@' in email and '.' in email  # Completa aquí
 
 def clean_data(df):
     """Limpia DataFrame eliminando valores nulos"""
-    return df.________()  # Completa con método de pandas
+    return df.dropna()  # Completa con método de pandas
 
 # Test
 assert validate_email("user@example.com") == True
-assert validate_email("invalid-email") == ___  # Completa aquí
+assert validate_email("invalid-email") == False  # Completa aquí
 ```
 
 ---
@@ -210,20 +213,20 @@ Una tienda online procesa 10,000 pedidos diarios. Necesitan:
 **Preguntas:**
 
 1. **¿Qué tipo de procesamiento usarías para los reportes de ventas?**
-   - [ ] Batch (una vez al día)
+   - [x ] Batch (una vez al día)
    - [ ] Streaming (tiempo real)
    
-   **Justifica**: ___________________________________________
-
-2. **¿Y para detección de fraude?**
-   - [ ] Batch
-   - [ ] Streaming
+   **Justifica**: Batch, porque ellos necesitan los reportes todos los dias en la noche.
    
-   **Justifica**: ___________________________________________
+3. **¿Y para detección de fraude?**
+   - [ ] Batch
+   - [x] Streaming
+   
+   **Justifica**: Se necesita monitorizar transacciones fraudulentas en tiempo real.
 
-3. **¿Qué tecnologías recomendarías para cada necesidad?**
-   - Reportes: ___________________________________________
-   - Fraude: ___________________________________________
+4. **¿Qué tecnologías recomendarías para cada necesidad?**
+   - Reportes: power bi, snowflake
+   - Fraude: kafka, flink, redis, seldon, snowflake
    - Recomendaciones: ___________________________________________
 
 ---
@@ -238,21 +241,21 @@ Una empresa quiere crear un chatbot que responda preguntas sobre sus manuales t�
 1. **¿Qué pasos del pipeline de datos son necesarios?**
    
    Ordena del 1 al 6:
-   - [ ] Generar embeddings
-   - [ ] Extraer texto de PDFs
-   - [ ] Almacenar en base vectorial
-   - [ ] Dividir texto en chunks
-   - [ ] Limpiar y normalizar texto
-   - [ ] Implementar búsqueda semántica
+   - [5] Generar embeddings
+   - [1] Extraer texto de PDFs
+   - [2] Almacenar en base vectorial
+   - [4] Dividir texto en chunks
+   - [3] Limpiar y normalizar texto
+   - [6] Implementar búsqueda semántica
 
 2. **¿Qué rol juega el Data Engineer aquí?**
    
-   ___________________________________________
+   Es quien Extrae, almacena, hace data transformation, modela, sirve el modèlo e itera cuantas veces sea necesario.
    ___________________________________________
 
 3. **¿Batch o streaming para este caso?**
    
-   ___________________________________________
+   Batch
 
 ---
 
@@ -273,23 +276,23 @@ Diseña una arquitectura simple para este caso:
 ```
 INGESTA:
 ¿De dónde vienen los datos?
-___________________________________________
+Los datos se obtienen desde X a travès de la API de ellos
 
 ALMACENAMIENTO:
 ¿Dónde los guardas?
-___________________________________________
+S3
 
 PROCESAMIENTO:
 ¿Cómo los procesas?
-___________________________________________
+Se hace anàlisis de sentimiento, se buscan las palabras y se hace un chunk de lo que se necesita para preparar los datos en vectores
 
 VISUALIZACIÓN:
 ¿Cómo los muestras?
-___________________________________________
+Yo los muestro a travès de una herramienta de BI
 
 HERRAMIENTAS:
 ¿Qué tecnologías usarías?
-___________________________________________
+Airflow, power bi, kafka
 ```
 
 ---
@@ -318,7 +321,7 @@ ventas_raw = {
 
 def extract_data(data_dict):
     """Convierte dict a DataFrame"""
-    # Tu código aquí
+    df = pd.DataFrame(data_dict)
     pass
 
 def transform_data(df):
@@ -329,7 +332,10 @@ def transform_data(df):
     3. Calcular columna 'total' = precio * cantidad
     4. Convertir fecha a datetime
     """
-    # Tu código aquí
+    df[normalizar_nombres] = df['nombre'].str.lower().str.replace(" ", "", regex=False)
+    df[llenar precios None con 0] = df['precio'].fillna(0)
+    df[total] = df[precio] * df[cantidad]
+    df[convertirfecha] = pd.to_datetime(df['fecha'])
     pass
 
 def validate_data(df):
@@ -340,22 +346,83 @@ def validate_data(df):
     3. Producto no es string vacío
     Retorna True si pasa todas las validaciones
     """
-    # Tu código aquí
+    
+    df[nopreciosnegativos] = df[precios]>=0
+    df[cantidadmayorquecero]= df[cantidad]>0
+    df['productonovacio'] = df['producto'].notna() & df['producto'].astype(str).str.strip().ne('')
+    df['valid'] = df['nopreciosnegativos'] & df['cantidadmayorquecero'] & df['productonovacio']
+    return df['valid'].all()
+
     pass
 
 def load_data(df, filename='ventas_clean.csv'):
     """Guarda en CSV"""
-    # Tu código aquí
+    df.to_csv(filename, index=False)
+    print(f"✅ Datos cargados en {filename}")
     pass
 
-# Ejecutar pipeline completo
+# Ejecutar pipeline
 if __name__ == "__main__":
-    # Tu código aquí
-    pass
+    print("🚀 Iniciando pipeline ETL...")
+    
+    # ETL
+    raw_data = extract()
+    transformed_data = transform(raw_data)
+    load(transformed_data)
+    
+    print("✨ Pipeline completado exitosamente!")
 ```
 
 **Bonus**: Agrega logging para saber qué hace cada paso.
+import logging
+import pandas as pd
 
+def validate_simple(df: pd.DataFrame,
+                    price_col: str = 'precio',
+                    qty_col: str = 'cantidad',
+                    prod_col: str = 'producto') -> bool:
+    """
+    Validación simple:
+      1) precio >= 0
+      2) cantidad > 0
+      3) producto no es cadena vacía ni NaN
+
+    Devuelve True si TODAS las filas cumplen las 3 reglas.
+    Imprime conteos simples de filas que fallan cada regla.
+    """
+    # Logging muy simple
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    logger = logging.getLogger("validate_simple")
+
+    # Trabajamos con copia para no mutar el original
+    df = df.copy()
+
+    # Convertir columnas numéricas (no numérico -> NaN)
+    prices = pd.to_numeric(df[price_col], errors='coerce')
+    qty = pd.to_numeric(df[qty_col], errors='coerce')
+
+    # Producto como string y strip() para quitar espacios
+    prod = df[prod_col].astype(str).str.strip()
+
+    # Máscaras de validación
+    mask_price = prices >= 0
+    mask_qty = qty > 0
+    mask_prod = df[prod_col].notna() & (prod != '')
+
+    # Conteos e info simple
+    total = len(df)
+    n_price_bad = (~mask_price).sum()
+    n_qty_bad = (~mask_qty).sum()
+    n_prod_bad = (~mask_prod).sum()
+
+    logger.info(f"Total filas: {total}")
+    logger.info(f"Filas con precio negativo: {int(n_price_bad)}")
+    logger.info(f"Filas con cantidad <= 0 o no numérica: {int(n_qty_bad)}")
+    logger.info(f"Filas con producto vacío o NaN: {int(n_prod_bad)}")
+
+    # Resultado combinado: True si todas las filas son válidas
+    valid = mask_price & mask_qty & mask_prod
+    return valid.all()
 ---
 
 ### Ejercicio 2: Análisis de Logs
@@ -410,12 +477,12 @@ if __name__ == "__main__":
 **Tarea**: Configura tu entorno de desarrollo completo.
 
 **Checklist técnico:**
-- [ ] Python 3.10+ instalado
-- [ ] Entorno virtual creado
-- [ ] pandas, numpy, jupyter instalados
-- [ ] Docker instalado y funcionando
-- [ ] Git configurado
-- [ ] Cuenta GitHub creada
+- [x] Python 3.10+ instalado
+- [x] Entorno virtual creado
+- [x] pandas, numpy, jupyter instalados
+- [x] Docker instalado y funcionando
+- [x] Git configurado
+- [x] Cuenta GitHub creada
 - [ ] Cuenta AWS Free Tier creada (opcional para módulos futuros)
 
 **Verifica tu setup:**
@@ -462,14 +529,14 @@ if __name__ == "__main__":
 
 | Característica | Apache Airflow | Prefect |
 |----------------|----------------|---------|
-| Año de creación | ___ | ___ |
-| Lenguaje | ___ | ___ |
-| Ventajas | ___ | ___ |
+| Año de creación | 2014 | 2018 |
+| Lenguaje | Python (DAGs en Python) | Python (Flows/Tasks en Python)
+| Ventajas | - Muy maduro y ampliamente adoptado; gran ecosistema de operadores/integraciones. | ___ |
 | Desventajas | ___ | ___ |
-| Casos de uso ideales | ___ | ___ |
+| Casos de uso ideales | Airbnb | Perfect |
 
 **¿Cuál elegirías para un proyecto personal y por qué?**
-___________________________________________
+Airflow, me parece que encajaria mas en lo que tengo pensado hacer, y tambien por la madurez que ya tiene, mas de una decada.
 ___________________________________________
 
 ---
@@ -479,16 +546,48 @@ ___________________________________________
 **Tarea**: Investiga la arquitectura de datos de Netflix.
 
 1. **¿Qué problemas de datos tiene Netflix?**
-   ___________________________________________
+   Escala masiva: ingesta, almacenamiento y procesamiento de petabytes de eventos por día (logs, métricas, eventos de reproducción).
+Latencia/consistencia: necesidad de respuestas en tiempo real para personalización, recomendaciones y enrutamiento.
+Heterogeneidad de datos: eventos en tiempo real, telemetría, logs, métricas, datos transaccionales y datasets de entrenamiento.
+Calidad y gobernanza: asegurar calidad, trazabilidad y metadata (linaje, esquemas) para ML/BI en un ecosistema distribuido.
+Evolución de esquemas: cambios frecuentes en eventos/telemetría deben gestionarse sin romper consumidores.
+Disponibilidad y multi‑región: replicación y tolerancia a fallos para servir a usuarios globales.
+Observabilidad y debugging: gran volumen requiere buenas herramientas para monitoreo, alertas y root‑cause analysis.
+Costos: optimizar almacenamiento y cómputo en la nube (S3, EMR, etc.) para workloads muy grandes.
 
 2. **¿Qué tecnologías usa?** (Investiga en internet)
-   ___________________________________________
+   Cloud / almacenamiento:
+Amazon Web Services: S3 (data lake), EC2, EMR, Lambda (usos varios).
+Ingesta / transporte de eventos:
+Suro (Netflix OSS) — sistema de transporte/ingesta de eventos; y uso de sistemas de streaming como Apache Kafka (o soluciones internas/híbridas) según necesidad.
+Procesamiento en streaming / near‑real‑time:
+Mantis (Netflix OSS) — plataforma de stream processing en tiempo real; también usan frameworks como Flink/Spark Streaming en ciertos casos.
+Procesamiento batch / ML:
+Apache Spark (sobre EMR) para ETL y entrenamiento; Hadoop/Hive históricamente (migración de HDFS → S3).
+Query y análitica interactiva:
+Presto (ahora Trino en otros sitios, pero Netflix impulsa Presto) para consultas interactivas a gran escala.
+Orquestación y ejecución:
+Genie (Netflix OSS) para orquestar jobs; además control propio sobre scheduling y runners.
+Almacenamiento de estado / bases:
+Cassandra (uso en casos de almacenamiento NoSQL), MySQL y caches como EVCache (memcached‑based) para baja latencia.
+Metadata / gobernanza:
+Metacat (Netflix OSS) y otros servicios internos para catálogo/metadata/linaje.
+Observabilidad / monitoring:
+Atlas (metrics, Netflix OSS), Spinnaker (deploy), herramientas internas de logging y dashboards.
+Formatos y herramientas del ecosistema:
+Parquet/Avro/ORC para datos columnados; Jupyter/Zeppelin para exploración; Python stack (pandas, numpy), frameworks ML (TensorFlow / PyTorch u otros según equipo).
+Infraestructura contenedorizada / orquestación:
+Titus (Netflix OSS) para contenedores; Kubernetes en algunos contextos.
+Nota: Netflix además aporta muchos proyectos OSS (Suro, Mantis, Genie, Metacat, EVCache, Atlas, Titus, Spinnaker) — la adopción exacta de cada componente puede variar con el tiempo.
 
 3. **¿Batch o streaming?**
-   ___________________________________________
+   Ambos — enfoque híbrido:
+Streaming / real‑time: para personalización en la reproducción, métricas en tiempo real, alertas y decisiones que requieren baja latencia (usando Mantis, Suro/Kafka, stream processors).
+Batch: para feature engineering a gran escala, ETL y entrenamiento de modelos (Spark/EMR sobre S3), procesamientos periódicos y backfills.
+En la práctica Netflix usa una arquitectura que combina pipelines streaming (para latencia y eventos) y pipelines batch (para computación a gran escala y reproducibilidad), integrando ambos resultados en la infraestructura de serving y en su feature store/capas de serving.
 
 4. **¿Qué puedes aprender de su arquitectura?**
-   ___________________________________________
+   wow, todavia estoy digiriendo todo la arquitectura de netflix
 
 ---
 
