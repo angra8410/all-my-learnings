@@ -268,19 +268,19 @@ FIN
 
 **Crea un algoritmo detallado para una actividad que realizas diariamente.**
 
-**Actividad elegida:** _____________________________
+**Actividad elegida:** NADAR_____________________________
 
 **Tu algoritmo:**
 ```
 1. Inicio
-2. 
-3. 
-4. 
-5. 
-6. 
-7. 
-8. 
-9. 
+2. VOY AL CUARTO Y ESCOJO EL VESTIDO DE BAÑO
+3. ME COLOCO EL VESTIDO DE BAÑO
+4. COJO LAS GAFAS Y EL GORRO
+5. SALGO A LA PISCINA
+6. EN LA PISCINA HAGO EJERCICIOS DE CALENTAMIENTO
+7. ME DUCHO
+8. ME COLOCO LAS GAFAS, EL GORRO
+9. COMIENZO A NADAR
 10. Fin
 ```
 
@@ -291,23 +291,26 @@ FIN
 **Aplica pensamiento computacional al siguiente problema: "Organizar tu mochila para la escuela"**
 
 **Descomposición** (divide el problema):
-1. _____________________________
-2. _____________________________
-3. _____________________________
-4. _____________________________
+1. SEPARAR LIBROS DE LIBRETAS_____________________________
+2. ESCOGER LAPICEROS Y BORRADORES
+3. LIBROS Y CUADERNOS VAN EN EL BOLSILLO MAS GRANDE
+4. LAPICEROS Y BORRADORES EN BOLSILLO MENOS GRANDE
 
 **Reconocimiento de patrones** (identifica repeticiones):
-_____________________________
-_____________________________
+SELECCIÓN DE LOS MISMOS LIBROS
+OLVIDAR LIBRETAS DEL DIA
 
 **Abstracción** (enfócate en lo importante):
-_____________________________
-_____________________________
+ESCOGER LIBROS DE ACUERDO AL DIA DE LA MATERIA
+NO OLVIDAR LAPICEROS, LAPICES, NI BORRADORES NI SACAPUNTA
 
 **Algoritmo** (pasos ordenados):
-_____________________________
-_____________________________
-_____________________________
+---
+INICIO
+COGER Y ABRIR EL MALETIN
+ESCOGER LIBROS Y LIBRETAS DE ACUERDO AL DIA DE MATERIA
+ESCOGER LAPICEROS Y DEMAS ACCESORIOS
+CERRAR MALETIN Y DEJARLO LISTO PARA EL DIA DE CLASES
 
 ---
 
@@ -330,13 +333,13 @@ FIN
 **Preguntas:**
 
 a) ¿Qué hace este algoritmo?
-_____________________________
+TOMA UN NUMERO, LO DIVIDE ENTRE DIEZ Y AGREGA 1 AL CONTADOR, O SEA, SIEMPRE VA A IR AUMENTANDO DE A 1 HASTA LLEGAR A 0 QUE ES CUANDO EL CICLO SE CIERRA.
 
 b) Si ingreso el número 1234, ¿qué resultado mostrará?
-_____________________________
+4
 
 c) ¿Qué pasaría si ingreso 0?
-_____________________________
+NO ARRANCA SIQUIERA, NO SE EJECUTA NI UNA SOLA VEZ
 
 ---
 
@@ -354,6 +357,31 @@ _____________________________
 
 **Pseudocódigo:**
 ```
+INICIO
+    LEER SALDO
+    LEER DINERONECESITADO
+    SI SALDO >0 ENTONCES
+    ESCRIBIR "CÚANTO DINERO NECESITAS?"
+    SI DINERONECESITADO > SALDO, ENTONCES
+    ESCRIBIR "ERROR, FONDOS INSUFICIENTES
+    SI SALDO > DINERONECESITADO, ENTONCES
+    ESCRIBIR "INGRESA CONTRASEÑA"
+    ESCRIBIR "ESPERA MIENTRAS SE REALIZA LA TRANSACCIÓN"
+    ESCRIBIR "TOME SU DINERO Y RETIRE SU TARJETA"
+    ESCRIBIR "QUIERE RECIBO O VER EN PANTALLA SU SALDO?"
+    ESCRIBIR "TRANSACCIÓN FINALIZADA"
+ ---   
+  INICIO
+    LEER SALDO_INICIAL
+    LEER CANTIDAD_A_RETIRAR
+    SI CANTIDAD_A_RETIRAR <= SALDO_INICIAL ENTONCES
+        SALDO_NUEVO = SALDO_INICIAL - CANTIDAD_A_RETIRAR
+        ESCRIBIR "Retiro exitoso. Su nuevo saldo es: ", SALDO_NUEVO
+    SINO
+        ESCRIBIR "Error: Fondos insuficientes."
+    FIN_SI
+FIN  
+ ---   
 
 
 
@@ -388,34 +416,36 @@ _____________________________
 ### Ejercicio 25
 **Evalúa las siguientes expresiones y escribe el resultado:**
 
-a) 10 + 5 * 2 = _______
+a) 10 + 5 * 2 = 20
 
-b) (10 + 5) * 2 = _______
+b) (10 + 5) * 2 = 30
 
-c) 20 / 4 - 3 = _______
+c) 20 / 4 - 3 = 2
 
-d) 15 MOD 4 = _______
+d) 15 MOD 4 = 3
 
-e) (5 > 3) Y (10 < 8) = _______
+e) (5 > 3) Y (10 < 8) = False
 
-f) (5 > 3) O (10 < 8) = _______
+f) (5 > 3) O (10 < 8) = True
 
-g) NO(5 == 5) = _______
+g) NO(5 == 5) = False
 
 ---
 
 ## Reflexión Final
 
 **¿Qué concepto te pareció más interesante?**
-_______________________________________________
+Todos
 _______________________________________________
 
 **¿Qué ejercicio te resultó más desafiante?**
-_______________________________________________
+ejercicio 20
 _______________________________________________
 
 **¿Cómo aplicarías la lógica de programación en tu vida diaria?**
-_______________________________________________
+wow, de manera indistinta uno aplica programación a la vida diaria,
+cuando va a escoger qué comer, que ponerse para ir al trabajo, todo, desde
+lo mas simple hasta lo mas complejo, todo es una bifurcación de posibilidades.
 _______________________________________________
 _______________________________________________
 
