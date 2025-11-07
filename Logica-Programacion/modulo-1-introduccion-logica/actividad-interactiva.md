@@ -10,7 +10,7 @@ B) Una secuencia ordenada de pasos para resolver un problema
 C) Un tipo de computadora  
 D) Un error en el código  
 
----
+B---
 
 ### Pregunta 2
 **¿Cuál de las siguientes características NO es propia de un buen algoritmo?**
@@ -20,7 +20,7 @@ B) Finito
 C) Ambiguo  
 D) Efectivo  
 
----
+C---
 
 ### Pregunta 3
 **¿Qué símbolo se usa en un diagrama de flujo para representar una decisión?**
@@ -30,7 +30,7 @@ B) Óvalo
 C) Rombo  
 D) Círculo  
 
----
+C---
 
 ### Pregunta 4
 **¿Cuál es el resultado de la operación 17 MOD 5?**
@@ -40,7 +40,7 @@ B) 2
 C) 5  
 D) 12  
 
----
+B---
 
 ### Pregunta 5
 **En el pensamiento computacional, ¿qué significa "descomposición"?**
@@ -50,7 +50,7 @@ B) Dividir un problema grande en partes más pequeñas
 C) Compilar el programa  
 D) Ejecutar el algoritmo  
 
----
+B---
 
 ### Pregunta 6
 **¿Cuál de estos NO es un operador de comparación?**
@@ -60,7 +60,7 @@ B) >=
 C) &&  
 D) !=  
 
----
+C---
 
 ### Pregunta 7
 **¿Qué es pseudocódigo?**
@@ -70,7 +70,7 @@ B) Código en lenguaje máquina
 C) Descripción de un algoritmo en lenguaje natural estructurado  
 D) Un tipo de virus informático  
 
----
+C---
 
 ### Pregunta 8
 **¿Cuál es el propósito principal de un diagrama de flujo?**
@@ -80,7 +80,7 @@ B) Representar visualmente la lógica de un algoritmo
 C) Escribir código más rápido  
 D) Reemplazar al programador  
 
----
+B---
 
 ## Sección 2: Verdadero o Falso
 
@@ -88,7 +88,7 @@ D) Reemplazar al programador
 **La lógica de programación depende del lenguaje de programación que uses.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
@@ -96,7 +96,7 @@ D) Reemplazar al programador
 **Un algoritmo debe tener un número infinito de pasos.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
@@ -104,14 +104,14 @@ D) Reemplazar al programador
 **El pseudocódigo puede ejecutarse directamente en una computadora.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
 ### Pregunta 12
 **Una variable puede cambiar su valor durante la ejecución de un programa.**
 
-- [ ] Verdadero
+- [X] Verdadero
 - [ ] Falso
 
 ---
@@ -120,7 +120,7 @@ D) Reemplazar al programador
 **El operador lógico Y (AND) es verdadero si al menos una condición es verdadera.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
@@ -128,7 +128,7 @@ D) Reemplazar al programador
 **En un diagrama de flujo, el óvalo se usa para representar procesos.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
@@ -140,13 +140,13 @@ D) Reemplazar al programador
 ```
 1. Inicio
 2. Tomar una taza
-3. _________________________ (calentar agua)
+3. Calentar agua_________________________ (calentar agua)
 4. Colocar la bolsita de té en la taza
-5. _________________________
+5. revolver la bolsita
 6. Esperar 3-5 minutos
-7. _________________________ (retirar bolsita)
+7. retirar la bolsita (retirar bolsita)
 8. Agregar azúcar o miel (opcional)
-9. _________________________
+9. Beber
 10. Fin
 ```
 
@@ -158,7 +158,7 @@ D) Reemplazar al programador
 ```
 INICIO
     LEER numero
-    SI _____________ ENTONCES
+    SI numero >0 ENTONCES
         ESCRIBIR "El número es positivo"
     SINO
         ESCRIBIR "El número es negativo o cero"
@@ -198,8 +198,12 @@ Tu diagrama aquí (puedes usar los símbolos mostrados en el módulo)
 
 **Tu pseudocódigo:**
 ```
-
-
+INICIO
+LEER BASE
+LEER ALTURA
+area = base * altura
+ESCRIBIR = "El área de un rectángulo es: " altura
+FINAL
 
 
 
@@ -213,6 +217,13 @@ Tu diagrama aquí (puedes usar los símbolos mostrados en el módulo)
 
 **Tu pseudocódigo:**
 ```
+INICIO
+    LEER NUMERO1
+    LEER NUMERO2
+    SI NUMERO1 > NUMERO2 ENTONCES
+        ESCRIBIR "Numero1 ES MAYOR QUE Numero2
+    SINO NUMERO2 >NUMERO1
+FIN
 
 
 
