@@ -10,7 +10,7 @@ B) Una estructura de repetición
 C) Una decisión entre dos opciones
 D) Un error en el código
 
----
+A
 
 ### Pregunta 2
 **¿Cuál es el orden correcto de una secuencia básica?**
@@ -20,7 +20,7 @@ B) Entrada → Salida → Procesamiento
 C) Entrada → Procesamiento → Salida
 D) Procesamiento → Entrada → Salida
 
----
+C
 
 ### Pregunta 3
 **¿Qué hace la instrucción `a = a + 1`?**
@@ -30,7 +30,7 @@ B) Incrementa el valor de a en 1
 C) Genera un error
 D) No hace nada
 
----
+B
 
 ### Pregunta 4
 **En una traza de algoritmo, ¿qué información registramos?**
@@ -40,7 +40,7 @@ B) Los valores de las variables en cada paso
 C) Solo los errores
 D) El tiempo de ejecución
 
----
+B
 
 ### Pregunta 5
 **¿Qué es una expresión?**
@@ -50,7 +50,7 @@ B) Una combinación de valores y operadores que produce un resultado
 C) Una variable
 D) Un mensaje de error
 
----
+B
 
 ## Sección 2: Verdadero o Falso
 
@@ -58,7 +58,7 @@ D) Un mensaje de error
 **En una secuencia, las instrucciones pueden ejecutarse en cualquier orden.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
@@ -66,14 +66,14 @@ D) Un mensaje de error
 **Puedes usar una variable antes de asignarle un valor.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [X] Falso
 
 ---
 
 ### Pregunta 8
 **La instrucción `nombre = "Juan"` es una asignación.**
 
-- [ ] Verdadero
+- [X] Verdadero
 - [ ] Falso
 
 ---
@@ -81,7 +81,7 @@ D) Un mensaje de error
 ### Pregunta 9
 **Una traza ayuda a depurar algoritmos.**
 
-- [ ] Verdadero
+- [X] Verdadero
 - [ ] Falso
 
 ---
@@ -92,12 +92,13 @@ D) Un mensaje de error
 **Realiza la traza del siguiente algoritmo:**
 
 ```
-INICIO
-    x = 5
-    y = 10
-    z = x + y
-    x = z * 2
-    y = x - z
+INICIO            x    y     z
+    x = 5         5    ?     ?
+    y = 10        5    10    ?
+    z = x + y     5    10    15
+    x = z * 2     30   10    15    
+    y = x - z     15   15    30
+  
 FIN
 ```
 
@@ -105,16 +106,16 @@ FIN
 
 | Paso | Instrucción | x | y | z |
 |------|-------------|---|---|---|
-| 1    | x = 5       |   |   |   |
-| 2    | y = 10      |   |   |   |
-| 3    | z = x + y   |   |   |   |
-| 4    | x = z * 2   |   |   |   |
-| 5    | y = x - z   |   |   |   |
+| 1    | x = 5       | 5 | ? | ? |
+| 2    | y = 10      | 5 |10 | ? |
+| 3    | z = x + y   | 5 |10 |15 |
+| 4    | x = z * 2   | 5 |10 |30 |
+| 5    | y = x - z   |10 |5  |-30|
 
 **Valores finales:**
-- x = _____
-- y = _____
-- z = _____
+- x = 30_____
+- y = -25_____
+- z = 15_____
 
 ---
 
