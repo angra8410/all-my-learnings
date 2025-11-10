@@ -256,15 +256,15 @@ ESCRIBIR "el precio final es:" precio final
 ### Ejercicio 17
 **Evalúa las siguientes expresiones si a = 10, b = 5, c = 2:**
 
-a) `a + b * c = _____`
+a) `a + b * c = 20_____`
 
-b) `(a + b) * c = _____`
+b) `(a + b) * c = 30_____`
 
-c) `a / b + c = _____`
+c) `a / b + c = 10_____`
 
-d) `a MOD (b - c) = _____`
+d) `a MOD (b - c) = 1_____`
 
-e) `b * c - a / b = _____`
+e) `b * c - a / b = 8_____` 
 
 ---
 
