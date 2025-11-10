@@ -233,7 +233,10 @@ FIN
 
 **Entrada:** precio original, porcentaje de descuento
 **Salida:** precio final
-
+LEER precio original
+LEER porcentaje de descuento
+precio final = precio original * porcentaje de descuento
+ESCRIBIR "el precio final es:" precio final
 ```
 
 
