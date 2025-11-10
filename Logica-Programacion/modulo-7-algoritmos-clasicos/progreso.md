@@ -1,4 +1,4 @@
-# Progreso Personal - Algoritmos Clásicos
+# Progreso Personal - Módulo 7: Algoritmos Clásicos
 
 ## Información del Estudiante
 
@@ -16,29 +16,54 @@
 
 - [ ] Leí el README completo
 - [ ] Entendí los conceptos principales
-- [ ] Completé las preguntas teóricas
-- [ ] Realicé todos los ejercicios prácticos
-- [ ] Revisé la retroalimentación
-- [ ] Practiqué con ejemplos adicionales
+- [ ] Completé preguntas de opción múltiple (5)
+- [ ] Respondí verdadero/falso (3)
+- [ ] Realicé ejercicios prácticos (3)
+- [ ] Completé análisis y diseño (1)
+- [ ] Completé ejercicio integrador (1)
+- [ ] Revisé retroalimentación
 
 ---
 
 ## Resultados
 
-- Preguntas de opción múltiple: ___ / __
-- Verdadero/Falso: ___ / __
-- Ejercicios prácticos: ___ / __
+- Opción múltiple: ___ / 5
+- Verdadero/Falso: ___ / 3
+- Ejercicios prácticos: ___ / 3
+- Análisis: ___ / 1
+- Integrador: ___ / 1
 
-**Total**: ___ / __ (__%)
+**Total**: ___ / 13 (__%)
 
 ---
 
 ## Conceptos Dominados ✅
 
-- [ ] Búsqueda lineal
-- [ ] Búsqueda binaria
-- [ ] Ordenamiento burbuja
-- [ ] Ordenamiento por selección
+- [ ] Concepto principal 1
+- [ ] Concepto principal 2
+- [ ] Concepto principal 3
+- [ ] Aplicación práctica
+- [ ] Buenas prácticas
+
+---
+
+## Logros 🏆
+
+- [ ] 🎯 Completé todos los ejercicios
+- [ ] 📊 Apliqué conceptos correctamente
+- [ ] 📝 Creé soluciones eficientes
+- [ ] ✅ Obtuve más del 80%
+- [ ] 💯 Completé ejercicio integrador
+
+---
+
+## Registro de Avance
+
+- [x] Módulos 1-6
+- [x] Módulo 7: Algoritmos Clásicos
+- [ ] Módulos restantes
+
+**Progreso: 70%**
 
 ---
 
@@ -48,14 +73,10 @@
 _______________________________________________
 _______________________________________________
 
-**¿Qué me resultó difícil?**
-_______________________________________________
-_______________________________________________
-
-**¿Cómo puedo mejorar?**
+**¿Cómo lo aplicaré?**
 _______________________________________________
 _______________________________________________
 
 ---
 
-**¡Sigue adelante en tu aprendizaje! 🚀**
+**¡Excelente progreso! Continúa al siguiente módulo. 🚀**
