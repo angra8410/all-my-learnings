@@ -2,11 +2,11 @@
 
 ## Información del Estudiante
 
-**Nombre**: _______________________________________________
+**Nombre**: ANTONIO JAVIER GUTIERREZ AMARANTO
 
-**Fecha de inicio del módulo**: _______________________________________________
+**Fecha de inicio del módulo**: 11/10/2025
 
-**Fecha de finalización del módulo**: _______________________________________________
+**Fecha de finalización del módulo**: 11/10/2025
 
 ---
 
@@ -14,20 +14,20 @@
 
 ### ✅ Lista de Actividades Completadas
 
-- [ ] Leí completamente el README.md
-- [ ] Entendí qué es una secuencia
-- [ ] Comprendí entrada-procesamiento-salida
-- [ ] Practiqué asignación de variables
-- [ ] Aprendí a hacer trazas
-- [ ] Completé preguntas de opción múltiple (5)
-- [ ] Respondí verdadero/falso (4)
-- [ ] Realicé trazas de algoritmos (2)
-- [ ] Completé algoritmos (2)
-- [ ] Escribí pseudocódigo (3)
-- [ ] Evalué expresiones (5)
-- [ ] Detecté errores (2)
-- [ ] Completé el ejercicio integrador
-- [ ] Revisé la retroalimentación
+- [X] Leí completamente el README.md
+- [X] Entendí qué es una secuencia
+- [X] Comprendí entrada-procesamiento-salida
+- [X] Practiqué asignación de variables
+- [X] Aprendí a hacer trazas
+- [X] Completé preguntas de opción múltiple (5)
+- [X] Respondí verdadero/falso (4)
+- [X] Realicé trazas de algoritmos (2)
+- [X] Completé algoritmos (2)
+- [X] Escribí pseudocódigo (3)
+- [X] Evalué expresiones (5)
+- [X] Detecté errores (2)
+- [X] Completé el ejercicio integrador
+- [X] Revisé la retroalimentación
 
 ---
 
