@@ -33,39 +33,39 @@
 
 ## Resultados de Actividades
 
-- Opción múltiple: ___ / 5
-- Verdadero/Falso: ___ / 4
-- Trazas: ___ / 2
-- Completar: ___ / 2
-- Pseudocódigo: ___ / 3
-- Expresiones: ___ / 5
-- Errores: ___ / 2
-- Integrador: ___ / 1
+- Opción múltiple: __5 / 5
+- Verdadero/Falso: __4 / 4
+- Trazas: __1 / 2
+- Completar: ___2 / 2
+- Pseudocódigo: ___1 / 3
+- Expresiones: ___4 / 5
+- Errores: ___2 / 2
+- Integrador: ___1 / 1
 
-**Total:** ___ / 24 (__%)
+**Total:** ___20 / 24 (__83.3%)
 
 ---
 
 ## Conceptos Dominados ✅
 
-- [ ] Ejecución lineal/secuencial
-- [ ] Entrada de datos (LEER)
-- [ ] Procesamiento de datos
-- [ ] Salida de datos (ESCRIBIR)
-- [ ] Asignación de variables
-- [ ] Expresiones aritméticas
-- [ ] Trazas de algoritmos
-- [ ] Orden de operaciones
+- [X] Ejecución lineal/secuencial
+- [X] Entrada de datos (LEER)
+- [X] Procesamiento de datos
+- [X] Salida de datos (ESCRIBIR)
+- [X] Asignación de variables
+- [X] Expresiones aritméticas
+- [X] Trazas de algoritmos
+- [X] Orden de operaciones
 
 ---
 
 ## Logros 🏆
 
-- [ ] 📝 Hice mi primera traza completa
-- [ ] 🔄 Intercambié valores de variables
-- [ ] 🧮 Calculé expresiones complejas
-- [ ] 🐛 Detecté errores de lógica
-- [ ] 💯 Completé el ejercicio integrador
+- [X] 📝 Hice mi primera traza completa
+- [X] 🔄 Intercambié valores de variables
+- [X] 🧮 Calculé expresiones complejas
+- [X] 🐛 Detecté errores de lógica
+- [X] 💯 Completé el ejercicio integrador
 
 ---
 
