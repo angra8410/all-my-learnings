@@ -211,7 +211,11 @@ division = NUMERO1 / NUMERO2
 **Escribe un algoritmo para convertir de kilómetros a metros y centímetros.**
 
 ```
-
+INICIO
+LEER NUMERO
+metro = (numero / 1000)
+centimetro = metro / 100
+FIN
 
 
 
