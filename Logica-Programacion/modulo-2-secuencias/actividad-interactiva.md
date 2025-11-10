@@ -154,11 +154,11 @@ FIN
 ```
 INICIO
     LEER base
-    LEER _________
+    LEER altura
     
-    area = _______________
+    area = base * altura
     
-    ESCRIBIR "El área es:", _____
+    ESCRIBIR "El área es:", area
 FIN
 ```
 
@@ -172,9 +172,9 @@ INICIO
     a = 10
     b = 20
     
-    temp = _____
-    a = _____
-    b = _____
+    temp = b_____
+    a = b_____
+    b = temp_____
     
     ESCRIBIR "a =", a, "b =", b
 FIN
@@ -186,7 +186,13 @@ FIN
 
 ### Ejercicio 14
 **Escribe un algoritmo que lea dos números y calcule su suma, resta, multiplicación y división.**
-
+INICIO
+LEER NUMERO1
+LEER NUMERO2
+suma = NUMERO1 + NUMERO2
+resta = NUMERO1 - NUMERO2
+multiplicacion = NUMERO1 * NUMERO2
+division = NUMERO1 / NUMERO2
 ```
 
 
