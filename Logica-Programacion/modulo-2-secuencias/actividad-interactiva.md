@@ -283,10 +283,12 @@ FIN
 ```
 
 **Error encontrado:**
-_______________________________________________
+ESCRIBIR ESTÁ MAL POSICIONADO_______________________________________________
 
 **Solución:**
-_______________________________________________
+LEER
+RESULTADO 
+ESCRIBIR_______________________________________________
 
 ---
 
@@ -302,10 +304,10 @@ FIN
 ```
 
 **Error:**
-_______________________________________________
+NO SE ASIGNÓ VALOR A LA VARIABLE RADIO_______________________________________________
 
 **Corrección:**
-_______________________________________________
+ASIGNAR VALOR A LA VARIABLE RADIO_______________________________________________
 
 ---
 
@@ -323,7 +325,15 @@ _______________________________________________
 
 **Tu pseudocódigo:**
 ```
-
+INICIO
+    LEER distancia
+    LEER consumo
+    LEER precio
+    total_de_litros_necesarios = distancia * consumo
+    costo_total_del_viaje = total_de_litros_necesarios * precio
+    ESCRIBIR "El total de litros necesarios es:" total_de_litros_necesarios
+    ESCRIBIR "El costo total del viaje es:" costo_total_del_viaje
+FINAL
 
 
 
