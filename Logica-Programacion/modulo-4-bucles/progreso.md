@@ -1,4 +1,4 @@
-# Progreso Personal - Bucles
+# Progreso Personal - Módulo 4: Bucles
 
 ## Información del Estudiante
 
@@ -15,47 +15,76 @@
 ### ✅ Actividades Completadas
 
 - [ ] Leí el README completo
-- [ ] Entendí los conceptos principales
-- [ ] Completé las preguntas teóricas
-- [ ] Realicé todos los ejercicios prácticos
-- [ ] Revisé la retroalimentación
-- [ ] Practiqué con ejemplos adicionales
+- [ ] Entendí bucles MIENTRAS
+- [ ] Entendí bucles PARA
+- [ ] Practiqué con contadores
+- [ ] Practiqué con acumuladores
+- [ ] Trabajé con bucles anidados
+- [ ] Completé preguntas de opción múltiple (8)
+- [ ] Respondí verdadero/falso (6)
+- [ ] Realicé trazas (2)
+- [ ] Completé algoritmos (2)
+- [ ] Escribí pseudocódigo (3)
+- [ ] Trabajé con contadores/acumuladores (2)
+- [ ] Detecté errores (2)
+- [ ] Practiqué bucles anidados (2)
+- [ ] Realicé aplicaciones prácticas (2)
+- [ ] Completé ejercicio integrador (1)
+- [ ] Revisé retroalimentación
 
 ---
 
 ## Resultados
 
-- Preguntas de opción múltiple: ___ / __
-- Verdadero/Falso: ___ / __
-- Ejercicios prácticos: ___ / __
+- Opción múltiple: ___ / 8
+- Verdadero/Falso: ___ / 6
+- Trazas: ___ / 2
+- Completar: ___ / 2
+- Pseudocódigo: ___ / 3
+- Contadores/Acumuladores: ___ / 2
+- Errores: ___ / 2
+- Anidados: ___ / 2
+- Aplicaciones: ___ / 2
+- Integrador: ___ / 1
 
-**Total**: ___ / __ (__%)
+**Total**: ___ / 30 (__%)
 
 ---
 
 ## Conceptos Dominados ✅
 
-- [ ] Bucle MIENTRAS (WHILE)
-- [ ] Bucle PARA (FOR)
-- [ ] Contadores y acumuladores
-- [ ] Control de bucles (BREAK, CONTINUE)
+- [ ] Bucle MIENTRAS
+- [ ] Bucle PARA
+- [ ] Contadores
+- [ ] Acumuladores
+- [ ] Bucles anidados
+- [ ] Evitar bucles infinitos
+- [ ] Trazas de bucles
 
 ---
 
-## Reflexión
+## Logros 🏆
 
-**¿Qué aprendí?**
-_______________________________________________
-_______________________________________________
-
-**¿Qué me resultó difícil?**
-_______________________________________________
-_______________________________________________
-
-**¿Cómo puedo mejorar?**
-_______________________________________________
-_______________________________________________
+- [ ] 🎯 Creé mi primer bucle
+- [ ] 📊 Usé contadores correctamente
+- [ ] 📝 Usé acumuladores correctamente
+- [ ] 🧠 Creé bucles anidados
+- [ ] ✅ Obtuve más del 80%
+- [ ] 💯 Completé ejercicio integrador
+- [ ] 🐛 Identifiqué bucles infinitos
 
 ---
 
-**¡Sigue adelante en tu aprendizaje! 🚀**
+## Registro de Avance
+
+- [x] Módulo 1: Introducción
+- [x] Módulo 2: Secuencias
+- [x] Módulo 3: Condicionales
+- [x] Módulo 4: Bucles
+- [ ] Módulos 5-10
+
+**Progreso: 40%**
+
+---
+
+**¡Ya dominas los bucles! 🚀**
