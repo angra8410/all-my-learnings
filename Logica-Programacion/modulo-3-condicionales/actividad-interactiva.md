@@ -205,13 +205,12 @@ FIN
 
 ```
 INICIO
-    
-
-
-
-
-
-
+    ESCRIBIR "Ingresa tu edad"
+    LEER edad
+    SI edad >= 18 ENTONCES
+    mensaje "Si puedes votar"
+    SINO " No puedes votar
+    FIN SI
 
 FIN
 ```
