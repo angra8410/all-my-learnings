@@ -1,3 +1,6 @@
-# Databricks Workflow - progreso.md
+# Progreso — Módulo 05
 
-Contenido en desarrollo...
+- [ ] Instalar databricks-cli
+- [ ] Crear notebook parametrizado
+- [ ] Crear job y ejecutarlo
+- [ ] Exportar notebook y versionarlo
