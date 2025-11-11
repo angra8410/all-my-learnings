@@ -1,3 +1,7 @@
-# Testing & Data Quality - recursos.md
+# Recursos — Módulo 09
 
-Contenido en desarrollo...
+- pytest: https://docs.pytest.org/
+- Great Expectations: https://docs.greatexpectations.io/
+- Ejemplo SQL checks: `Data-Engineering-Roadmap/examples/sql_checks.sql`
+- Plantilla de CI (GitHub Actions) para tests: ver `actividad-interactiva.md`
+- Recomendación: mantener requirements.txt con versiones fijas para reproducibilidad
