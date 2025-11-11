@@ -10,6 +10,7 @@ B) Una estructura que permite tomar decisiones según una condición
 C) Un bucle que se repite varias veces  
 D) Un tipo de operador aritmético  
 
+B
 ---
 
 ### Pregunta 2
@@ -20,6 +21,7 @@ B) SI condición ENTONCES código SINO código FIN_SI
 C) IF (condición) { código } ELSE { código }  
 D) SI condición: código SINO: código  
 
+A
 ---
 
 ### Pregunta 3
@@ -30,6 +32,7 @@ B) Cuando la condición del IF es verdadera
 C) Cuando la condición del IF es falsa  
 D) Nunca se ejecuta  
 
+C
 ---
 
 ### Pregunta 4
@@ -40,6 +43,7 @@ B) Y (AND)
 C) NO (NOT)  
 D) SI (IF)  
 
+B
 ---
 
 ### Pregunta 5
@@ -50,6 +54,7 @@ B) Falso
 C) Error  
 D) Ninguno  
 
+B
 ---
 
 ### Pregunta 6
@@ -60,6 +65,7 @@ B) Evaluar una condición adicional si la anterior fue falsa
 C) Repetir la condición anterior  
 D) Negar una condición  
 
+B
 ---
 
 ### Pregunta 7
@@ -70,6 +76,7 @@ B) Solo si ambas condiciones son falsas
 C) Si al menos UNA condición es verdadera  
 D) Nunca  
 
+C
 ---
 
 ### Pregunta 8
@@ -80,6 +87,7 @@ B) Un IF dentro de otro IF
 C) Un condicional con muchas condiciones  
 D) Un error de sintaxis  
 
+B
 ---
 
 ## Sección 2: Verdadero o Falso
@@ -87,7 +95,7 @@ D) Un error de sintaxis
 ### Pregunta 9
 **El operador NO (NOT) invierte el valor de una condición.**
 
-- [ ] Verdadero
+- [X] Verdadero
 - [ ] Falso
 
 ---
@@ -95,7 +103,7 @@ D) Un error de sintaxis
 ### Pregunta 10
 **Un programa puede tener múltiples ELIF en un mismo condicional.**
 
-- [ ] Verdadero
+- [X] Verdadero
 - [ ] Falso
 
 ---
@@ -103,8 +111,8 @@ D) Un error de sintaxis
 ### Pregunta 11
 **La expresión (Verdadero O Falso) resulta en Falso.**
 
-- [ ] Verdadero
-- [ ] Falso
+- [x] Verdadero
+- [] Falso
 
 ---
 
@@ -112,7 +120,7 @@ D) Un error de sintaxis
 **Es obligatorio incluir un SINO en cada condicional IF.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [x] Falso
 
 ---
 
@@ -120,7 +128,7 @@ D) Un error de sintaxis
 **Los condicionales anidados pueden tener hasta 2 niveles de profundidad como máximo.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [x] Falso
 
 ---
 
@@ -128,7 +136,7 @@ D) Un error de sintaxis
 **El operador Y (AND) es verdadero si al menos una condición es verdadera.**
 
 - [ ] Verdadero
-- [ ] Falso
+- [x] Falso
 
 ---
 
@@ -137,17 +145,17 @@ D) Un error de sintaxis
 ### Ejercicio 15
 **Evalúa las siguientes expresiones lógicas:**
 
-a) (8 > 5) Y (3 < 10) = _____
+a) (8 > 5) Y (3 < 10) = __V___
 
-b) (8 > 5) O (3 > 10) = _____
+b) (8 > 5) O (3 > 10) = __V___
 
-c) NO(5 == 5) = _____
+c) NO(5 == 5) = _F____
 
-d) (10 >= 10) Y (5 != 3) = _____
+d) (10 >= 10) Y (5 != 3) = __V___
 
-e) NO((4 < 2) O (6 > 3)) = _____
+e) NO((4 < 2) O (6 > 3)) = __F___
 
-f) (Verdadero Y Falso) O Verdadero = _____
+f) (Verdadero Y Falso) O Verdadero = __V___
 
 ---
 
@@ -160,10 +168,10 @@ f) (Verdadero Y Falso) O Verdadero = _____
 INICIO
     LEER numero
     
-    SI numero MOD 2 == _____ ENTONCES
-        ESCRIBIR "El número es _____"
+    SI numero MOD 2 == __0___ ENTONCES
+        ESCRIBIR "El número es _PAR____"
     SINO
-        ESCRIBIR "El número es _____"
+        ESCRIBIR "El número es _IMPAR____"
     FIN_SI
 FIN
 ```
@@ -178,12 +186,12 @@ INICIO
     LEER num1
     LEER num2
     
-    SI _____ ENTONCES
+    SI _num1 >= num2____ ENTONCES
         ESCRIBIR "El mayor es:", num1
-    SINO SI _____ ENTONCES
+    SINO SI num2 >= num1_____ ENTONCES
         ESCRIBIR "El mayor es:", num2
     SINO
-        ESCRIBIR "Los números son _____"
+        ESCRIBIR "Los números son _iguales____"
     FIN_SI
 FIN
 ```
@@ -197,7 +205,7 @@ FIN
 
 ```
 INICIO
-
+    
 
 
 
