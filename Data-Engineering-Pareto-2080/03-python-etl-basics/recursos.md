@@ -1,3 +1,6 @@
-# Python ETL Basics - recursos.md
+# Recursos — Módulo 03
 
-Contenido en desarrollo...
+- pandas docs: https://pandas.pydata.org/
+- SQLAlchemy: https://www.sqlalchemy.org/
+- Requests: https://docs.python-requests.org/
+- Ejemplos de API: https://jsonplaceholder.typicode.com/
