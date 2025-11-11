@@ -1,3 +1,4 @@
-# Databricks Workflow - recursos.md
+# Recursos — Módulo 05
 
-Contenido en desarrollo...
+- Databricks CLI: https://docs.databricks.com/dev-tools/cli/index.html
+- Notebooks best practices: https://docs.databricks.com/notebooks/index.html
