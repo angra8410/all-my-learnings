@@ -289,12 +289,12 @@ FIN
 **Traza:**
 | Paso | Variable | Valor | ¿Se ejecutó? |
 |------|----------|-------|--------------|
-| 1    | edad     |       |              |
+| 1    | edad     |  16   | si           |
 | 2    | ¿edad >= 18? |   | Sí / No      |
-| 3    | mensaje  |       |              |
-| 4    | puede_votar |    |              |
+| 3    | mensaje  |Menor de edad  |si    |
+| 4    | puede_votar |Falso|             |
 
-**Salida del programa:** _______________________
+**Salida del programa:** _Menor de edad, no puede votar______________________
 
 ---
 
