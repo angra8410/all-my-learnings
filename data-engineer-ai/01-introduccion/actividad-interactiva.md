@@ -32,7 +32,7 @@ D) Export, Transfer, Link
 A) Data Warehouse es más caro que Data Lake  
 B) Data Warehouse almacena datos estructurados con esquema definido, Data Lake almacena datos raw en cualquier formato  
 C) Data Lake es solo para big data, Data Warehouse para datos pequeños  
-D) No hay diferencia real, son términos intercambiables
+D) No hay diferencia real, son términos intercambiables 
 
 **Tu respuesta**: B
 
