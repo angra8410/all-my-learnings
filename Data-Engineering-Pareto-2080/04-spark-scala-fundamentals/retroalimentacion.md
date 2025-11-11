@@ -1,3 +1,6 @@
-# Spark Scala Fundamentals - retroalimentacion.md
+# Retroalimentación — Módulo 04
 
-Contenido en desarrollo...
+Criterios:
+- Job funcional y reproducible (50%)
+- Buen uso de particionamiento y optimizaciones (30%)
+- Documentación de recursos y resultados (20%)
