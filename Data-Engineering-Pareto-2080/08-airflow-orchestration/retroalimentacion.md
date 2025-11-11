@@ -1,3 +1,7 @@
-# Airflow Orchestration - retroalimentacion.md
+# Retroalimentación — Módulo 08
 
-Contenido en desarrollo...
+Criterios de evaluación:
+- DAG funcional y observabilidad de logs (40%)
+- Manejo de retries, SLA y alerting (30%)
+- Integración con Databricks/Spark y reproducibilidad (20%)
+- Documentación y runbook (10%)
