@@ -1,3 +1,8 @@
-# Python ETL Basics - progreso.md
+# Progreso — Módulo 03
 
-Contenido en desarrollo...
+- [ ] Crear y activar venv
+- [ ] Instalar dependencias
+- [ ] Implementar ingest_csv.py y ejecutar
+- [ ] Implementar ingest_api.py
+- [ ] Escribir y ejecutar tests
+- [ ] Subir scripts y resultados al repo
