@@ -222,22 +222,16 @@ FIN
 
 ```
 INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    LEER num1
+    LEER num2
+    LEER num3
+    SI (num1 >= num2 AND (num1 >=num3) ENTONCES
+    mayor = num1
+    SINO SI (num2 >= num1) AND (num2 >= num3) ENTONCES
+    mayor = num2
+    SINO
+    mayor = num3
+    FIN SI
 FIN
 ```
 
@@ -253,28 +247,19 @@ FIN
 
 ```
 INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    nota = 85
+    SI nota >= 90 ENTONCES
+        letra = "A"
+    SINO SI nota >= 80 ENTONCES
+        letra = "B"
+    SINO SI nota >= 70 ENTONCES
+        letra = "C"
+    SINO SI nota >= 60 ENTONCES
+        letra = "D"
+    SINO
+        letra = "F"
+    FIN SI
+    ESCRIBIR "Calificacion: " letra
 FIN
 ```
 
