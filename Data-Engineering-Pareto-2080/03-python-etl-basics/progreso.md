@@ -1,0 +1,3 @@
+# Python ETL Basics - progreso.md
+
+Contenido en desarrollo...

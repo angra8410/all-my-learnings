@@ -1,0 +1,3 @@
+# Delta Lake & Storage - progreso.md
+
+Contenido en desarrollo...

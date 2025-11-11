@@ -1,0 +1,3 @@
+# SQL Core - retroalimentacion.md
+
+Contenido en desarrollo...

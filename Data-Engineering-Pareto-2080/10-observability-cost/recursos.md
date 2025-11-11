@@ -1,0 +1,3 @@
+# Observability & Cost - recursos.md
+
+Contenido en desarrollo...

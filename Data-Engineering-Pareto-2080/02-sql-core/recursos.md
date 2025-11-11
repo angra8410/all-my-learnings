@@ -1,0 +1,3 @@
+# SQL Core - recursos.md
+
+Contenido en desarrollo...

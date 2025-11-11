@@ -1,0 +1,3 @@
+# Delta Lake & Storage - actividad-interactiva.md
+
+Contenido en desarrollo...
