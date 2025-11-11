@@ -1,0 +1,3 @@
+# Spark Scala Fundamentals - progreso.md
+
+Contenido en desarrollo...

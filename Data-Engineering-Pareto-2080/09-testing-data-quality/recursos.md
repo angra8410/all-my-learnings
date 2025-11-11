@@ -1,0 +1,3 @@
+# Testing & Data Quality - recursos.md
+
+Contenido en desarrollo...

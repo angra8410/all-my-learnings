@@ -1,0 +1,3 @@
+# SQL Core - progreso.md
+
+Contenido en desarrollo...

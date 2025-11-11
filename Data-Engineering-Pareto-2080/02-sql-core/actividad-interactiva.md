@@ -1,0 +1,3 @@
+# SQL Core - actividad-interactiva.md
+
+Contenido en desarrollo...
