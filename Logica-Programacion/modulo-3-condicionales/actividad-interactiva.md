@@ -324,7 +324,7 @@ FIN
 2. nota >= 80: _______
 3. nota >= 70: _______
 
-**Valor final de letra:** _______
+**Valor final de letra:** B_______
 
 ---
 
@@ -345,11 +345,19 @@ FIN
 ```
 
 **Error encontrado:**
-_______________________________________________
+No se inicializò el valor de Temperatura inicialmente Y no se finalizò el SI.
 
 **Corrección:**
 ```
-
+INICIO
+    temperatura = 30
+    LEER temperatura
+    SI temperatura >= 30 ENTONCES
+        ESCRIBIR "Hace calor"
+    SINO
+        ESCRIBIR Hace frio"
+    FIN_SI
+FIN
 
 
 
@@ -374,11 +382,18 @@ FIN
 ```
 
 **Error:**
-_______________________________________________
+La lògica està mala, porque dice que si es menor que 18 puede votar, eso es falso.
 
 **Corrección:**
-_______________________________________________
-
+--
+INICIO
+    LEER edad
+    SI edad >= 18 ENTONCES
+        ESCRIBIR "Puede votar"
+    SINO
+        ESCRIBIR "No puede votar"
+    FIN_SI
+FIN
 ---
 
 ## Sección 8: Operadores Lógicos
@@ -388,15 +403,13 @@ _______________________________________________
 
 ```
 INICIO
-
-
-
-
-
-
-
-
-
+    LEER edad
+    LEER licencia
+    SI (edad >= 18) AND (licencia =TRUE) ENTONCES
+        ESCRIBIR "Puedes conducir"
+    SINO
+        ESCRIBIR "No puedes conducir"
+    FIN_SI
 FIN
 ```
 
@@ -407,20 +420,13 @@ FIN
 
 ```
 INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    LEER cliente
+    LEER descuento
+    SI (cliente= "estudiante") OR (cliente= "adulto_mayor) ENTONCES
+        ESCRIBIR "Cliente tiene derecho al: " descuento
+    SINO
+        ESCRIBIR "Cliente no tiene derecho al:" descuento     
+    FIN_SI
 FIN
 ```
 
@@ -436,27 +442,23 @@ FIN
 4. Si no, muestre mensaje de fondos insuficientes
 
 ```
-INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+INICIO    
+    ESCRIBIR "Ingresa el PIN en el cajero"
+    LEER pin
+    SI PIN == 1234, ENTONCES
+        ESCRIBIR "PIN correcto"
+        ESCRIBIR "Ingresar Monto a retirar"
+    LEER retiro
+    SI retiro <= saldo
+        ESCRIBIR "Transacciòn en Proceso"
+    nuevo_saldo = saldo - retiro
+        ESCRIBIR "Su nuevo saldo es: " nuevo_saldo
+    SINO
+        ESCRIBIR "Lo siento, pero no tiene suficiente saldo para la transacción, intente un retiro menor a " + saldo
+    FIN_SI
+    SINO
+        ESCRIBIR "PIN incorrecto. Por favor intente de nuevo."
+    FIN_SI
 FIN
 ```
 
@@ -482,30 +484,15 @@ FIN
 **Tu pseudocódigo:**
 ```
 INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    LEER promedio
+    LEER examen
+    SI (promedio >= 80) AND (examen >= 70)
+        ESCRIBIR "Admitido Directamente 
+    SINO SI (promedio >= 70) and (examen >= 60)
+        ESCRIBIR "Admitido condicionalmente
+    SINO
+        ESCRIBIR "No admitido"
+    FIN_SI
 FIN
 ```
 
