@@ -497,9 +497,9 @@ FIN
 ```
 
 **Casos de prueba:**
-- Promedio: 85, Examen: 75 → Resultado esperado: _______
-- Promedio: 75, Examen: 65 → Resultado esperado: _______
-- Promedio: 65, Examen: 80 → Resultado esperado: _______
+- Promedio: 85, Examen: 75 → Resultado esperado: Admitido directamente_______
+- Promedio: 75, Examen: 65 → Resultado esperado: Admitido condicionalmente
+- Promedio: 65, Examen: 80 → Resultado esperado: No admitido
 
 ---
 
@@ -518,32 +518,20 @@ FIN
 
 ```
 INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        ESCRIBIR "Cual es su peso en kg?"
+    LEER peso
+         ESCRIBIR "Cual es su altura en m?"
+    LEER altura     
+    imc = peso / (altura * altura)
+    SI imc < 18.5 ENTONCES
+        ESCRIBIR "Bajo peso"
+    SINO SI imc >= 18.5 Y imc <= 24.9 ENTONCES
+        ESCRIBIR "Peso normal"
+    SINO SI imc >= 25 Y imc <= 29.9 ENTONCES
+        ESCRIBIR "Sobrepeso"
+    SINO SI imc >= 30 ENTONCES
+        ESCRIBIR "Obesidad"
+    FIN_SI
 FIN
 ```
 
@@ -560,38 +548,24 @@ FIN
 
 ```
 INICIO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    LEER calificacion1
+    LEER calificacion2
+    LEER calificacion3
+    promedio = (calificacion1 + calificacion2 + calificacion3)/ 3
+    SI promedio >= 60, ENTONCES
+        SI promedio >= 90, ENTONCES
+        letra = "A"
+        SINO SI promedio >= 80, ENTONCES
+        letra = "B"
+        SINO SI promedio >= 70, ENTONCES
+        letra = "C"
+        SINO SI promedio >= 60, ENTONCES
+        letra = "D"
+        FIN_SI
+        MOSTRAR "Aprobó. Promedio: ", promedio, " - Nota: ", letra
+    SINO
+        MOSTRAR "Reprobó. Promedio: ", promedio
+    FIN_SI
 FIN
 ```
 
@@ -600,27 +574,28 @@ FIN
 ## Reflexión Final
 
 **¿Qué concepto te pareció más útil?**
-_______________________________________________
+Todos, la verdad no lo habia interiorizado de esta manera
 _______________________________________________
 
 **¿Qué desafíos encontraste?**
-_______________________________________________
+Cuando debo cerrar los IFs y cuando no
 _______________________________________________
 
 **¿En qué situaciones de la vida real usarías condicionales?**
-_______________________________________________
+En todas, cuando se decide desde salir o no de la casa, què comer, hacer ejercicio o no?
 _______________________________________________
 _______________________________________________
 
 **¿Qué diferencia notas entre usar Y (AND) y O (OR)?**
-_______________________________________________
+Que el operador Y se usa cuando se quiere validar 2 condiciones a TRUE 
+y O cuando se necesita que solo 1 condicion sea verdadera.
 _______________________________________________
 
 **Ejercicio más desafiante:**
-_______________________________________________
+el penùltimo
 
 **¿Cómo te ayudarán los condicionales en tus futuros programas?**
-_______________________________________________
+en un 95% de los programas que cree me serviràn los condicionales.
 _______________________________________________
 _______________________________________________
 
