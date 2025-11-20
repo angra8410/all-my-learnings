@@ -1,242 +1,103 @@
-# Actividades Interactivas - Week 16: E-commerce + Enterprise + Capstone
+# Interactive Activities - Week 16: Ecommerce Enterprise
 
 ## 🎯 Objective
+Build enterprise-grade ecommerce AI: recommendations, personalization, churn prediction.
 
-Master e-commerce + enterprise + capstone through hands-on exercises with verification steps.
+**Total Time**: 3-4 hours (final capstone completion)
 
 ---
 
-## Exercise 1: Practical Implementation (Duration: 25 min)
+## Exercise 1: Recommendation Engine (75 min)
 
-### Objective
-Apply e-commerce + enterprise + capstone concepts to solve real problems.
+### 🎯 Objective
+Build hybrid recommendation system with collaborative + content-based filtering.
 
-### Steps
+### 📋 Tasks
+- Implement EcommerceRecommender class
+- Create user-item interaction matrix
+- Calculate user and item similarities
+- Generate personalized recommendations
+- Evaluate with Precision@5, Recall@5
 
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-16-exercise-1
-   cd week-16-exercise-1
-   ```
+### ✅ Validation
+- [ ] Recommendations generated
+- [ ] Precision@5 >10%
+- [ ] Coverage >20%
+- [ ] Cold start handling
 
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
+---
 
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_1.py
-   ```
-   
-   Expected output: _______________________________
+## Exercise 2: Churn Prediction (50 min)
 
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
+### 🎯 Objective
+Identify at-risk customers for retention campaigns.
+
+### 📋 Features
+- RFM (Recency, Frequency, Monetary)
+- Engagement metrics
+- Trend indicators
+- Behavioral patterns
+
+### ✅ Validation
+- [ ] Model trained
+- [ ] Churn probability calculated
+- [ ] Risk segmentation
+- [ ] Actionable insights
+
+---
+
+## Exercise 3: Personalization Engine (45 min)
+
+### 🎯 Objective
+Create personalized experiences for each user.
+
+### 📋 Personalization Areas
+- Homepage content
+- Product rankings
+- Email campaigns
+- Dynamic pricing
+
+### ✅ Validation
+- [ ] User profiles created
+- [ ] Content personalized
+- [ ] A/B test framework
+- [ ] Measurable lift
+
+---
+
+## Exercise 4: Final Capstone Demo (40 min)
+
+### 🎯 Objective
+Integrate everything and prepare final demo.
+
+### 📋 Demo Requirements
+- Live recommendation engine
+- Real-time predictions
+- Business metrics dashboard
+- Complete documentation
+
+### ✅ Validation
+- [ ] All features working
+- [ ] Demo-ready
 - [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 25 minutes
+- [ ] ROI calculated
 
 ---
 
-## Exercise 2: Practical Implementation (Duration: 30 min)
+## 📋 Final Course Checklist
 
-### Objective
-Apply e-commerce + enterprise + capstone concepts to solve real problems.
+### Weeks 12-16 Complete
+- [x] Week 12: Automation Models
+- [x] Week 13: Orchestration & Production
+- [x] Week 14: Finance Case Study
+- [x] Week 15: Sports Case Study
+- [x] Week 16: Ecommerce Enterprise
 
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-16-exercise-2
-   cd week-16-exercise-2
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_2.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
+### Capstone Complete
+- [ ] All ML models integrated
+- [ ] Production deployment ready
+- [ ] Monitoring in place
 - [ ] Documentation complete
-- [ ] Results verified
+- [ ] Demo prepared
 
-**Duration**: 30 minutes
-
----
-
-## Exercise 3: Practical Implementation (Duration: 35 min)
-
-### Objective
-Apply e-commerce + enterprise + capstone concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-16-exercise-3
-   cd week-16-exercise-3
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_3.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 35 minutes
-
----
-
-## Exercise 4: Practical Implementation (Duration: 40 min)
-
-### Objective
-Apply e-commerce + enterprise + capstone concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-16-exercise-4
-   cd week-16-exercise-4
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_4.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 40 minutes
-
----
-
-## Exercise 5: Practical Implementation (Duration: 45 min)
-
-### Objective
-Apply e-commerce + enterprise + capstone concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-16-exercise-5
-   cd week-16-exercise-5
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_5.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 45 minutes
-
----
-
-## Exercise 6: Practical Implementation (Duration: 50 min)
-
-### Objective
-Apply e-commerce + enterprise + capstone concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-16-exercise-6
-   cd week-16-exercise-6
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_6.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 50 minutes
-
----
-
-## 📋 Final Checklist
-
-- [ ] All exercises completed
-- [ ] Code tested and working
-- [ ] Results documented
-- [ ] Ready for next week
-
-**Total Time**: 3-4 hours
-
----
-
-**Excellent work!** 🎉 Continue to `project-steps.md` for capstone integration.
+**Congratulations! You've completed the course!** 🎉🏆
