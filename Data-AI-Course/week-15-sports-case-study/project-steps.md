@@ -1,54 +1,65 @@
-# Project Steps - Week 15
+# Project Steps - Week 15: Sports Case Study
 
-## 🎯 Capstone Integration
+## 🎯 Capstone Integration: Add Sports Analytics
 
-This week's tasks contribute to your capstone projects:
+### Task 1: Performance Prediction (15.1)
+**Time**: 60 min
 
-### Task 1: Core Component (15.1)
-**Estimated Time**: 30-45 minutes
+Add player/team performance prediction:
+- Historical data analysis
+- Feature engineering
+- Model training and evaluation
+- Real-time predictions
 
-Build a reusable component for your capstone:
-- Define interfaces and contracts
-- Implement core logic
-- Add error handling
-- Write unit tests
-
-**Deliverable**: Working module in `capstone-projects/shared/`
+**Deliverable**: Performance prediction module
 
 ---
 
-### Task 2: Integration (15.2)
-**Estimated Time**: 30-40 minutes
+### Task 2: Visualization Dashboard (15.2)
+**Time**: 45 min
 
-Integrate this week's concepts into capstone:
-- Connect to existing components
-- Test integration points
-- Document usage
+Create sports analytics dashboard:
+- Key metrics display
+- Trend visualizations
+- Comparative analysis
+- Real-time updates
 
-**Deliverable**: Updated capstone code with new features
+**Deliverable**: Interactive dashboard
 
 ---
 
-### Task 3: Testing & Documentation (15.3)
-**Estimated Time**: 20-30 minutes
+### Task 3: Strategy Insights (15.3)
+**Time**: 40 min
 
-Ensure quality and maintainability:
-- Add comprehensive tests
-- Update documentation
-- Add usage examples
+Generate actionable insights:
+- Pattern identification
+- Optimization recommendations
+- What-if scenario analysis
+- Export reports
 
-**Deliverable**: Tests passing, docs updated
+**Deliverable**: Insights engine
+
+---
+
+### Task 4: Integration & Polish (15.4)
+**Time**: 35 min
+
+Polish and integrate:
+- Clean UI/UX
+- Performance optimization
+- Documentation
+- Demo preparation
+
+**Deliverable**: Complete sports analytics system
 
 ---
 
 ## ✅ Week 15 Checklist
 
-- [ ] Core component implemented
-- [ ] Integration complete
-- [ ] Tests passing
-- [ ] Documentation updated
-- [ ] Ready for next week
+- [ ] Prediction models working
+- [ ] Dashboard visualizations
+- [ ] Strategy recommendations
+- [ ] System integrated
+- [ ] Demo ready
 
----
-
-**Progress tracking**: Update your progress in `progreso.md`
+**Your capstone now analyzes sports like a pro!** 🏆

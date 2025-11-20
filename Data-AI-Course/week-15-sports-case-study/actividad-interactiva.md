@@ -1,242 +1,94 @@
-# Actividades Interactivas - Week 15: SPORTS: NFL Draft Sentiment Analysis
+# Interactive Activities - Week 15: Sports Case Study
 
 ## 🎯 Objective
-
-Master sports: nfl draft sentiment analysis through hands-on exercises with verification steps.
-
----
-
-## Exercise 1: Practical Implementation (Duration: 25 min)
-
-### Objective
-Apply sports: nfl draft sentiment analysis concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-15-exercise-1
-   cd week-15-exercise-1
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_1.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 25 minutes
-
----
-
-## Exercise 2: Practical Implementation (Duration: 30 min)
-
-### Objective
-Apply sports: nfl draft sentiment analysis concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-15-exercise-2
-   cd week-15-exercise-2
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_2.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 30 minutes
-
----
-
-## Exercise 3: Practical Implementation (Duration: 35 min)
-
-### Objective
-Apply sports: nfl draft sentiment analysis concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-15-exercise-3
-   cd week-15-exercise-3
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_3.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 35 minutes
-
----
-
-## Exercise 4: Practical Implementation (Duration: 40 min)
-
-### Objective
-Apply sports: nfl draft sentiment analysis concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-15-exercise-4
-   cd week-15-exercise-4
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_4.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 40 minutes
-
----
-
-## Exercise 5: Practical Implementation (Duration: 45 min)
-
-### Objective
-Apply sports: nfl draft sentiment analysis concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-15-exercise-5
-   cd week-15-exercise-5
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_5.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 45 minutes
-
----
-
-## Exercise 6: Practical Implementation (Duration: 50 min)
-
-### Objective
-Apply sports: nfl draft sentiment analysis concepts to solve real problems.
-
-### Steps
-
-1. **Setup**
-   ```bash
-   # Create working directory
-   mkdir week-15-exercise-6
-   cd week-15-exercise-6
-   ```
-
-2. **Implementation**
-   - Follow the patterns from README.md
-   - Use provided code templates
-   - Test with sample data
-
-3. **Verification**
-   ```bash
-   # Run tests
-   python test_exercise_6.py
-   ```
-   
-   Expected output: _______________________________
-
-### Validation Checklist
-- [ ] Code runs without errors
-- [ ] Tests pass
-- [ ] Documentation complete
-- [ ] Results verified
-
-**Duration**: 50 minutes
-
----
-
-## 📋 Final Checklist
-
-- [ ] All exercises completed
-- [ ] Code tested and working
-- [ ] Results documented
-- [ ] Ready for next week
+Build sports analytics models for performance prediction and win probability.
 
 **Total Time**: 3-4 hours
 
 ---
 
-**Excellent work!** 🎉 Continue to `project-steps.md` for capstone integration.
+## Exercise 1: Player Performance Predictor (60 min)
+
+### 🎯 Objective
+Predict player points for next game using PlayerPerformancePredictor.
+
+### 📋 Tasks
+- Create synthetic player data (20 players, 50 games each)
+- Engineer rolling average features
+- Train gradient boosting model
+- Evaluate predictions (MAE <5 points)
+- Identify top predictive features
+
+### ✅ Validation
+- [ ] Model trained successfully
+- [ ] MAE <5 points per prediction
+- [ ] R² >0.60
+
+---
+
+## Exercise 2: Win Probability Calculator (45 min)
+
+### 🎯 Objective
+Build real-time win probability calculator.
+
+### 📋 Implementation
+Calculate win probability based on:
+- Score differential
+- Time remaining
+- Momentum indicators
+- Team strength
+
+### ✅ Validation
+- [ ] Probabilities between 0-1
+- [ ] Responds to score changes
+- [ ] Time-aware adjustments
+
+---
+
+## Exercise 3: Sports Dashboard (45 min)
+
+### 🎯 Objective
+Create visualization dashboard for insights.
+
+### 📋 Visualizations
+- Player performance trends
+- Team statistics comparison
+- Win probability over time
+- Head-to-head analysis
+
+### ✅ Validation
+- [ ] Clear, compelling visuals
+- [ ] Interactive elements
+- [ ] Tells data story
+
+---
+
+## Exercise 4: Strategy Optimizer (40 min)
+
+### 🎯 Objective
+Use ML to recommend optimal strategies.
+
+### 📋 Focus Areas
+- Lineup optimization
+- Substitution timing
+- Play calling based on situation
+- Risk vs reward analysis
+
+### ✅ Validation
+- [ ] Recommendations backed by data
+- [ ] Explainable logic
+- [ ] Measurable impact
+
+---
+
+## 📋 Final Checklist
+
+- [ ] Performance prediction model
+- [ ] Win probability calculator
+- [ ] Compelling visualizations
+- [ ] Strategy recommendations
+- [ ] Ready for real sports data
+
+**Total Time**: 3-3.5 hours
+
+**Great work!** 🏆

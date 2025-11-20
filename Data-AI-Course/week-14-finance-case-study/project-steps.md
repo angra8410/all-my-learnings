@@ -1,54 +1,65 @@
-# Project Steps - Week 14
+# Project Steps - Week 14: Finance Case Study
 
-## 🎯 Capstone Integration
+## 🎯 Capstone Integration: Add Financial ML
 
-This week's tasks contribute to your capstone projects:
+### Task 1: Add Fraud Detection (14.1)
+**Time**: 60 min
 
-### Task 1: Core Component (14.1)
-**Estimated Time**: 30-45 minutes
+Integrate FraudDetectionModel into your capstone:
+- Add transaction monitoring
+- Implement real-time scoring
+- Set up alerts for suspicious activity
+- Track financial impact
 
-Build a reusable component for your capstone:
-- Define interfaces and contracts
-- Implement core logic
-- Add error handling
-- Write unit tests
-
-**Deliverable**: Working module in `capstone-projects/shared/`
+**Deliverable**: Working fraud detection module
 
 ---
 
-### Task 2: Integration (14.2)
-**Estimated Time**: 30-40 minutes
+### Task 2: Risk Scoring (14.2)
+**Time**: 45 min
 
-Integrate this week's concepts into capstone:
-- Connect to existing components
-- Test integration points
-- Document usage
+Add risk assessment capability:
+- Credit risk scoring
+- Loan approval automation
+- Risk-based pricing
+- Portfolio risk monitoring
 
-**Deliverable**: Updated capstone code with new features
+**Deliverable**: Risk scoring system
 
 ---
 
-### Task 3: Testing & Documentation (14.3)
-**Estimated Time**: 20-30 minutes
+### Task 3: Compliance & Explainability (14.3)
+**Time**: 40 min
 
-Ensure quality and maintainability:
-- Add comprehensive tests
-- Update documentation
-- Add usage examples
+Add regulatory compliance features:
+- Model explainability (SHAP values)
+- Audit trail logging
+- Bias detection and mitigation
+- Documentation for regulators
 
-**Deliverable**: Tests passing, docs updated
+**Deliverable**: Compliance documentation
+
+---
+
+### Task 4: Performance Optimization (14.4)
+**Time**: 35 min
+
+Optimize for production:
+- Reduce inference latency (<100ms)
+- Batch processing for efficiency
+- Caching strategies
+- Load testing
+
+**Deliverable**: Production-optimized system
 
 ---
 
 ## ✅ Week 14 Checklist
 
-- [ ] Core component implemented
-- [ ] Integration complete
-- [ ] Tests passing
-- [ ] Documentation updated
-- [ ] Ready for next week
+- [ ] Financial ML integrated
+- [ ] Business metrics tracked
+- [ ] Compliance features added
+- [ ] Performance optimized
+- [ ] Ready for financial workloads
 
----
-
-**Progress tracking**: Update your progress in `progreso.md`
+**Your capstone now handles financial ML!**
