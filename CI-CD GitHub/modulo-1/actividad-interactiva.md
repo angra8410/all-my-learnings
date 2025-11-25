@@ -219,13 +219,13 @@ La empresa "TechStart" solía desplegar su aplicación una vez al trimestre. Cad
 **Preguntas:**
 
 1. **¿Cuál fue el cambio más significativo?**
-   _______________________________________________
+   Pasaron de 1 despliegue cada 3 meses a casi 48 despliegues, los despliegues ahora toman solo 15 minutos
 
 2. **¿Por qué los bugs se detectan más rápido ahora?**
-   _______________________________________________
+   porque hay mas despliegues para determinarlos de manera mucho mas rapida
 
 3. **¿Qué rol juegan las pruebas automáticas en este éxito?**
-   _______________________________________________
+   El 100% del éxito se atribuye a la implementación del CI/CD, ya que no se hace nada de manera manual.
 
 ---
 
@@ -234,14 +234,14 @@ La empresa "TechStart" solía desplegar su aplicación una vez al trimestre. Cad
 **¿En tu trabajo o proyectos personales:**
 
 1. **¿Qué tareas repetitivas haces que podrían automatizarse?**
-   _______________________________________________
+   Validación de archivos y revisión de servidores.
    _______________________________________________
 
 2. **¿Cuánto tiempo pasa entre que escribes código y lo despliegas?**
-   _______________________________________________
+   minutos
 
 3. **¿Qué te gustaría automatizar primero?**
-   _______________________________________________
+   Validación de archivos.
    _______________________________________________
 
 ---
@@ -255,36 +255,36 @@ La empresa "TechStart" solía desplegar su aplicación una vez al trimestre. Cad
 - [ ] App móvil
 - [ ] Sitio web de portafolio
 
-**Mi proyecto elegido**: _______________________________________________
+**Mi proyecto elegido**: Sitio web de portafolio
 
 **Pipeline propuesto:**
 
 **1. Trigger (¿Qué inicia el pipeline?)**
-_______________________________________________
+Proyecto nuevo añadido
 
 **2. Build (¿Qué se necesita construir/compilar?)**
-_______________________________________________
+Añadir el proyecto nuevo creado
 
 **3. Test (¿Qué pruebas se ejecutarían?)**
-_______________________________________________
+Si cumple con los requerimientos para poder ser posteado en el portafolio
 
 **4. Deploy (¿A dónde se desplegaría?)**
-_______________________________________________
+En el portafolio de los proyectos
 
 **5. Rollback (¿Qué pasa si algo falla?)**
-_______________________________________________
+Envie notificación del fallo y por qué falló dejando mensajes de consola claros del por qué falló.
 
 ---
 
 ## Reflexión Final
 
 **¿Qué concepto te pareció más útil?**
-_______________________________________________
+Todo es super útil
 
 **¿Qué te gustaría aprender más en profundidad?**
-_______________________________________________
+Todo
 
 **¿Cómo aplicarías CI/CD en tu próximo proyecto?**
-_______________________________________________
+Por supuesto que si.
 
 ¡Revisa tus respuestas en `retroalimentacion.md`! 🎉
