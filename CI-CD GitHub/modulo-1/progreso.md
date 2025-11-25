@@ -2,54 +2,54 @@
 
 ## Información del Estudiante
 
-**Nombre**: _______________________________________________
+**Nombre**: ANTONIO G
 
-**Fecha de inicio**: _______________________________________________
+**Fecha de inicio**: Nov 1 de 2025
 
-**Fecha de finalización**: _______________________________________________
+**Fecha de finalización**: Nov 25 de 2025
 
 ---
 
 ## Autoevaluación Inicial
 
 **¿Qué sabes sobre CI/CD antes de empezar?**
-_______________________________________________
-_______________________________________________
+Ya habia visto algunos conceptos por varios proyectos
+en los que he venido trabajando._______________
 _______________________________________________
 
 **¿Has usado alguna herramienta de automatización antes?**
-_______________________________________________
+No
 
 ---
 
 ## Seguimiento de Actividades
 
 **Conceptos Estudiados:**
-- [ ] Qué es CI/CD
-- [ ] Beneficios de CI/CD
-- [ ] Componentes de un pipeline
-- [ ] CI/CD vs Desarrollo Tradicional
-- [ ] Mejores prácticas
+- [x] Qué es CI/CD
+- [x] Beneficios de CI/CD
+- [x] Componentes de un pipeline
+- [x] CI/CD vs Desarrollo Tradicional
+- [x] Mejores prácticas
 
 **Práctica:**
-- [ ] Leí el README completo
-- [ ] Completé las preguntas de opción múltiple
-- [ ] Realicé las analogías
-- [ ] Completé el ejercicio de verdadero/falso
-- [ ] Ordené correctamente el pipeline
-- [ ] Analicé el escenario práctico
-- [ ] Diseñé mi propio pipeline conceptual
-- [ ] Completé la reflexión personal
+- [x] Leí el README completo
+- [x] Completé las preguntas de opción múltiple
+- [x] Realicé las analogías
+- [x] Completé el ejercicio de verdadero/falso
+- [x] Ordené correctamente el pipeline
+- [x] Analicé el escenario práctico
+- [x] Diseñé mi propio pipeline conceptual
+- [x] Completé la reflexión personal
 
 ---
 
 ## Resultados de Actividades
 
-**Preguntas de opción múltiple correctas**: ___ / 5
+**Preguntas de opción múltiple correctas**: 5 / 5
 
-**Verdadero/Falso correctas**: ___ / 5
+**Verdadero/Falso correctas**: 4 / 5
 
-**Porcentaje total**: ___%
+**Porcentaje total**: 90%
 
 ---
 
@@ -57,7 +57,7 @@ _______________________________________________
 
 **Conceptos que domino completamente:**
 
-1. _______________________________________________
+1. CI/CD
 2. _______________________________________________
 3. _______________________________________________
 4. _______________________________________________
@@ -69,13 +69,13 @@ _______________________________________________
 
 **Conceptos que necesito repasar:**
 
-1. _______________________________________________
+1. The order of notificacions
 2. _______________________________________________
 3. _______________________________________________
 
 **Preguntas específicas que tengo:**
 
-1. _______________________________________________
+1. Ninguna
 2. _______________________________________________
 
 ---
@@ -83,16 +83,21 @@ _______________________________________________
 ## Mi Pipeline Conceptual
 
 **Proyecto para el que diseñé el pipeline**: 
-_______________________________________________
+Blog para portafolio
 
 **Descripción breve de mi pipeline:**
-_______________________________________________
-_______________________________________________
-_______________________________________________
-_______________________________________________
+Cargar el nuevo proyecto al portafolio
+y que el CI/CD revise y haga las pruebas
+para revisar que todo esté de acuerdo al
+formato y si todo está bien, que con el push
+de la creación del nuevo proyecto se ejecute el
+trigger y si pasa todas las pruebas, lo cargue en 
+el portafolio
+
+---
 
 **Herramientas que planeo usar:**
-1. _______________________________________________
+1. Github Actions
 2. _______________________________________________
 3. _______________________________________________
 
@@ -102,13 +107,13 @@ _______________________________________________
 
 **Las 3 cosas más importantes que aprendí:**
 
-1. _______________________________________________
+1. Que es CI/CD
    _______________________________________________
 
-2. _______________________________________________
+2. Cómo Ejecutarlo dentro del repo
    _______________________________________________
 
-3. _______________________________________________
+3. El orden de Ejecución de cada una de las fases
    _______________________________________________
 
 ---
@@ -116,11 +121,11 @@ _______________________________________________
 ## Reflexión sobre el Caso de Estudio
 
 **Del caso de TechStart, lo que más me impactó fue:**
-_______________________________________________
+La reducción de tiempo de la corrección de los bugs y las pruebas
 _______________________________________________
 
 **En mi situación actual, podría aplicar:**
-_______________________________________________
+CI/CD
 _______________________________________________
 
 ---
@@ -129,15 +134,15 @@ _______________________________________________
 
 **Tareas que identificué que podría automatizar:**
 
-1. _______________________________________________
-2. _______________________________________________
+1. Verificación de archivos 
+2. Revisión de servidores
 3. _______________________________________________
 
 **Tiempo estimado que me ahorraría por semana:**
-_______________________________________________
+5 horas
 
 **Primer paso que daré para implementar CI/CD:**
-_______________________________________________
+Comentarle a mi manager
 _______________________________________________
 
 ---
@@ -146,19 +151,19 @@ _______________________________________________
 
 **¿Entiendo qué es CI/CD?**
 - [ ] Completamente - Puedo explicarlo a otros
-- [ ] Bien - Entiendo los conceptos principales
+- [x] Bien - Entiendo los conceptos principales
 - [ ] Parcialmente - Tengo algunas dudas
 - [ ] Necesito repasar - Muchas dudas
 
 **¿Entiendo los beneficios de CI/CD?**
-- [ ] Sí, claramente
+- [x] Sí, claramente
 - [ ] Mayormente
 - [ ] Parcialmente
 - [ ] No mucho
 
 **¿Podría diseñar un pipeline básico?**
 - [ ] Sí, con confianza
-- [ ] Con algo de ayuda
+- [x] Con algo de ayuda
 - [ ] Necesito más práctica
 - [ ] Aún no
 
