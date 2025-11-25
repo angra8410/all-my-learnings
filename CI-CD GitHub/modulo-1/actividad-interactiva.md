@@ -10,6 +10,7 @@ B) Continuous Integration
 C) Computer Intelligence  
 D) Complete Installation
 
+B
 ---
 
 ### Pregunta 2
@@ -20,6 +21,7 @@ B) Detectar errores temprano y entregar más rápido
 C) Eliminar la necesidad de pruebas  
 D) Reducir el número de desarrolladores
 
+B
 ---
 
 ### Pregunta 3
@@ -30,6 +32,7 @@ B) Serie de pasos automatizados desde código hasta producción
 C) Un tipo de base de datos  
 D) Un lenguaje de programación
 
+B
 ---
 
 ### Pregunta 4
@@ -40,6 +43,7 @@ B) Test (Pruebas)
 C) Sleep (Dormir)  
 D) Deploy (Despliegue)
 
+C
 ---
 
 ### Pregunta 5
@@ -50,6 +54,7 @@ B) Una vez terminado todo el proyecto
 C) Frecuentemente, con pequeños cambios  
 D) Solo cuando hay errores
 
+C
 ---
 
 ## Sección 2: Completa la Analogía
@@ -59,7 +64,7 @@ D) Solo cuando hay errores
 
 Pista: Piensa en construir piso por piso vs construir todo de una vez.
 
-Tu respuesta: _______________________________________________
+Tu respuesta: Maquinaria_______________________________________________
 
 ---
 
@@ -71,7 +76,7 @@ Opciones:
 - Un restaurante sin cocina
 - Una biblioteca sin libros
 
-Tu elección y por qué: _______________________________________________
+Tu elección y por qué: Una Linea de ensamblaje en una fábrica, porque todo se tiene que hacer paso a paso, primero crea, revisa, haz pruebas y si sale todo bien, sale a producción.
 
 ---
 
@@ -83,31 +88,31 @@ Opciones:
 - Cocinar con todas las herramientas necesarias
 - Estudiar con un buen plan
 
-Tu elección y por qué: _______________________________________________
+Tu elección y por qué: Conducir con los ojos vendados, todo tiene que ser encomendado a la suerte y un cruce de dedos que de.
 
 ---
 
 ## Sección 3: Verdadero o Falso
 
 1. **CI/CD elimina completamente la necesidad de hacer pruebas manuales.** 
-   - [ ] Verdadero
-   - [ ] Falso
+   - [x] Verdadero
+   - [] Falso
 
 2. **Un pipeline CI/CD puede ejecutarse automáticamente al hacer push al repositorio.**
-   - [ ] Verdadero
+   - [x] Verdadero
    - [ ] Falso
 
 3. **CI/CD solo funciona con aplicaciones web.**
    - [ ] Verdadero
-   - [ ] Falso
+   - [x] Falso
 
 4. **Los artefactos son los resultados compilados listos para desplegar.**
-   - [ ] Verdadero
+   - [x] Verdadero
    - [ ] Falso
 
 5. **Es mejor hacer un gran commit al final del proyecto que muchos pequeños.**
    - [ ] Verdadero
-   - [ ] Falso
+   - [x] Falso
 
 ---
 
@@ -121,6 +126,11 @@ ___ Source (Escribir código)
 ___ Build (Compilar)  
 ___ Notify (Notificar resultados)
 
+1)Source
+2)Build
+3)Test
+4)Notify
+5)Deploy
 ---
 
 ## Sección 5: Escenario Práctico
@@ -135,19 +145,19 @@ ___ Notify (Notificar resultados)
 **Preguntas:**
 
 1. **¿Qué problemas identificas en este proceso?**
-   _______________________________________________
-   _______________________________________________
-   _______________________________________________
+   Mucho tiempo, 1 mes para hacer integraciones
+   Realización de pruebas manuales
+   Hay muchos bugs ya que se hacen integraciones a muy largo plazo.
 
 2. **¿Cómo podría CI/CD ayudar en esta situación?**
-   _______________________________________________
-   _______________________________________________
-   _______________________________________________
+   Se harían pruebas de manera aumatica
+   Las integraciones serian casi que instantáneas
+   Los despliegues se harían en casi horas y no dias
 
 3. **¿Qué beneficios específicos esperarías al implementar CI/CD?**
-   _______________________________________________
-   _______________________________________________
-   _______________________________________________
+   Entregas mucho mas rapidas
+   Integraciones y actualizacionces casi que inmediatas
+   Reducción de bugs por entregas constantes
 
 ---
 
@@ -155,17 +165,17 @@ ___ Notify (Notificar resultados)
 
 **Dibuja o describe el flujo de un pipeline CI/CD para tu propio proyecto:**
 
-**Mi proyecto es**: _______________________________________________
+**Mi proyecto es**: Realizar Verdemetria o NDVI
 
-**Paso 1 (Source)**: _______________________________________________
+**Paso 1 (Source)**: Google Earth API
 
-**Paso 2 (Build)**: _______________________________________________
+**Paso 2 (Build)**: Scripts 
 
-**Paso 3 (Test)**: _______________________________________________
+**Paso 3 (Test)**: Bajar la data y hacer las pruebas con los datos obtenidos
 
-**Paso 4 (Deploy)**: _______________________________________________
+**Paso 4 (Deploy)**: Ver el Cloropleth map y mostrar los resultados graficamente
 
-**Notificaciones**: _______________________________________________
+**Notificaciones**: Cuando no se están generando los mapas ni se están obteniendo los csv files.
 
 ---
 
@@ -174,25 +184,25 @@ ___ Notify (Notificar resultados)
 **Relaciona cada término con su definición correcta:**
 
 **Términos:**
-1. Build
-2. Artifact
-3. Pipeline
-4. Deployment
-5. Continuous Integration
+1. Build: Es el proceso de compilar codigo.
+2. Artifact: son los resultados compilados listos para desplegar
+3. Pipeline: Series de pasos secuenciales desde desarrollo hasta producción
+4. Deployment: Despliegue o implementación.
+5. Continuous Integration: Integración continua o cambios realizados durante la ejecución del proyecto.
 
 **Definiciones:**
-A. Serie automatizada de pasos desde código hasta producción  
-B. Resultado compilado listo para usar  
-C. Proceso de compilar el código  
-D. Integrar código frecuentemente con validación automática  
-E. Llevar el código a un ambiente específico  
+A. Serie automatizada de pasos desde código hasta producción
+B. Resultado compilado listo para usar
+C. Proceso de compilar el código 
+D. Integrar código frecuentemente con validación automática
+E. Llevar el código a un ambiente específico
 
 **Tus respuestas:**
-1 → ___  
-2 → ___  
-3 → ___  
-4 → ___  
-5 → ___
+1 → Pipeline  
+2 → Deployment_  
+3 → Build  
+4 → CI  
+5 → CD
 
 ---
 
