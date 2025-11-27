@@ -10,6 +10,7 @@ B) Una plataforma de CI/CD integrada en GitHub
 C) Un lenguaje de programación  
 D) Una base de datos
 
+B
 ---
 
 ### Pregunta 2
@@ -20,6 +21,7 @@ B) XML
 C) YAML  
 D) CSV
 
+C
 ---
 
 ### Pregunta 3
@@ -30,6 +32,7 @@ B) command
 C) run  
 D) do
 
+C
 ---
 
 ### Pregunta 4
@@ -40,6 +43,7 @@ B) Descarga el código del repositorio al runner
 C) Sube archivos a GitHub  
 D) Elimina archivos
 
+B
 ---
 
 ### Pregunta 5
@@ -50,6 +54,7 @@ B) on: push
 C) on: upload  
 D) on: send
 
+B
 ---
 
 ## Sección 2: Completa el Código
@@ -61,20 +66,21 @@ D) on: send
 name: Mi Primer Workflow
 
 on: _______________
+  push:
 
 jobs:
   mi-job:
-    runs-on: _______________
+    runs-on: ubuntu-latest
     
     steps:
       - name: Saludar
-        run: _______________
+        run: ech "Hola mundo desde Github Actions"
 ```
 
 **Tus respuestas:**
-- `on:` _______________
-- `runs-on:` _______________
-- `run:` _______________
+- `on:` push
+- `runs-on:` ubuntu-latest
+- `run:` echo "Hola Mundo desde GitHub Actions"
 
 ---
 
@@ -92,42 +98,42 @@ jobs:
     
     steps:
       - name: Checkout código
-        uses: _______________
+        uses: actions/checkout@v3
       
       - name: Setup Node.js
-        uses: _______________
+        uses: Install Node.js
         with:
-          node-version: '_______________'
+          node-version: 'x16, x17, x18'
 ```
 
 **Tus respuestas:**
-- Checkout action: _______________
-- Setup Node action: _______________
-- Node version: _______________
+- Checkout action: actions/checkout@v3
+- Setup Node action: install node.js
+- Node version: x16, x17, x18
 
 ---
 
 ## Sección 3: Verdadero o Falso
 
 1. **Un workflow puede tener múltiples jobs.**
-   - [ ] Verdadero
+   - [x] Verdadero
    - [ ] Falso
 
 2. **Los workflows deben estar en la carpeta `.github/workflows/`.**
-   - [ ] Verdadero
+   - [x] Verdadero
    - [ ] Falso
 
 3. **Solo puedes usar Ubuntu como sistema operativo del runner.**
-   - [ ] Verdadero
+   - [x] Verdadero
    - [ ] Falso
 
 4. **Un job puede tener múltiples steps.**
-   - [ ] Verdadero
+   - [x] Verdadero
    - [ ] Falso
 
 5. **GitHub Actions es gratis ilimitadamente para repositorios privados.**
    - [ ] Verdadero
-   - [ ] Falso
+   - [x] Falso
 
 ---
 
@@ -148,9 +154,9 @@ jobs:                              # C
 
 **Preguntas:**
 
-A es: _______________  
-B es: _______________  
-C es: _______________  
+A es: Workflow's name  
+B es: Trigger event  
+C es: Jobs  
 D es: _______________  
 E es: _______________  
 F es: _______________  
