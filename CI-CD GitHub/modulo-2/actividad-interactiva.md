@@ -101,14 +101,14 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Setup Node.js
-        uses: Install Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 'x16, x17, x18'
 ```
 
 **Tus respuestas:**
 - Checkout action: actions/checkout@v3
-- Setup Node action: install node.js
+- Setup Node action: actions/setup-node@v3
 - Node version: x16, x17, x18
 
 ---
@@ -155,13 +155,13 @@ jobs:                              # C
 **Preguntas:**
 
 A es: Workflow's name  
-B es: Trigger event  
+B es: Trigger event, se activa con Push, Pull_request
 C es: Jobs  
-D es: _______________  
-E es: _______________  
-F es: _______________  
-G es: _______________  
-H es: _______________
+D es: Trabajo de prueba  
+E es: Servidor donde correrá el job  
+F es: Pasos para correr el workflow  
+G es: Obtener el código  
+H es: ejecuta el test
 
 ---
 
